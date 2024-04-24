@@ -6,7 +6,7 @@ import TeacherView from "../views/TeacherView.vue";
 import ManagerView from "../views/ManagerView.vue";
 import FindPasswordView from '../views/FindPasswordView.vue';
 import RegisterView from '../views/RegisterView.vue';
-import studentBindIDView from '../views/student/BindIDView.vue';
+import studentBindIDView from '../components/BindIDView.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,12 +25,14 @@ const router = createRouter({
         {
             path: '/student',
             name: 'student',
-            component: StudentView
-        },
-        {
-            path: '/student/bindid',
-            name: 'StuBindID',
-            component: studentBindIDView
+            component: StudentView,
+            children:[
+                {
+                    path:"/student/bindid",
+                    name: 'studentBind',
+                    component:studentBindIDView,
+                }
+            ]
         },
         {
             path: '/teacher',

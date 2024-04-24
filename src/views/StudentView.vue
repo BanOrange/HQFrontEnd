@@ -17,6 +17,10 @@ const handleOpen = (value) => {
 const handleClose = (key, keyPath) => {
     console.log(key, keyPath)
 }
+
+function logOut(){
+    router.replace("/login")
+}
 </script>
 
 <template>
@@ -49,11 +53,16 @@ const handleClose = (key, keyPath) => {
                         </el-icon>
                         <span>账户操作</span>
                     </template>
-                    <el-menu-item index="2-1" @click="handleOpen(2.1)">绑定身份信息</el-menu-item>
-                    <el-menu-item index="2-2">退出登陆</el-menu-item>
+                    <el-menu-item index="2-1" ><router-link to="/student/bindid">绑定身份信息</router-link></el-menu-item>
+                    <el-menu-item index="2-2" @click="logOut">退出登陆</el-menu-item>
                     <el-menu-item index="2-3">修改密码</el-menu-item>
                 </el-sub-menu>
             </el-menu>
+        </el-col>
+        <el-col :span="3">
+        </el-col>
+        <el-col :span="10">
+            <router-view></router-view>
         </el-col>
     </el-row>
 </template>
