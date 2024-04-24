@@ -3,7 +3,10 @@ import LoginView from '../views/LoginView.vue'
 import HomeView from '../views/HomeView.vue'
 import StudentView from "../views/StudentView.vue";
 import TeacherView from "../views/TeacherView.vue";
-import AdminView from "../views/AdminView.vue";
+import ManagerView from "../views/ManagerView.vue";
+import FindPasswordView from '../views/FindPasswordView.vue';
+import RegisterView from '../views/RegisterView.vue';
+import studentBindIDView from '../views/student/BindIDView.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,21 +28,36 @@ const router = createRouter({
             component: StudentView
         },
         {
+            path: '/student/bindid',
+            name: 'StuBindID',
+            component: studentBindIDView
+        },
+        {
             path: '/teacher',
             name: 'teacher',
             component: TeacherView
         },
         {
-            path: '/admin',
-            name: 'admin',
-            component: AdminView
-        }
+            path: '/manager',
+            name: 'manager',
+            component: ManagerView
+        },
+        {
+            path: '/findpassword',
+            name: 'findpassword',
+            component: FindPasswordView
+        },
+        {
+            path: '/register',
+            name: 'register',
+            component: RegisterView
+        },
 
     ]
 })
 
 router.beforeEach((to, from, next) => {
-    if (to.path === '/login') {
+    if (to.path === '/login' || to.path === '/findpassword' || to.path === '/register') {
         next()
     } else {
         const username = sessionStorage.getItem("username")
