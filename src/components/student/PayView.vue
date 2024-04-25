@@ -10,6 +10,7 @@ let router = useRouter();
 const form = reactive({
   course: '',
   money: '',
+  method: '',
 })
 
 function back() {
@@ -20,6 +21,7 @@ function onSubmit() {
   let data = {
     course: form.course,
     money: form.money,
+    method: form.method,
   }
   axios.post("http://localhost:8080/student/pay", qs.stringify(data))
       .then((res) => {
