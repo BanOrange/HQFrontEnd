@@ -17,7 +17,7 @@ const handleOpen = (value) => {
     router.replace("/student/change-password")
   }
   if (value === 1.5) {
-    router.replace("/student/sign-in")
+    router.replace("/student/check-in")
   }
   if (value === 1.4) {
     router.replace("/student/pay")
