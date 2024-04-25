@@ -12,6 +12,7 @@ import studentPayView from "@/components/student/PayView.vue";
 import studentCheckView from "@/components/student/CheckView.vue";
 import studentSearchCourseView from "@/components/student/SearchCourseView.vue";
 import CourseDetailView from '@/components/CourseDetailView.vue';
+import studentSearchGradeView from '@/components/student/SearchGradeView.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,6 +57,11 @@ const router = createRouter({
                     path:"/student/searchCourse",
                     name: 'searchCourse',
                     component:studentSearchCourseView,
+                },
+                {
+                    path:"/student/searchGrade",
+                    name: 'searchGrade',
+                    component:studentSearchGradeView,
                 }
             ]
         },

@@ -22,6 +22,12 @@ const handleOpen = (value) => {
   if (value === 1.4) {
     router.replace("/student/pay")
   }
+  if (value === 1.1) {
+    router.replace("/student/search-course")
+  }
+  if (value === 1.2) {
+    router.replace("/student/search-grade")
+  }
   console.log(value);
 }
 const handleClose = (key, keyPath) => {
@@ -57,7 +63,9 @@ function logOut() {
             <el-menu-item index="1-1">
               <router-link to="/student/searchCourse">查询课程信息</router-link>
             </el-menu-item>
-            <el-menu-item index="1-2">查询课程成绩</el-menu-item>
+            <el-menu-item index="1-2">
+              <router-link to="/student/searchGrade">查询课程成绩</router-link>
+            </el-menu-item>
             <el-menu-item index="1-3">填写课程评价</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group title="费用与签到">
