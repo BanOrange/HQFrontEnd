@@ -63,7 +63,7 @@ function logOut() {
               <router-link to="/student/pay">培训费用缴纳</router-link>
             </el-menu-item>
             <el-menu-item index="1-5">
-              <router-link to="/student/sign-in">现场签到</router-link>
+              <router-link to="/student/check">现场签到</router-link>
             </el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>
@@ -87,7 +87,7 @@ function logOut() {
     </el-col>
     <el-col :span="3">
     </el-col>
-    <el-col :span="10">
+    <el-col :span="15">
       <router-view></router-view>
     </el-col>
   </el-row>
