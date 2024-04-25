@@ -32,7 +32,7 @@ function onSubmit(){
     
   axios.post("http://localhost:8080/student/bindid",qs.stringify(data))
   .then((res) => {
-      if(res.data.code == 200){
+      if(res.data.code === 200){
         ElMessage("绑定成功！")
         router.replace("/student")
       }else{
