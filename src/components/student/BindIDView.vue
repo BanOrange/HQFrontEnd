@@ -1,8 +1,8 @@
 <script setup>
 import { reactive } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus';
-import { useRouter,useRoute } from 'vue-router';
-import { onMounted} from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+import { onMounted } from 'vue';
 import axios from 'axios'
 import qs from 'querystring';
 
@@ -14,31 +14,33 @@ const form = reactive({
     telephone: '',
     email: '',
     level: '',
-  })
+})
 
-function back(){
+function back() {
     router.replace("/student")
 }
 
-function onSubmit(){
+function onSubmit() {
+    let username = sessionStorage.getItem("username");
     let data = {
-    companyName:form.companyName,
-    name :form.name,
-    jobPosition :form.jobPosition,
-    telephone :form.telephone,
-    email :form.email,
-    level :form.level,
-  }
-    
-  axios.post("http://localhost:8080/student/bindid",qs.stringify(data))
-  .then((res) => {
-      if(res.data.code === 200){
-        ElMessage("绑定成功！")
-        router.replace("/student")
-      }else{
-        ElMessage.error(res.data.msg);
-      }
-  })
+        usernaeme: username,
+        companyName: form.companyName,
+        name: form.name,
+        jobPosition: form.jobPosition,
+        telephone: form.telephone,
+        email: form.email,
+        level: form.level,
+    }
+
+    axios.post("http://localhost:8080/student/bindid", qs.stringify(data))
+        .then((res) => {
+            if (res.data.code === 200) {
+                ElMessage("绑定成功！")
+                router.replace("/student")
+            } else {
+                ElMessage.error(res.data.msg);
+            }
+        })
 }
 </script>
 
@@ -75,5 +77,4 @@ function onSubmit(){
     </el-form>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

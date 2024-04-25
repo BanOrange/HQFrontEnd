@@ -11,6 +11,8 @@ import studentChangePasswordView from "@/components/ChangePasswordView.vue";
 import studentSignInView from "@/components/SignInView.vue";
 import studentPayView from "@/components/PayView.vue";
 import studentCheckView from "@/components/student/CheckView.vue";
+import studentSearchCourseView from "@/components/student/SearchCourseView.vue";
+import CourseDetailView from '@/components/CourseDetailView.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +52,11 @@ const router = createRouter({
                     path:"/student/pay",
                     name: 'studentPay',
                     component:studentPayView,
+                },
+                {
+                    path:"/student/searchCourse",
+                    name: 'searchCourse',
+                    component:studentSearchCourseView,
                 }
             ]
         },
@@ -73,6 +80,11 @@ const router = createRouter({
             name: 'register',
             component: RegisterView
         },
+        {
+            path: '/coursedetail',
+            name: 'courseDetail',
+            component:CourseDetailView
+        }
 
     ]
 })

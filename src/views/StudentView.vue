@@ -54,7 +54,9 @@ function logOut() {
             <span>培训相关</span>
           </template>
           <el-menu-item-group title="课程">
-            <el-menu-item index="1-1">查询课程信息</el-menu-item>
+            <el-menu-item index="1-1">
+              <router-link to="/student/searchCourse">查询课程信息</router-link>
+            </el-menu-item>
             <el-menu-item index="1-2">查询课程成绩</el-menu-item>
             <el-menu-item index="1-3">填写课程评价</el-menu-item>
           </el-menu-item-group>
