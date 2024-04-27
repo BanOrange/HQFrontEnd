@@ -1,0 +1,100 @@
+<script setup>
+import {ref, reactive} from 'vue'
+import axios from 'axios';
+import qs from 'querystring';
+import {ElMessage} from 'element-plus';
+import {onMounted} from 'vue';
+import router from '@/router';
+
+
+const tableData = ref([])
+const form = reactive({
+  CourseName: '',
+  CourseID: '',
+  CourseRank: '',
+  CourseEvaluate: '',
+})
+onMounted(() => {
+  getAllCourse();
+})
+
+function getAllCourse() {
+  axios.get('http://localhost:8080/student/getAllCourse')
+      .then((res) => {
+        tableData.value = res.data;
+      })
+}
+
+function onSubmit() {
+  let data = {
+    CourseID: form.CourseID,
+    CourseRank: form.CourseRank,
+    CourseEvaluate: form.CourseEvaluate,
+  }
+  axios.post("http://localhost:8080/student/courseEvaluate", qs.stringify(data))
+      .then((res) => {
+        if (res.data.code === 200) {
+          ElMessage("评价成功")
+          router.replace("/student")
+        } else {
+          ElMessage.error(res.data.msg)
+        }
+      })
+}
+
+</script>
+
+<template>
+  <el-form :model="form" label-width="auto" style="max-width: 300px">
+    <h1>填写课程评价</h1><br><br>
+    <el-text>选择你要评价的课程</el-text>
+    <br><br>
+    <el-select
+        v-model="form.CourseID"
+        placeholder="Select"
+        size="large"
+        style="width: 240px"
+    >
+      <el-option
+          v-for="item in tableData"
+          :key="item.CourseID"
+          :label="item.CourseName"
+          :value="item.CourseID"
+      >
+      </el-option>
+    </el-select>
+    <br><br>
+    <el-text>课程评分</el-text>
+    <br><br>
+    <el-select
+        v-model="form.CourseRank"
+        placeholder="Select"
+        size="large"
+        style="width: 240px"
+    >
+      <el-option
+          v-for="item in [1,2,3,4,5]"
+          :key="item"
+          :label="item + '分'"
+          :value="item"
+      />
+
+    </el-select>
+    <br><br>
+    <el-text>课程评价</el-text>
+    <br><br>
+    <el-input
+        v-model="form.CourseEvaluate"
+        style="width:240px"
+        :autosize="{ minRows: 10, maxRows: 100 }"
+        type="textarea"
+        placeholder="请输入课程评价"
+    />
+  </el-form>
+  <br>
+  <el-button type="primary" @click="onSubmit">提交</el-button>
+</template>
+
+<style scoped>
+
+</style>

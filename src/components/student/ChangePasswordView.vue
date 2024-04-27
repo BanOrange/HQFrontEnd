@@ -43,7 +43,7 @@ function onChangePassword(){
             v-model="form.oldPassword"
             style="width: 240px"
             type="password"
-            placeholder="Please input password"
+            placeholder="请输入旧密码"
             show-password
         />
       </el-form-item>
@@ -52,7 +52,7 @@ function onChangePassword(){
             v-model="form.newPassword"
             style="width: 240px"
             type="password"
-            placeholder="Please input password"
+            placeholder="请输入新密码"
             show-password
         />
       </el-form-item>

@@ -66,7 +66,9 @@ function logOut() {
             <el-menu-item index="1-2">
               <router-link to="/student/searchGrade">查询课程成绩</router-link>
             </el-menu-item>
-            <el-menu-item index="1-3">填写课程评价</el-menu-item>
+            <el-menu-item index="1-3">
+              <router-link to="/student/courseEvaluate">填写课程评价</router-link>
+            </el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group title="费用与签到">
             <el-menu-item index="1-4">
@@ -92,6 +94,7 @@ function logOut() {
           <el-menu-item index="2-3">
             <router-link to="/student/change-password">修改密码</router-link>
           </el-menu-item>
+
         </el-sub-menu>
       </el-menu>
     </el-col>
