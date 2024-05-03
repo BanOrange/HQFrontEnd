@@ -53,14 +53,14 @@ function handleSearch() {
       })
 }
 
-//查看已选课程
+//查看所教授的课程
 function searchSelected() {
   let username = sessionStorage.getItem("username");
   let data = {
     username: username
   }
 
-  axios.post("http://localhost:8080/student/searchSelected", qs.stringify(data))
+  axios.post("http://localhost:8080/teacher/searchSelected", qs.stringify(data))
       .then((res) => {
         if (res.data.code == 200) {
           ElMessage("查询成功")
@@ -74,7 +74,7 @@ function searchSelected() {
 
 //查看课程的详情
 const getDetails = (index) => {
-  router.push({
+  this.$router.push({
     path: 'student/coursedetail',
     query: {
       CourseID: tableData.value[index].CourseID
@@ -97,6 +97,7 @@ const getDetails = (index) => {
     </el-form-item>
   </el-form>
   <br><br>
+  
   <el-table :data="tableData" width="400px" max-height="200">
     <el-table-column fixed prop="CourseID" label="课程编号" width="150"/>
     <el-table-column prop="CourseName" label="课程名称" width="120"/>
@@ -109,7 +110,7 @@ const getDetails = (index) => {
     </el-table-column>
   </el-table>
   <br><br>
-  <el-button type="primary" @click="searchSelected">查询已选课程列表</el-button>
+  <el-button type="primary" @click="searchSelected">查询所教授的课程列表</el-button>
 </template>
 
 <style scoped>

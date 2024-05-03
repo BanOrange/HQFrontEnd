@@ -7,6 +7,10 @@ import {
   Setting,
 } from '@element-plus/icons-vue'
 import {ElMessageBox} from "element-plus";
+import axios from 'axios';
+import qs from 'querystring';
+import {ElMessage} from 'element-plus';
+import {onMounted} from 'vue';
 
 let router = useRouter();
 const handleOpen = (value) => {
@@ -45,6 +49,29 @@ function logOut() {
     // 用户点击了取消，不做任何操作
   });
 }
+
+//用于验证该用户是否是学生
+function verify(){
+  let username = sessionStorage.getItem("username");
+  let data = {
+    username: username,
+  }
+
+  axios.post("http://localhost:8080/student/getUserType", qs.stringify(data))
+      .then((res) => {
+        if (res.data.userType === "student") {
+            //如果成功则不设任何限制
+        } else {
+          //如果失败则直接传递回login界面
+          router.replace("/login");
+        }
+      })
+}
+
+//需要将上面的方法一开始就挂载，但是为了开发的方便暂时注释掉
+onMounted(() => {
+  // verify();
+})
 </script>
 
 <template>

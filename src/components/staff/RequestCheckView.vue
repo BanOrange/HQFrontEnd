@@ -53,29 +53,11 @@ function handleSearch() {
       })
 }
 
-//查看已选课程
-function searchSelected() {
-  let username = sessionStorage.getItem("username");
-  let data = {
-    username: username
-  }
 
-  axios.post("http://localhost:8080/student/searchSelected", qs.stringify(data))
-      .then((res) => {
-        if (res.data.code == 200) {
-          ElMessage("查询成功")
-          tableData.value = res.data;
-
-        } else {
-          ElMessage.error(res.data.msg)
-        }
-      })
-}
-
-//查看课程的详情
+//发起签到
 const getDetails = (index) => {
   router.push({
-    path: 'student/coursedetail',
+    path: 'staff/checkDetail',
     query: {
       CourseID: tableData.value[index].CourseID
     }
@@ -85,7 +67,7 @@ const getDetails = (index) => {
 
 <template>
   <el-form :model="form" label-width="auto" style="max-width: 300px">
-    <h1>课程查询</h1><br><br>
+    <h1>查询课程</h1><br><br>
     <el-form-item label="课程编号：">
       <el-input v-model="form.CourseName"/>
     </el-form-item>
@@ -97,6 +79,7 @@ const getDetails = (index) => {
     </el-form-item>
   </el-form>
   <br><br>
+  <h1>请选择您想发起签到的课程</h1>
   <el-table :data="tableData" width="400px" max-height="200">
     <el-table-column fixed prop="CourseID" label="课程编号" width="150"/>
     <el-table-column prop="CourseName" label="课程名称" width="120"/>
@@ -104,12 +87,11 @@ const getDetails = (index) => {
     <el-table-column prop="CoursePrice" label="课程费用(￥)" width="150"/>
     <el-table-column fixed="right" label="选择" width="200">
       <template #default="scope">
-        <el-button type="primary" @click="getDetails(scope.$index)">详情</el-button>
+        <el-button type="primary" @click="getDetails(scope.$index)">发起签到</el-button>
       </template>
     </el-table-column>
   </el-table>
   <br><br>
-  <el-button type="primary" @click="searchSelected">查询已选课程列表</el-button>
 </template>
 
 <style scoped>
