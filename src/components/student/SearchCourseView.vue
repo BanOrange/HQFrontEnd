@@ -98,10 +98,11 @@ const getDetails = (index) => {
   </el-form>
   <br><br>
   <el-table :data="tableData" width="400px" max-height="200">
-    <el-table-column fixed prop="CourseID" label="课程编号" width="150"/>
-    <el-table-column prop="CourseName" label="课程名称" width="120"/>
-    <el-table-column prop="TeacherName" label="讲师名称" width="120"/>
-    <el-table-column prop="CoursePrice" label="课程费用(￥)" width="150"/>
+    <el-table-column fixed prop="courseID" label="课程编号" width="150"/>
+    <el-table-column prop="courseName" label="课程名称" width="120"/>
+    <el-table-column prop="teacherName" label="讲师名称" width="120"/>
+    <el-table-column prop="courseState" label="课程状态" width="120"/>
+    <el-table-column prop="coursePrice" label="课程费用(￥)" width="150"/>
     <el-table-column fixed="right" label="选择" width="200">
       <template #default="scope">
         <el-button type="primary" @click="getDetails(scope.$index)">详情</el-button>

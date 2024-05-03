@@ -13,22 +13,22 @@ const form = reactive({
 })
 
 function back() {
-  router.replace("/teacher")
+  router.replace("/executor")
 }
 
 function onSubmit() {
   let username = sessionStorage.getItem("username");
   let data = {
-    usernaem: username,
+    username: username,
     name:form.name,
     id:form.id,
   }
 
-  axios.post("http://localhost:8080/teacher/bindid", qs.stringify(data))
+  axios.post("http://localhost:8080/executor/bindid", qs.stringify(data))
       .then((res) => {
         if (res.data.code === 200) {
           ElMessage("绑定成功！")
-          router.replace("/teacher")
+          router.replace("/executor")
         } else {
           ElMessage.error(res.data.msg);
         }
@@ -38,13 +38,14 @@ function onSubmit() {
 
 <template>
   <h2>个人信息</h2>
-  <el-text>一个账号只能绑定一位讲师且不能取消绑定请谨慎</el-text>
+  <el-text>如果不填入正确信息，那么其他功能将不能正确运行</el-text>
+  <el-text>只能绑定一次，请务必保证信息与预留在公司的信息相同</el-text>
   <br><br>
   <el-form :model="form" label-width="auto" style="max-width: 300px">
-    <el-form-item label="姓名：">
+    <el-form-item label="员工姓名：">
       <el-input v-model="form.name"/>
     </el-form-item>
-    <el-form-item label="编号：">
+    <el-form-item label="员工工号：">
       <el-input v-model="form.id"/>
     </el-form-item>
     <el-form-item>

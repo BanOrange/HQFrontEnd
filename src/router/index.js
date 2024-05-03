@@ -8,6 +8,7 @@ import StaffView from "../views/StaffView.vue";
 import FindPasswordView from '../views/FindPasswordView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import ChangePasswordView from "@/components/ChangePasswordView.vue";
+import ExecutorView from '../views/ExecutorView.vue';
 
 import studentBindIDView from '../components/student/BindIDView.vue';
 import studentPayView from "@/components/student/PayView.vue";
@@ -26,6 +27,17 @@ import teacherBindIDView from "@/components/teacher/BindIDView.vue";
 import staffRequestCheckView from "@/components/staff/RequestCheckView.vue";
 import staffCheckDetailView from "@/components/staff/CheckDetailView.vue";
 
+import executorBindIDView from "@/components/executor/BindIDView.vue";
+import executorStudentManageView from "@/components/executor/StudentManageView.vue"
+import executorStudentModifyView from "@/components/executor/StudentModifyView.vue"
+import executorStudentAddView from "@/components/executor/StudentAddView.vue"
+import executorCourseManageView from "@/components/executor/CourseManageView.vue";
+import executorCourseAddView from "@/components/executor/CourseAddView.vue";
+import executorCourseModifyView from "@/components/executor/CourseModifyView.vue";
+import executorTeacherManageView from "@/components/executor/TeacherManageView.vue";
+import executorTeacherAddView from "@/components/executor/TeacherAddView.vue";
+import executorTeacherModifyView from "@/components/executor/TeacherAddView.vue";
+
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,7 +52,6 @@ const router = createRouter({
             name: 'home',
             component: HomeView
         },
-
         {
             path: '/student',
             name: 'student',
@@ -161,6 +172,69 @@ const router = createRouter({
                     name: 'staffChangePassword',
                     component:ChangePasswordView,
                 },
+            ]
+        },
+        {
+            path: '/executor',
+            name: 'executor',
+            component: ExecutorView,
+            children:[
+                {
+                    path:"/executor/change-password",
+                    name: 'executorChangePassword',
+                    component:ChangePasswordView,
+                },
+                {
+                    path:"/executor/bindid",
+                    name: 'executorBindID',
+                    component:executorBindIDView,
+                },
+                {
+                    path:"/executor/studentManage",
+                    name: 'executorStudentManage',
+                    component:executorStudentManageView,
+                },
+                {
+                    path:"/executor/studentModify",
+                    name: 'executorStudentModify',
+                    component:executorStudentModifyView,
+                },
+                {
+                    path:"/executor/studentAdd",
+                    name: 'executorStudentAdd',
+                    component:executorStudentAddView,
+                },
+                {
+                    path:"/executor/courseAdd",
+                    name: 'executorCourseAdd',
+                    component:executorCourseAddView,
+                },
+                {
+                    path:"/executor/courseModify",
+                    name: 'executorCourseModify',
+                    component:executorCourseModifyView,
+                },
+                {
+                    path:"/executor/courseManage",
+                    name: 'executorCourseManage',
+                    component:executorCourseManageView,
+                },
+                {
+                    path:"/executor/teacherAdd",
+                    name: 'executorTeacherAdd',
+                    component:executorTeacherAddView,
+                },
+                {
+                    path:"/executor/teacherModify",
+                    name: 'executorTeacherModify',
+                    component:executorTeacherModifyView,
+                },
+                {
+                    path:"/executor/teacherManage",
+                    name: 'executorTeacherManage',
+                    component:executorTeacherManageView,
+                },
+
             ]
         },
 
