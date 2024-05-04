@@ -14,7 +14,7 @@ import studentBindIDView from '../components/student/BindIDView.vue';
 import studentPayView from "@/components/student/PayView.vue";
 import studentCheckView from "@/components/student/CheckView.vue";
 import studentSearchCourseView from "@/components/student/SearchCourseView.vue";
-import CourseDetailView from '@/components/CourseDetailView.vue';
+import CourseDetailView from '@/components/student/CourseDetailView.vue';
 import studentSearchGradeView from '@/components/student/SearchGradeView.vue';
 import studentCourseEvaluateView from '@/components/student/CourseEvaluateView.vue';
 
@@ -37,6 +37,15 @@ import executorCourseModifyView from "@/components/executor/CourseModifyView.vue
 import executorTeacherManageView from "@/components/executor/TeacherManageView.vue";
 import executorTeacherAddView from "@/components/executor/TeacherAddView.vue";
 import executorTeacherModifyView from "@/components/executor/TeacherAddView.vue";
+import executorSearchEvaluateView from "@/components/executor/SearchEvaluateView.vue";
+
+import managerCourseManageView from "@/components/manager/CourseManageView.vue";
+import managerCourseDetailView from "@/components/manager/CourseDetailView.vue";
+import managerStudentManageView from "@/components/manager/StudentManageView.vue";
+import managerStudentDetailView from "@/components/manager/StudentDetailView.vue";
+import managerTeacherManageView from "@/components/manager/TeacherManageView.vue";
+import managerTeacherDetailView from "@/components/manager/TeacherDeatilView.vue";
+import managerExecutorManageView from "@/components/manager/ExecutorManageView.vue";
 
 
 const router = createRouter({
@@ -140,7 +149,54 @@ const router = createRouter({
         {
             path: '/manager',
             name: 'manager',
-            component: ManagerView
+            component: ManagerView,
+            children:[
+                {
+                    path: '/manager/teacherManage',
+                    name: 'managerTeacherManage',
+                    component:managerTeacherManageView,
+                },
+                {
+                    path: '/manager/teacherDetail',
+                    name: 'managerTeacherDetail',
+                    component:managerTeacherDetailView,
+                },
+                {
+                    path: '/manager/studentManage',
+                    name: 'managerStudentManage',
+                    component:managerStudentManageView,
+                },
+                {
+                    path: '/manager/studentDetail',
+                    name: 'managerStudentDetail',
+                    component:managerStudentDetailView,
+                },
+                {
+                    path: '/manager/courseManage',
+                    name: 'managerCourseManage',
+                    component:managerCourseManageView,
+                },
+                {
+                    path: '/manager/courseDetail',
+                    name: 'managerCourseDetail',
+                    component:managerCourseDetailView,
+                },
+                {
+                    path: '/manager/executorManage',
+                    name: 'managerExecutorManage',
+                    component:managerExecutorManageView,
+                },
+                {
+                    path:"/manager/change-password",
+                    name: 'managerChangePassword',
+                    component:ChangePasswordView,
+                },
+                {
+                    path:"/manager/searchEvaluate",
+                    name: 'managerSearhEvaluate',
+                    component:executorSearchEvaluateView,
+                },
+            ]
         },
         {
             path: '/findpassword',
@@ -233,6 +289,11 @@ const router = createRouter({
                     path:"/executor/teacherManage",
                     name: 'executorTeacherManage',
                     component:executorTeacherManageView,
+                },
+                {
+                    path:"/executor/searchEvaluate",
+                    name: 'executorSearchEvaluate',
+                    component:executorSearchEvaluateView,
                 },
 
             ]

@@ -18,6 +18,7 @@ const searchForm = reactive({
 })
 
 //找到所有的课程信息
+//由于和执行人用的是同一套逻辑，所以请求域名不需要变化
 function findAllCourse(){
   axios.get('http://localhost:8080/executor/findallcourse')
   .then((res)=>{
@@ -31,46 +32,6 @@ onMounted(() =>{
 })
 
 
-//删除课程，在后端应该判断一下这门课程的状态
-//如果正在上课或者报名阶段的话，应该避免删除，避免让对应的用户不能使用
-const handleDel = (index) => {
-  ElMessageBox.confirm(
-    '你确定删除吗?',
-    '警告',
-    {
-      confirmButtonText: 'OK',
-      cancelButtonText: 'Cancel',
-      type: 'warning',
-    }
-  )
-    .then(() => {
-      ElMessage({
-        type: 'success',
-        message: '删除成功',
-      })
-      let courseID = tableData.value[index].courseID
-      console.log(sid);
-      axios.delete(`http://localhost:8080/executor/courseDelete/${courseID}`)
-      .then((res)=>{
-        findAllCourse();
-      })
-    })
-    .catch(() => {
-     
-    })
-}
-
-//修改课程信息。跳转到另一个界面
-const handleModify = (index)=>{
-  let courseID = tableData.value[index].courseID;
-  router.push({
-    path:'/executor/courseModify',
-    query:{
-      courseID:courseID,
-    }
-  })
-}
-
 //搜索课程
 function handleSearch(){
   let data = {
@@ -83,9 +44,16 @@ function handleSearch(){
   })
 
 }
-//添加课程，跳转到添加界面
-function handleAdd(){
-    router.replace("/executor/courseAdd");
+
+//查看课程详细信息。跳转到另一个界面
+const handleDetail = (index)=>{
+  let courseID = tableData.value[index].courseID;
+  router.push({
+    path:'/manager/courseDetail',
+    query:{
+      courseID:courseID,
+    }
+  })
 }
 </script>
 
@@ -112,12 +80,10 @@ function handleAdd(){
     <el-table-column fixed="right" label="操作" width="120">
       <template #default="scope">
         <!-- <el-link type="primary">修改</el-link> -->
-        <el-button link type="primary" size="large" @click="handleModify(scope.$index)">修改</el-button>
-        <el-button link type="primary" size="large" @click="handleDel(scope.$index)">删除</el-button>
+        <el-button link type="primary" size="large" @click="handleDetail(scope.$index)">详情</el-button>
       </template>
     </el-table-column>
   </el-table>
-  <el-button link type="primary" size="large" @click="handleAdd">添加课程</el-button>
 </template>
 
 <style scoped>
