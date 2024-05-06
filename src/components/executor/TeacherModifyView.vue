@@ -34,7 +34,7 @@ function back() {
 //根据传过来的ID信息得到一个讲师信息
 function getTeacher() {
     let data = {
-        ID: this.ID,
+        ID: ID,
     }
 
     axios.post("http://localhost:8080/executor/getTeacher", qs.stringify(data))

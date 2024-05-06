@@ -36,7 +36,7 @@ onMounted(() => {
 //得到该门课程的课程的详细信息,需要在一开始就运行
 function getCourse() {
     let data = {
-        courseID: this.courseID,
+        courseID: courseID,
     }
 
     axios.post("http://localhost:8080/executor/getCourse", qs.stringify(data))
