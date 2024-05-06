@@ -17,7 +17,7 @@ const searchForm = reactive({
   courseID: '',
 })
 
-//找到所有的课程信息
+//向后端发送得到所有课程信息的请求，需要返回tableData中对应的数据，下文el-table中列明了数据
 function findAllCourse(){
   axios.get('http://localhost:8080/executor/findallcourse')
   .then((res)=>{
@@ -31,8 +31,9 @@ onMounted(() =>{
 })
 
 
-//删除课程，在后端应该判断一下这门课程的状态
+//向后端发送删除课程的请求，在后端应该判断一下这门课程的状态
 //如果正在上课或者报名阶段的话，应该避免删除，避免让对应的用户不能使用
+//希望返回是否删除成功
 const handleDel = (index) => {
   ElMessageBox.confirm(
     '你确定删除吗?',
@@ -49,7 +50,7 @@ const handleDel = (index) => {
         message: '删除成功',
       })
       let courseID = tableData.value[index].courseID
-      console.log(sid);
+      console.log(courseID);
       axios.delete(`http://localhost:8080/executor/courseDelete/${courseID}`)
       .then((res)=>{
         findAllCourse();
@@ -71,7 +72,7 @@ const handleModify = (index)=>{
   })
 }
 
-//搜索课程
+//向后端发送寻找课程的请求，希望返回对应课程的信息，数据要求同上
 function handleSearch(){
   let data = {
     courseID:searchForm.courseID,

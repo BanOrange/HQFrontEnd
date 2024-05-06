@@ -31,7 +31,7 @@ function back() {
     router.replace("/executor/studentManage")
 }
 
-//根据传入的ID得到课程的信息
+//向后端发送课程ID获取对应课程，返回对应数据
 function getCourse() {
     let data = {
         courseID: courseID,
@@ -57,6 +57,7 @@ onMounted(() => {
     //   getCourse();
 })
 
+//向后端发送修改课程信息的请求，返回是否修改成功
 function onSubmit() {
     let data = {
         courseID: form.courseID,

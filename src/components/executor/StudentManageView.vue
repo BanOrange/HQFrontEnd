@@ -16,7 +16,7 @@ const searchForm = reactive({
   studentID: '',
 })
 
-//找到所有的学生信息
+//向后端发送得到所有学生信息的请求，返回对应数据，参考下面的el-table
 function findAllStudent(){
   axios.get('http://localhost:8080/executor/findallstudent')
   .then((res)=>{
@@ -29,7 +29,7 @@ onMounted(() =>{
 //   findAllStudent();
 })
 
-//查询学生功能，将符合条件的学生列出来
+//查向后端发送查询学生的请求，返回查询成功与否和对应的学生数据，要求查看下面的el-table
 function handleSearch() {
   let data = {
     studentID: searchForm.studentID,
@@ -48,6 +48,7 @@ function handleSearch() {
       })
 }
 
+//向后端发送删除学生的请求，返回删除成功与否
 //删除学生，在后端应该判断一下是否已经有账号关联到了该条信息
 //如果有的话，应该避免删除，避免让对应的用户不能使用
 const handleDel = (index) => {

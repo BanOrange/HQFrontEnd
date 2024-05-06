@@ -36,7 +36,7 @@ onMounted(() => {
 //得到该门课程的课程的详细信息,需要在一开始就运行
 function getCourse(){
     let data ={
-        CourseID: this.CourseID,
+        CourseID: CourseID,
     }
 
     axios.post("http://localhost:8080/student/getOneCourse", qs.stringify(data))
@@ -63,7 +63,7 @@ function back(){
     router.replace("/student/searchCourse")
 }
 
-//向后端发送报名请求
+//向后端发送报名请求,需要后端发送是否报名成功或者其他异常情况
 function signUp(){
     let username = sessionStorage.getItem("username");
     let data ={

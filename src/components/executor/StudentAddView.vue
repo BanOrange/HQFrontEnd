@@ -28,6 +28,7 @@ function back() {
   router.replace("/executor/studentManage")
 }
 
+//向后端发送添加学生信息的请求，返回添加成功与否
 function onSubmit() {
   let data = {
     studentID:form.id,
