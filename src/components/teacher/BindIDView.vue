@@ -19,7 +19,7 @@ function back() {
 function onSubmit() {
   let username = sessionStorage.getItem("username");
   let data = {
-    usernaem: username,
+    username: username,
     name:form.name,
     id:form.id,
   }

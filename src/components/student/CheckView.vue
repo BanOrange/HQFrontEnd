@@ -29,12 +29,12 @@ function getAllCheck(){
 }
 
 function check(){
-  let RequestIDList = [];
+  let idlist = [];
   for(let i=0;i<checkList.length;i++){
-    IDList.push(tableData.value[index].RequestID);
+    idList.push(tableData.value[index].RequestID);
   }
   let data={
-    RequestIDList : RequestIDList,
+    idlist : idlist,
   }
 
   axios.post("http://localhost:8080/student/check",qs.stringify(data))
@@ -53,10 +53,10 @@ function check(){
 
 <template>
     <el-table :data="tableData" width="400px" max-height="200">
-    <el-table-column fixed prop="CourseName" label="课程名称" width="150" />
-    <el-table-column prop="RequestTime" label="请求时间" width="120" />
-    <el-table-column prop="RequestState" label="请求状态" width="120" />
-    <el-table-column prop="RequestID" label="请求编号" width="120" />
+    <el-table-column fixed prop="name" label="课程名称" width="150" />
+    <el-table-column prop="time" label="请求时间" width="120" />
+    <el-table-column prop="state" label="请求状态" width="120" />
+    <el-table-column prop="id" label="请求编号" width="120" />
     <el-table-column fixed="right" label="选择" width="200">
       <template #default="scope">
         <el-checkbox size="large" @click="Select(scope.$index)" label="选择"/> 

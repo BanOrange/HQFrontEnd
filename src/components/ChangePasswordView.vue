@@ -9,15 +9,16 @@ import qs from 'querystring';
 
 let router = useRouter();
 const form = reactive({
-  oldPassword: '',
+
   newPassword: '',
 });
 function back(){
   router.replace("/student")
 }
 function onChangePassword(){
+  let username = sessionStorage.getItem("username");
   let data = {
-    oldPassword: form.oldPassword,
+    username: username,
     newPassword: form.newPassword,
   };
   axios.post('http://localhost:8080/student/change-password', qs.stringify(data))
@@ -38,15 +39,6 @@ function onChangePassword(){
 <template>
     <h2>修改密码</h2>
   <el-form :model="form" label-width="auto" style="max-width: 300px">
-      <el-form-item label="旧密码">
-        <el-input
-            v-model="form.oldPassword"
-            style="width: 240px"
-            type="password"
-            placeholder="请输入旧密码"
-            show-password
-        />
-      </el-form-item>
       <el-form-item label="新密码">
         <el-input
             v-model="form.newPassword"

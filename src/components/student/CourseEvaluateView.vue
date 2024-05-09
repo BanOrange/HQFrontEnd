@@ -9,10 +9,10 @@ import router from '@/router';
 
 const tableData = ref([])
 const form = reactive({
-  CourseName: '',
-  CourseID: '',
-  CourseRank: '',
-  CourseEvaluate: '',
+  name: '',
+  id: '',
+  rank: '',
+  evaluate: '',
 })
 onMounted(() => {
   getAllCourse();
@@ -27,9 +27,9 @@ function getAllCourse() {
 
 function onSubmit() {
   let data = {
-    CourseID: form.CourseID,
-    CourseRank: form.CourseRank,
-    CourseEvaluate: form.CourseEvaluate,
+    id: form.id,
+    rank: form.rank,
+    evaluate: form.evaluate,
   }
   axios.post("http://localhost:8080/student/courseEvaluate", qs.stringify(data))
       .then((res) => {
@@ -57,9 +57,9 @@ function onSubmit() {
     >
       <el-option
           v-for="item in tableData"
-          :key="item.CourseID"
-          :label="item.CourseName"
-          :value="item.CourseID"
+          :key="item.id"
+          :label="item.name"
+          :value="item.id"
       >
       </el-option>
     </el-select>
@@ -67,7 +67,7 @@ function onSubmit() {
     <el-text>课程评分</el-text>
     <br><br>
     <el-select
-        v-model="form.CourseRank"
+        v-model="form.rank"
         placeholder="Select"
         size="large"
         style="width: 240px"

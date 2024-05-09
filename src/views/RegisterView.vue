@@ -54,14 +54,9 @@ function handleRegister(){        //向后端发送注册的数据，根据后�
         if (res.data.code === 200) {
           ElMessage("注册成功");
           console.log(res.data.msg)
-        } else if (res.data.code === 400) {
-          ElMessage.error("用户名重复");
-        } else if (res.data.code === 401) {
-          ElMessage.error("公司密钥错误");
         } else {
           ElMessage.error("注册失败");
         }
-        //TODO 根据code提示用户 用户名重复，公司密钥错误等
       })
 }
 

@@ -9,38 +9,38 @@ import { useRouter,useRoute } from 'vue-router';
 let route = useRoute();
 let router = useRouter();
 //路由传参传过来的ID，可能会出现问题建议检查一下
-let studentID = route.query.studentID;
-let studentName = route.query.studentName;
-let courseId = route.query.courseId;
+let id = route.query.id;
+let name = route.query.name;
+let cid = route.query.cid;
 
 //装学生的基本信息
 const form = reactive({
-  studentID: studentID,
-  stuentName: studentName,
+  id: id,
+  name: name,
 })
 
 //存储成绩，注意在学生查询成绩中只需要给出平均成绩grade即可
 const gradeForm = reactive({
     grade:"",
-    experimentGrade:"",
-    examGrade:"",
-    homeworkGrade:"",
+    expergrade:"",
+    examgrade:"",
+    homegrade:"",
     comments:"",
 })
 
 //如果该名学生已经有成绩，则将成绩显示出来
 function getGrade(){
     let data={
-        studentID: studentID,
-        courseID: courseID
+        id: id,
+        cid: cid
     }
 
     axios.post('http://localhost:8080/teacher/getGrade', qs.stringify(data))
       .then((res) => {
         if (res.data.code === 200) {
           gradeForm.grade = res.data.grade;
-          gradeForm.examGrade = res.dada.examGrade;
-          gradeForm.experimentGrade = res.data.experimentGrade;
+          gradeForm.examgrade = res.dada.examgrade;
+          gradeForm.expergrade = res.data.expergrade;
           gradeFrom.comments = res.data.comments;
         } else {
           ElMessage(res.data.msg)
@@ -57,12 +57,12 @@ onMounted(() => {
 function onSubmit(){
     let data={
         grade: gradeForm.grade,
-        experimentGrade: gradeForm.experimentGrade,
-        examGrade: gradeForm.examGrade,
-        homeworkGrade: gradeForm.homeworkGrade,
+        expergrade: gradeForm.expergrade,
+        examgrade: gradeForm.examgrade,
+        homegrade: gradeForm.homegrade,
         comments: gradeForm.comments,
-        studentID: this.studentID,
-        courseID: this.courseID,
+        id: this.id,
+        cid: this.cid,
     }
 
     axios.post('http://localhost:8080/teacher/submitGrade', qs.stringify(data))
@@ -85,10 +85,10 @@ function back(){
 <h2>学生基本信息</h2>
 <el-form :inline="true" :model="form" label-width="auto" style="max-width: 700px">
     <el-form-item label="学生名称：">
-      <el-input disabled v-model="form.studentName"/>
+      <el-input disabled v-model="form.name"/>
     </el-form-item>
     <el-form-item   label="学号：">
-      <el-input disabled v-model="form.studentID"/>
+      <el-input disabled v-model="form.id"/>
     </el-form-item>
 </el-form>
 <br>
@@ -98,13 +98,13 @@ function back(){
       <el-input v-model="gradeForm.grade"/>
     </el-form-item>
     <el-form-item   label="实验成绩：">
-      <el-input v-model="gradeForm.experimentGrade"/>
+      <el-input v-model="gradeForm.expergrade"/>
     </el-form-item>
     <el-form-item   label="作业成绩：">
-      <el-input v-model="gradeForm.homeworkGrade"/>
+      <el-input v-model="gradeForm.homegrade"/>
     </el-form-item>
     <el-form-item   label="考试成绩：">
-      <el-input v-model="gradeForm.examGrade"/>
+      <el-input v-model="gradeForm.examgrade"/>
     </el-form-item>
     <el-form-item   label="教师评语：">
       <el-input v-model="gradeFrom.comments"/>

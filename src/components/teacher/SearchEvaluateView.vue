@@ -31,10 +31,10 @@ function getCourseScore(){
 <template>
 <h1>课程评价分数</h1>
 <el-table :data="tableData" width="400px" max-height="200">
-    <el-table-column fixed prop="courseID" label="课程编号" width="150"/>
-    <el-table-column prop="courseName" label="课程名称" width="120"/>
-    <el-table-column prop="evaluateState" label="评价状态" width="120"/>
-    <el-table-column prop="courseScore" label="评价分数" width="150"/>
+    <el-table-column fixed prop="id" label="课程编号" width="150"/>
+    <el-table-column prop="name" label="课程名称" width="120"/>
+    <el-table-column prop="state" label="评价状态" width="120"/>
+    <el-table-column prop="score" label="评价分数" width="150"/>
   </el-table>
 </template>
 
