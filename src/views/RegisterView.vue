@@ -49,7 +49,7 @@ function handleRegister(){        //向后端发送注册的数据，根据后�
     companyKey:companyKey.value,
   }
   console.log(data);
-  axios.post('http://localhost:8888/register', qs.stringify(data))
+  axios.post('http://localhost:8080/register', qs.stringify(data))
       .then((res) => {
         if (res.data.code === 200) {
           ElMessage("注册成功");
