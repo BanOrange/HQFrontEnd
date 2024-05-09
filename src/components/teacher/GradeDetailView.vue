@@ -37,14 +37,10 @@ function getGrade(){
 
     axios.post('http://localhost:8080/teacher/getGrade', qs.stringify(data))
       .then((res) => {
-        if (res.data.code === 200) {
           gradeForm.grade = res.data.grade;
           gradeForm.examgrade = res.dada.examgrade;
           gradeForm.expergrade = res.data.expergrade;
           gradeFrom.comments = res.data.comments;
-        } else {
-          ElMessage(res.data.msg)
-        }
       });
 }
 //由于还没有和后端建立联系，所以这里会报错

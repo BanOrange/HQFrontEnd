@@ -9,20 +9,20 @@ import qs from 'querystring';
 let router = useRouter();
 let route = useRoute();
 
-let studentID = route.query.studentID;
+let id = route.query.id;
 
 //存储学员的核心信息，和别人不会重复的信息
 //如学号和电话号等
 const form = reactive({
-    ID: '',
+    id: '',
     name: '',
     telephone: '',
 })
 
 //该表单存储学生的其他信息
 const form1 = reactive({
-    companyName: '',
-    jobPosition: '',
+    company: '',
+    position: '',
     email: '',
     level: '',
 })
@@ -43,8 +43,8 @@ function getStudent() {
             form.id = res.data.id;
             form.name = res.data.name;
             form.telephone = res.data.telephone;
-            form1.companyName = res.data.companyName;
-            form1.jobPosition = res.data.jobPosition;
+            form1.company = res.data.companyName;
+            form1.position = res.data.jobPosition;
             form1.email = res.data.email;
             form1.level = res.data.level;
         })
@@ -76,10 +76,10 @@ onMounted(() => {
     <h2>学员详细信息</h2>
     <el-form :model="form1" label-width="auto" style="max-width: 300px">
         <el-form-item label="公司名称：">
-            <el-input disabled v-model="form1.companyName" />
+            <el-input disabled v-model="form1.company" />
         </el-form-item>
         <el-form-item label="工作岗位：">
-            <el-input disabled v-model="form1.jobPosition" />
+            <el-input disabled v-model="form1.position" />
         </el-form-item>
         <el-form-item label="电子邮件：">
             <el-input disabled v-model="form1.email" />

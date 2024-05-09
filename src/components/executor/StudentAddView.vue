@@ -11,15 +11,15 @@ let router = useRouter();
 //存储学员的核心信息，和别人不会重复的信息
 //如学号和电话号等
 const form = reactive({
-  ID: '',
+  id: '',
   name:'',
   telephone: '',
 })
 
 //该表单存储学生的其他信息
 const form1 = reactive({
-  companyName: '',
-  jobPosition: '',
+  company: '',
+  position: '',
   email: '',
   level: '',
 })
@@ -31,11 +31,11 @@ function back() {
 //向后端发送添加学生信息的请求，返回添加成功与否
 function onSubmit() {
   let data = {
-    studentID:form.id,
+    id:form.id,
     name: form.name,
     telephone: form.telephone,
-    companyName: form1.companyName,
-    jobPosition: form1.jobPosition,
+    company: form1.company,
+    position: form1.position,
     email: form1.email,
     level: form1.level,
   }
@@ -70,10 +70,10 @@ function onSubmit() {
   <h2>学员详细信息</h2>
   <el-form :model="form1" label-width="auto" style="max-width: 300px">
     <el-form-item label="公司名称：">
-      <el-input v-model="form1.companyName"/>
+      <el-input v-model="form1.company"/>
     </el-form-item>
     <el-form-item label="工作岗位：">
-      <el-input v-model="form1.jobPosition"/>
+      <el-input v-model="form1.position"/>
     </el-form-item>
     <el-form-item label="电子邮件：">
       <el-input v-model="form1.email"/>

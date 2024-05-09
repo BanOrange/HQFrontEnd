@@ -12,12 +12,15 @@ let router = useRouter();
 let id = route.query.id
 //装课程的基本信息
 const form = reactive({
-  id: '',
+  id: '1',
   name: '',
   start: '',
   end: '',
   pay: '',
 })
+
+form.id = 4;
+console.log(form.id)
 
 //用来装课程的详细信息
 const form1 = reactive({
@@ -41,19 +44,15 @@ function getCourse(){
 
     axios.post("http://localhost:8080/student/getOneCourse", qs.stringify(data))
       .then((res) => {
-        if (res.data.code === 200) {
-            form.value.id = res.data.id;
-            form.value.id = res.data.courseName;
-            form.value.start = res.data.start;
-            form.value.end = res.data.end;
-            form.value.price = res.data.price;
-            form1.value.teacher = res.data.teacher;
-            form1.value.info = res.data.info;
-            form1.value.state = res.data.state;
-            form1.value.location = res.data.location;
-        } else {
-          ElMessage.error(res.data.msg)
-        }
+            form.id = res.data.id;
+            form.id = res.data.courseName;
+            form.start = res.data.start;
+            form.end = res.data.end;
+            form.price = res.data.price;
+            form1.teacher = res.data.teacher;
+            form1.info = res.data.info;
+            form1.state = res.data.state;
+            form1.location = res.data.location;
       })
 }
 

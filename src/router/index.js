@@ -10,7 +10,6 @@ import ChangePasswordView from "@/components/ChangePasswordView.vue";
 import ExecutorView from '../views/ExecutorView.vue';
 
 import studentBindIDView from '../components/student/BindIDView.vue';
-import studentPayView from "@/components/student/PayView.vue";
 import studentCheckView from "@/components/student/CheckView.vue";
 import studentSearchCourseView from "@/components/student/SearchCourseView.vue";
 import CourseDetailView from '@/components/student/CourseDetailView.vue';
@@ -76,11 +75,6 @@ const router = createRouter({
                     component:studentCheckView,
                 },
                 {
-                    path:"/student/pay",
-                    name: 'studentPay',
-                    component:studentPayView,
-                },
-                {
                     path:"/student/searchCourse",
                     name: 'searchCourse',
                     component:studentSearchCourseView,
@@ -97,7 +91,7 @@ const router = createRouter({
                 },
                 {
                     path: '/student/coursedetail',
-                    name: 'StudentCourseDetail',
+                    name: 'studentCourseDetail',
                     component:CourseDetailView
                 }
             ]

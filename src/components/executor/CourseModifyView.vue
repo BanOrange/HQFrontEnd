@@ -8,23 +8,23 @@ import qs from 'querystring';
 
 let router = useRouter();
 let route = useRoute();
-let courseID = route.query.courseID;
+let id = route.query.id;
 
 //装课程的基本信息
 const form = reactive({
-    courseID: '',
-    courseName: '',
-    courseStartTime: '',
-    courseEndTime: '',
-    coursePrice: '',
+    id: '',
+    name: '',
+    start: '',
+    end: '',
+    pay: '',
 })
 
 //用来装课程的详细信息
 const form1 = reactive({
     teacher: '',
-    courseInfo: '',
-    courseState: '',
-    courseLocation: '',
+    info: '',
+    state: '',
+    location: '',
 })
 
 function back() {
@@ -34,20 +34,20 @@ function back() {
 //向后端发送课程ID获取对应课程，返回对应数据
 function getCourse() {
     let data = {
-        courseID: courseID,
+        id: id,
     }
 
     axios.post("http://localhost:8080/executor/getCourse", qs.stringify(data))
         .then((res) => {
-            form.courseID = res.data.courseID;
-            form.courseName = res.data.courseName;
-            form.courseStartTime = res.data.courseStartTime;
-            form.courseEndTime = res.data.courseEndTime;
-            form.coursePrice = res.data.coursePrice;
+            form.id= res.data.id;
+            form.name = res.data.name;
+            form.start = res.data.start;
+            form.end = res.data.end;
+            form.pay = res.data.pay;
             form1.teacher = res.data.teacher;
-            form1.courseInfo = res.data.courseInfo;
-            form1.courseState = res.data.courseState;
-            form1.courseLocation = res.data.courseLocation;
+            form1.info = res.data.info;
+            form1.state = res.data.state;
+            form1.location = res.data.location;
         })
 
 }
@@ -60,15 +60,15 @@ onMounted(() => {
 //向后端发送修改课程信息的请求，返回是否修改成功
 function onSubmit() {
     let data = {
-        courseID: form.courseID,
-        courseName: form.courseName,
-        courseStartTime: form.courseStartTime,
-        courseEndTime: form.courseEndTime,
-        coursePrice: form.coursePrice,
+        id: form.id,
+        name: form.name,
+        start: form.start,
+        end: form.end,
+        pay: form.pay,
         teacher: form1.teacher,
-        courseInfo: form1.courseInfo,
-        courseState: form1.courseState,
-        courseLocation: form1.courseLocation,
+        info: form1.info,
+        state: form1.state,
+        location: form1.location,
     }
 
     axios.post("http://localhost:8080/executor/courseAdd", qs.stringify(data))
@@ -87,18 +87,18 @@ function onSubmit() {
     <h2>课程基本信息</h2>
     <el-form :inline="true" :model="form" label-width="auto" style="max-width: 700px">
         <el-form-item label="课程编号：">
-            <el-input disabled v-model="form.courseID" />
+            <el-input disabled v-model="form.id" />
         </el-form-item>
         <el-form-item label="课程名称：">
-            <el-input v-model="form.courseName" />
+            <el-input v-model="form.name" />
         </el-form-item>
         <el-form-item label="上课时间：">
-            <el-input v-model="form.courseStartTime" style="width:200px" />
+            <el-input v-model="form.start" style="width:200px" />
             <el-text>至</el-text>
-            <el-input v-model="form.courseEndTime" style="width:200px" />
+            <el-input v-model="form.end" style="width:200px" />
         </el-form-item>
         <el-form-item label="课程费用：">
-            <el-input v-model="form.coursePrice" style="width:200px" />
+            <el-input v-model="form.pay" style="width:200px" />
             <el-text>￥/人</el-text>
         </el-form-item>
     </el-form><br>
@@ -108,13 +108,13 @@ function onSubmit() {
             <el-input v-model="form1.teacher" />
         </el-form-item>
         <el-form-item label="课程简介：">
-            <el-input v-model="form1.courseInfo" />
+            <el-input v-model="form1.info" />
         </el-form-item>
         <el-form-item label="上课地点：">
-            <el-input v-model="form1.courseLocation" />
+            <el-input v-model="form1.location" />
         </el-form-item>
         <el-form-item label="课程状态：">
-            <el-radio-group v-model="form1.courseState">
+            <el-radio-group v-model="form1.state">
                 <el-radio value="enroll">报名中</el-radio>
                 <el-radio value="teach">授课中</el-radio>
                 <el-radio value="end">已经结束</el-radio>
@@ -123,7 +123,6 @@ function onSubmit() {
     </el-form>
 
     <el-button type="primary" @click="back">返回</el-button>
-    <el-button type="primary" @click="signUp">报名</el-button>
 </template>
 
 <style scoped></style>

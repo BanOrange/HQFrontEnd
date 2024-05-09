@@ -29,13 +29,8 @@ function handleSearch() {
 
   axios.post("http://localhost:8080/teacher/getStudentGrade", qs.stringify(data))
       .then((res) => {
-        if (res.data.code === 200) {
-            ElMessage("查询成功")
             tableData.value = res.data;
-            courseID = res.data.courseID;
-        } else {
-          ElMessage.error(res.data.msg)
-        }
+            cid = res.data.cid;
       })
 }
 

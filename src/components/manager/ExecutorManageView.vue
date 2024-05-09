@@ -12,8 +12,8 @@ const tableData = ref([])
 
 //用来装搜索条件
 const searchForm = reactive({
-  executorName: '',
-  executorID: '',
+  name: '',
+  id: '',
 })
 
 //找到所有的执行人信息
@@ -38,13 +38,7 @@ function handleSearch() {
 
   axios.post("http://localhost:8080/manager/searchExecutor", qs.stringify(data))
       .then((res) => {
-        if (res.data.code === 200) {
-          ElMessage("查询成功")
           tableData.value = res.data;
-
-        } else {
-          ElMessage.error(res.data.msg)
-        }
       })
 }
 
@@ -54,10 +48,10 @@ function handleSearch() {
     <el-form :model="searchForm" label-width="auto" style="max-width: 300px">
     <h2>执行人查询</h2><br>
     <el-form-item label="执行人工号：">
-      <el-input v-model="searchForm.executorID"/>
+      <el-input v-model="searchForm.id"/>
     </el-form-item>
     <el-form-item label="执行人姓名：">
-      <el-input v-model="searchForm.executorName"/>
+      <el-input v-model="searchForm.name"/>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="handleSearch">查询</el-button>
@@ -67,9 +61,9 @@ function handleSearch() {
 
   <br>
   <el-table :data="tableData" style="width: 100%">
-    <el-table-column fixed prop="executorID" label="工号" width="150" />
-    <el-table-column prop="executorName" label="姓名" width="120" />
-    <el-table-column prop="executorSate" label="工作状态" width="120" />
+    <el-table-column fixed prop="id" label="工号" width="150" />
+    <el-table-column prop="name" label="姓名" width="120" />
+    <el-table-column prop="state" label="工作状态" width="120" />
   </el-table>
 </template>
 

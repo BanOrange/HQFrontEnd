@@ -22,13 +22,7 @@ function getAllGrade() {
   }
   axios.post("http://localhost:8080/student/getAllGrade", qs.stringify(data))
       .then((res) => {
-        if (res.data.code === 200) {
-          ElMessage("查询成功")
           tableData.value = res.data;
-
-        } else {
-          ElMessage.error(res.data.msg)
-        }
       })
 }
 

@@ -12,8 +12,8 @@ const tableData = ref([])
 
 //用来装搜索条件
 const searchForm = reactive({
-  studentName: '',
-  studentID: '',
+  name: '',
+  id: '',
 })
 
 //向后端发送得到所有学生信息的请求，返回对应数据，参考下面的el-table
@@ -32,19 +32,13 @@ onMounted(() =>{
 //查向后端发送查询学生的请求，返回查询成功与否和对应的学生数据，要求查看下面的el-table
 function handleSearch() {
   let data = {
-    studentID: searchForm.studentID,
-    studentName: searchForm.studentName,
+    id: searchForm.id,
+    name: searchForm.name,
   }
 
   axios.post("http://localhost:8080/executor/searchStudent", qs.stringify(data))
       .then((res) => {
-        if (res.data.code === 200) {
-          ElMessage("查询成功")
           tableData.value = res.data;
-
-        } else {
-          ElMessage.error(res.data.msg)
-        }
       })
 }
 
@@ -80,11 +74,11 @@ const handleDel = (index) => {
 
 //修改学生信息。跳转到另一个界面
 const handleModify = (index)=>{
-  let studentID = tableData.value[index].studentID;
+  let id = tableData.value[index].id;
   router.push({
     path:'/executor/studentModify',
     query:{
-      studentID:studentID,
+      id:id,
     }
   })
 }
@@ -98,10 +92,10 @@ function handleAdd(){
     <el-form :model="searchForm" label-width="auto" style="max-width: 300px">
     <h2>学生查询</h2><br>
     <el-form-item label="学生学号：">
-      <el-input v-model="searchForm.studentID"/>
+      <el-input v-model="searchForm.id"/>
     </el-form-item>
     <el-form-item label="学生姓名：">
-      <el-input v-model="searchForm.studentName"/>
+      <el-input v-model="searchForm.name"/>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="handleSearch">查询</el-button>
@@ -111,10 +105,10 @@ function handleAdd(){
   <el-button link type="primary" size="large" @click="handleAdd">添加学生信息</el-button>
   <br>
   <el-table :data="tableData" style="width: 100%">
-    <el-table-column fixed prop="studentID" label="学号" width="150" />
-    <el-table-column prop="studentName" label="姓名" width="120" />
-    <el-table-column prop="companyName" label="隶属公司" width="120" />
-    <el-table-column prop="jobPosition" label="工作岗位" width="120" />
+    <el-table-column fixed prop="id" label="学号" width="150" />
+    <el-table-column prop="name" label="姓名" width="120" />
+    <el-table-column prop="company" label="隶属公司" width="120" />
+    <el-table-column prop="position" label="工作岗位" width="120" />
     <el-table-column fixed="right" label="操作" width="120">
       <template #default="scope">
         <!-- <el-link type="primary">修改</el-link> -->

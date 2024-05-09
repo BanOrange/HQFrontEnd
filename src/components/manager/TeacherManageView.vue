@@ -12,8 +12,8 @@ const tableData = ref([])
 
 //用来装搜索条件
 const searchForm = reactive({
-  Name: '',
-  ID: '',
+  name: '',
+  id: '',
 })
 
 //找到所有的讲师信息
@@ -32,8 +32,8 @@ onMounted(() =>{
 //查询讲师功能，将符合条件的讲师列出来
 function handleSearch() {
   let data = {
-    teacherID: searchForm.ID,
-    teacherName: searchForm.Name,
+    id: searchForm.id,
+    name: searchForm.name,
   }
 
   axios.post("http://localhost:8080/executor/searchTeacher", qs.stringify(data))
@@ -50,11 +50,11 @@ function handleSearch() {
 
 //查看讲师详细信息。跳转到另一个界面
 const handleDetail = (index)=>{
-  let teacherID = tableData.value[index].teacherID;
+  let id = tableData.value[index].id;
   router.push({
     path:'/manager/teacherDetail',
     query:{
-      ID:teacherID,
+      id:id,
     }
   })
 }
@@ -64,7 +64,7 @@ const handleDetail = (index)=>{
     <el-form :model="searchForm" label-width="auto" style="max-width: 300px">
     <h2>讲师查询</h2><br>
     <el-form-item label="讲师编号：">
-      <el-input v-model="searchForm.ID"/>
+      <el-input v-model="searchForm.id"/>
     </el-form-item>
     <el-form-item label="讲师姓名：">
       <el-input v-model="searchForm.name"/>
@@ -76,7 +76,7 @@ const handleDetail = (index)=>{
   <br><br>
   <br>
   <el-table :data="tableData" style="width: 100%">
-    <el-table-column fixed prop="ID" label="讲师编号" width="150" />
+    <el-table-column fixed prop="id" label="讲师编号" width="150" />
     <el-table-column prop="name" label="姓名" width="120" />
     <el-table-column prop="field" label="擅长领域" width="120" />
     <el-table-column fixed="right" label="操作" width="120">

@@ -11,7 +11,7 @@ let router = useRouter();
 //存储讲师的基本信息
 //编号和姓名
 const form = reactive({
-  ID: '',
+  id: '',
   name:'',
 })
 
@@ -30,7 +30,7 @@ function back() {
 
 function onSubmit() {
   let data = {
-    ID:form.ID,
+    id:form.id,
     name: form.name,
     title: form1.title,
     field: form1.field,
@@ -56,7 +56,7 @@ function onSubmit() {
   <br><br>
   <el-form :model="form" label-width="auto" style="max-width: 300px">
     <el-form-item label="讲师编号：">
-      <el-input v-model="form.ID"/>
+      <el-input v-model="form.id"/>
     </el-form-item>
     <el-form-item label="讲师姓名：">
       <el-input v-model="form.name"/>

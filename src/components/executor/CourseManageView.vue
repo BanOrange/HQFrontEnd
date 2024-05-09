@@ -13,8 +13,8 @@ const tableData = ref([])
 
 //用来装搜索条件
 const searchForm = reactive({
-  courseName: '',
-  courseID: '',
+  name: '',
+  id: '',
 })
 
 //向后端发送得到所有课程信息的请求，需要返回tableData中对应的数据，下文el-table中列明了数据
@@ -67,7 +67,7 @@ const handleModify = (index)=>{
   router.push({
     path:'/executor/courseModify',
     query:{
-      courseID:courseID,
+      id:id,
     }
   })
 }
@@ -75,8 +75,8 @@ const handleModify = (index)=>{
 //向后端发送寻找课程的请求，希望返回对应课程的信息，数据要求同上
 function handleSearch(){
   let data = {
-    courseID:searchForm.courseID,
-    courseNAme:searchForm.courseName,
+    id:searchForm.id,
+    name:searchForm.name,
   }
   axios.get('http://localhost:8080/executor/findcourse',qs.stringify(data))
   .then((res)=>{
@@ -94,10 +94,10 @@ function handleAdd(){
    <el-form :model="searchForm" label-width="auto" style="max-width: 300px">
     <h1>课程查询</h1><br><br>
     <el-form-item label="课程编号：">
-      <el-input v-model="searchForm.courseID"/>
+      <el-input v-model="searchForm.id"/>
     </el-form-item>
     <el-form-item label="课程名称：">
-      <el-input v-model="searchForm.courseName"/>
+      <el-input v-model="searchForm.name"/>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="handleSearch">查询</el-button>
@@ -106,10 +106,10 @@ function handleAdd(){
   <br><br>
   <h1>课程信息总览</h1>
   <el-table :data="tableData" style="width: 100%">
-    <el-table-column fixed prop="courseID" label="课程编号" width="150"/>
-    <el-table-column prop="courseName" label="课程名称" width="120"/>
-    <el-table-column prop="teacherName" label="讲师名称" width="120"/>
-    <el-table-column prop="coursePrice" label="课程费用(￥)" width="150"/>
+    <el-table-column fixed prop="id" label="课程编号" width="150"/>
+    <el-table-column prop="name" label="课程名称" width="120"/>
+    <el-table-column prop="teacher" label="讲师名称" width="120"/>
+    <el-table-column prop="pay" label="课程费用(￥)" width="150"/>
     <el-table-column fixed="right" label="操作" width="120">
       <template #default="scope">
         <!-- <el-link type="primary">修改</el-link> -->

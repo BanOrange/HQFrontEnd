@@ -7,7 +7,15 @@ import {onMounted} from 'vue';
 import router from '@/router';
 
 
-const tableData = ref([])
+const tableData = [
+  {
+    id:"1",
+    name:"1",
+    tercher:"1",
+    state:"1",
+    pay:"1",
+  },
+]
 const form = reactive({
   name: '',
   id: '',
@@ -43,13 +51,7 @@ function handleSearch() {
 
   axios.post("http://localhost:8080/searchCourse", qs.stringify(data))
       .then((res) => {
-        if (res.data.code === 200) {
-          ElMessage("查询成功")
           tableData.value = res.data;
-
-        } else {
-          ElMessage.error(res.data.msg)
-        }
       })
 }
 
@@ -62,22 +64,16 @@ function searchSelected() {
 
   axios.post("http://localhost:8080/student/searchSelected", qs.stringify(data))
       .then((res) => {
-        if (res.data.code == 200) {
-          ElMessage("查询成功")
-          tableData.value = res.data;
-
-        } else {
-          ElMessage.error(res.data.msg)
-        }
+        tableData.value = res.data;
       })
 }
 
 //查看课程的详情
 const getDetails = (index) => {
   router.push({
-    path: 'student/coursedetail',
+    name: 'studentCourseDetail',
     query: {
-      id: tableData.value[index].id
+      id:"1",
     }
   })
 }

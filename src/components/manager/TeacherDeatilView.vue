@@ -9,12 +9,12 @@ import qs from 'querystring';
 let router = useRouter();
 let route = useRoute();
 
-let ID = route.query.ID;
+let id = route.query.id;
 
 //存储讲师的基本信息
 //编号和姓名
 const form = reactive({
-    ID: '',
+    id: '',
     name: '',
 })
 
@@ -34,13 +34,13 @@ function back() {
 //根据传过来的ID信息得到一个讲师信息
 function getTeacher() {
     let data = {
-        ID: ID,
+        id: id,
     }
 
     axios.post("http://localhost:8080/executor/getTeacher", qs.stringify(data))
         .then((res) => {
             form.name = res.data.name;
-            form.ID = res.data.ID;
+            form.id = res.data.id;
             form1.title = res.data.title;
             form1.field = res.data.field;
             form1.level = res.data.level;
@@ -62,7 +62,7 @@ onMounted(() => {
     <br><br>
     <el-form :model="form" label-width="auto" style="max-width: 300px">
         <el-form-item label="讲师编号：">
-            <el-input disabled v-model="form.ID" />
+            <el-input disabled v-model="form.id" />
         </el-form-item>
         <el-form-item label="讲师姓名：">
             <el-input disabled v-model="form.name" />

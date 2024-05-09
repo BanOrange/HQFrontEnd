@@ -9,11 +9,11 @@ import { useRouter,useRoute } from 'vue-router';
 let route = useRoute();
 let router = useRouter();
 //路由传参传过来的ID，可能会出现问题建议检查一下
-let CourseID = route.query.CourseID
+let id = route.query.id
 
 //用来装查询用到的ID
 const form = reactive({
-  CourseID: '',
+  id: '',
 })
 
 //用来装签到信息
@@ -21,24 +21,18 @@ const tableData = ref([])
 
 //获取当前课程的最后一次签到的签到信息情况，主要是返回一个学生列表，其中包含学生的签到状态
 function handleSearchCheck() {
-  if(courseID!=""){
+  if(id!=""){
     let data = {
-    CourseID: courseID,
+    id: id,
   }
   }
   let data = {
-    CourseID: form.CourseID,
+    id: form.id,
   }
 
   axios.post("http://localhost:8080/staff/checkDetail", qs.stringify(data))
       .then((res) => {
-        if (res.data.code === 200) {
-          ElMessage("查询成功")
           tableData.value = res.data;
-
-        } else {
-          ElMessage.error(res.data.msg)
-        }
       })
 }
 </script>
@@ -47,7 +41,7 @@ function handleSearchCheck() {
     <el-form :model="form" label-width="auto" style="max-width: 300px">
     <h1>签到查询</h1><br><br>
     <el-form-item label="课程编号：">
-      <el-input v-model="form.CourseName"/>
+      <el-input v-model="form.name"/>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="handleSearchCheck">查询</el-button>
@@ -56,12 +50,12 @@ function handleSearchCheck() {
   <br>
   <h1>签到情况</h1>
   <el-table :data="tableData" width="400px" max-height="200">
-    <el-table-column prop="checkTime" label="签到日期" width="120"/>
-    <el-table-column fixed prop="courseName" label="课程名称" width="150"/>
-    <el-table-column fixed prop="courseID" label="课程编号" width="150"/>
-    <el-table-column prop="studentName" label="学生名称" width="120"/>
-    <el-table-column prop="studentID" label="学生编号" width="120"/>
-    <el-table-column prop="checkState" label="签到状态" width="120"/>
+    <el-table-column prop="time" label="签到日期" width="120"/>
+    <el-table-column fixed prop="name" label="课程名称" width="150"/>
+    <el-table-column fixed prop="id" label="课程编号" width="150"/>
+    <el-table-column prop="name" label="学生名称" width="120"/>
+    <el-table-column prop="sid" label="学生编号" width="120"/>
+    <el-table-column prop="state" label="签到状态" width="120"/>
   </el-table>
 </template>
 
