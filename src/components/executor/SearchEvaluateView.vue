@@ -15,7 +15,7 @@ const searchForm = reactive({
     courseID: '',
 })
 
-//得到所有的课程评分
+//向后端发送得到所有课程评分的请求，返回对应数据，具体参考下面的el-table
 function getCourseScore() {
     axios.get("http://localhost:8080/executor/getCourseScore")
         .then((res) => {
@@ -23,7 +23,7 @@ function getCourseScore() {
         })
 }
 
-//查询课程评分
+//向后端发送查询课程评分的请求，返回数据要求同上
 function handleSearch() {
     let data = {
         courseID: searchForm.courseID,

@@ -29,6 +29,8 @@ function back() {
   router.replace("/executor/studentManage")
 }
 
+
+//向后端发送添加课程的请求，返回是否添加成功
 function onSubmit() {
   let data = {
     courseID:form.courseID,

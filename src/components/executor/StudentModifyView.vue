@@ -34,7 +34,7 @@ function back() {
 //根据传过来的ID信息得到整个学生信息
 function getStudent() {
     let data = {
-        studentID: this.studentID,
+        studentID: studentID,
     }
 
     axios.post("http://localhost:8080/executor/getStudent", qs.stringify(data))

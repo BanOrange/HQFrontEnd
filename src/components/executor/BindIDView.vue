@@ -16,6 +16,8 @@ function back() {
   router.replace("/executor")
 }
 
+
+//向后端返回绑定身份的请求，希望返回是否绑定成功
 function onSubmit() {
   let username = sessionStorage.getItem("username");
   let data = {

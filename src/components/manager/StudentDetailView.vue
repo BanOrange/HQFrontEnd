@@ -35,7 +35,7 @@ function back() {
 //逻辑相同，请求域名不需要更改
 function getStudent() {
     let data = {
-        studentID: this.studentID,
+        studentID: studentID,
     }
 
     axios.post("http://localhost:8080/executor/getStudent", qs.stringify(data))
