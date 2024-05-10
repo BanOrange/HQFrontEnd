@@ -71,7 +71,7 @@ const getDetails = (index) => {
   this.$router.push({
     path: 'student/coursedetail',
     query: {
-      CourseID: tableData.value[index].CourseID
+      id: tableData.value[index].id
     }
   })
 }

@@ -7,15 +7,6 @@ import { onMounted} from 'vue';
 
 
 const tableData = ref([])
-let checkList = [];
-const Select = (index) => {
-  if(checkList.includes(index)){
-    checkList.splice(checkList.indexOf(index), 1);
-  }else{
-    checkList.push(index);
-  }
-  console.log(checkList);
-}
 
 onMounted(() =>{
   getAllCheck();
@@ -28,20 +19,19 @@ function getAllCheck(){
   })
 }
 
-function check(){
-  let idlist = [];
-  for(let i=0;i<checkList.length;i++){
-    idList.push(tableData.value[index].RequestID);
-  }
+function check = (index) =>{
+  let username = sessionStorage.getItem("username");
+  
   let data={
-    idlist : idlist,
+    id : tableData.value[index].id,
+    username : username
   }
 
   axios.post("http://localhost:8080/student/check",qs.stringify(data))
     .then((res) => {
         if(res.data.code == 200){
           ElMessage("签到成功")
-
+          getAllCheck();
         }else{
             ElMessage.error(res.data.msg)
         }
@@ -59,12 +49,11 @@ function check(){
     <el-table-column prop="id" label="请求编号" width="120" />
     <el-table-column fixed="right" label="选择" width="200">
       <template #default="scope">
-        <el-checkbox size="large" @click="Select(scope.$index)" label="选择"/> 
+        <el-button type="primary" @click="check(scope.$index)">签到</el-button>
       </template>
     </el-table-column>
   </el-table>
   <br><br>
-  <el-button type="primary" @click="check">确认签到</el-button>
 </template>
 
 <style scoped>

@@ -12,15 +12,13 @@ let router = useRouter();
 let id = route.query.id
 //装课程的基本信息
 const form = reactive({
-  id: '1',
+  id: '',
   name: '',
   start: '',
   end: '',
   pay: '',
 })
 
-form.id = 4;
-console.log(form.id)
 
 //用来装课程的详细信息
 const form1 = reactive({
