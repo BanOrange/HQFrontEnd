@@ -19,7 +19,7 @@ function getAllCheck(){
   })
 }
 
-function check = (index) =>{
+const check = (index) =>{
   let username = sessionStorage.getItem("username");
   
   let data={
