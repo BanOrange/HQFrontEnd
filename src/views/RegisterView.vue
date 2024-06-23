@@ -72,7 +72,8 @@ function handleRegister() {        //向后端发送注册的数据，根据后�
     .then((res) => {
       if (res.data.code === 200) {
         ElMessage("注册成功");
-        console.log(res.data.msg)
+        console.log(res.data.msg);
+        router.replace("\login");
       } else {
         ElMessage.error(res.data.msg);
       }

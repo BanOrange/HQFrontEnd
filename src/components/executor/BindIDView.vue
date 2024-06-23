@@ -24,7 +24,6 @@ function back() {
 
 //向后端返回绑定身份并注册的请求，希望返回是否注册成功
 function register() {
-  let username = sessionStorage.getItem("username");
   let data = {
     username: username,
     password: password,
@@ -38,7 +37,7 @@ function register() {
       .then((res) => {
         if (res.data.code === 200) {
           ElMessage("注册成功！")
-          router.replace("/executor")
+          router.replace("/login")
         } else {
           ElMessage.error(res.data.msg);
         }

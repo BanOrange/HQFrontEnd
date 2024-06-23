@@ -38,7 +38,7 @@ function register() {
       .then((res) => {
         if (res.data.code === 200) {
           ElMessage("注册成功！")
-          router.replace("/teacher")
+          router.replace("/login")
         } else {
           ElMessage.error(res.data.msg);
         }

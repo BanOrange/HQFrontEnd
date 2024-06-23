@@ -306,16 +306,16 @@ const router = createRouter({
     ]
 })
 
-// router.beforeEach((to, from, next) => {
-//     if (to.path === '/login' || to.path === '/findpassword' || to.path === '/register') {
-//         next()
-//     } else {
-//         const username = sessionStorage.getItem("username")
-//         if (username == null) {
-//             next('/login')
-//         } else {
-//             next();
-//         }
-//     }
-// })
+router.beforeEach((to, from, next) => {
+    if (to.path === '/login' || to.path === '/findpassword' || to.path === '/register') {
+        next()
+    } else {
+        const username = sessionStorage.getItem("username")
+        if (username == null) {
+            next('/login')
+        } else {
+            next();
+        }
+    }
+})
 export default router
