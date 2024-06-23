@@ -92,6 +92,10 @@ const options = [
         label: '学员',
         value: 'student',
       },
+      {
+        label: '软件公司',
+        value: 'company'
+      }
     ]
   },
   {

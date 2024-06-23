@@ -7,29 +7,37 @@ import axios from 'axios'
 import qs from 'querystring';
 
 let router = useRouter();
-const form = reactive({
-  name: '',
-  id: '',
+let route = useRoute();
+let username = route.query.username;
+let password = route.query.password;
+let company_key = route.query.company_key;
+
+const Exeform = reactive({
+  exe_id: '',
+  exe_name: '',
 })
 
 function back() {
-  router.replace("/executor")
+  router.replace("/login")
 }
 
 
-//向后端返回绑定身份的请求，希望返回是否绑定成功
-function onSubmit() {
+//向后端返回绑定身份并注册的请求，希望返回是否注册成功
+function register() {
   let username = sessionStorage.getItem("username");
   let data = {
     username: username,
-    name:form.name,
-    id:form.id,
+    password: password,
+    usertype:"executor",
+    exe_id: Exeform.id,
+    exe_name: Exeform.name,
+    company_key: company_key,
   }
 
-  axios.post("http://localhost:8080/executor/bindid", qs.stringify(data))
+  axios.post("http://localhost:8080/register/executor", qs.stringify(data))
       .then((res) => {
         if (res.data.code === 200) {
-          ElMessage("绑定成功！")
+          ElMessage("注册成功！")
           router.replace("/executor")
         } else {
           ElMessage.error(res.data.msg);
@@ -39,20 +47,19 @@ function onSubmit() {
 </script>
 
 <template>
-  <h2>个人信息</h2>
-  <el-text>如果不填入正确信息，那么其他功能将不能正确运行</el-text>
-  <el-text>只能绑定一次，请务必保证信息与预留在公司的信息相同</el-text>
+  <h2>绑定执行人信息</h2>
+  <el-text>请务必保证信息与预留在公司的信息相同</el-text>
   <br><br>
-  <el-form :model="form" label-width="auto" style="max-width: 300px">
-    <el-form-item label="员工姓名：">
-      <el-input v-model="form.name"/>
-    </el-form-item>
-    <el-form-item label="员工工号：">
-      <el-input v-model="form.id"/>
+  <el-form :model="Exeform" label-width="auto" style="max-width: 200px">
+    <el-form-item>
+      <el-input v-model="Exeform.exe_name" placeholder="请输入员工姓名"/>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="back">返回</el-button>
-      <el-button type="primary" @click="onSubmit">绑定</el-button>
+      <el-input v-model="Exeform.exe_id" placeholder="请输入员工工号"/>
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="back">返回登录</el-button>
+      <el-button type="primary" @click="register">确认绑定</el-button>
     </el-form-item>
   </el-form>
 </template>

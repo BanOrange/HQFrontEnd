@@ -7,49 +7,85 @@ import axios from 'axios'
 import qs from 'querystring';
 
 let router = useRouter();
+let route = useRoute();
+let username = route.query.username;
+let password = route.query.password;
 const form = reactive({
-  name: '',
-  id: '',
+  teacher_name: '',
+  teacher_position: '',
+  teacher_email: '',
+  teacher_tele: '',
+  teacher_field: '',
 })
 
 function back() {
-  router.replace("/teacher")
+  router.replace("/login")
 }
 
-function onSubmit() {
-  let username = sessionStorage.getItem("username");
+function register() {
   let data = {
     username: username,
-    name:form.name,
-    id:form.id,
+    password: password,
+    usertype: "teacher",
+    teacher_name: form.teacher_name,
+    teacher_position: form.teacher_position,
+    teacher_email: form.teacher_email,
+    teacher_tele: form.teacher_tele,
+    teacher_field: form.teacher_field,
   }
 
-  axios.post("http://localhost:8080/teacher/bindid", qs.stringify(data))
+  axios.post("http://localhost:8080/register/teacher", qs.stringify(data))
       .then((res) => {
         if (res.data.code === 200) {
-          ElMessage("绑定成功！")
+          ElMessage("注册成功！")
           router.replace("/teacher")
         } else {
           ElMessage.error(res.data.msg);
         }
       })
 }
+
+const options = [
+  {
+    label: '讲师',
+    value: '讲师',
+  },
+  {
+    value: '资深讲师',
+    label: '资深讲师',
+  },
+  {
+    label: '领域专家',
+    value: '领域专家',
+  },
+]
 </script>
 
 <template>
-  <h2>个人信息</h2>
-  <el-text>一个账号只能绑定一位讲师且不能取消绑定请谨慎</el-text>
+  <h2>为了完成注册，请您绑定身份</h2>
+  <el-text>务必谨慎，后续只能通过联系浩奇公司内部人员进行修改</el-text>
   <br><br>
   <el-form :model="form" label-width="auto" style="max-width: 300px">
-    <el-form-item label="姓名：">
-      <el-input v-model="form.name"/>
-    </el-form-item>
-    <el-form-item label="编号：">
-      <el-input v-model="form.id"/>
+    <el-form-item>
+      <el-input placeholder="请输入您的姓名" v-model="form.teacher_name"/>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="back">返回</el-button>
-      <el-button type="primary" @click="onSubmit">绑定</el-button>
+      <el-select v-model="form.teacher_position" placeholder="请选择职称" style="width: 150px">
+      <el-option v-for="item in options" :label="item.label" :value="item.value" />
+    </el-select>
+    </el-form-item>
+    <el-form-item>
+      <el-input placeholder="请输入您的电子邮件" v-model="form.teacher_email"/>
+    </el-form-item>
+    <el-form-item>
+      <el-input placeholder="请输入您的电话号码" v-model="form.teacher_tele"/>
+    </el-form-item>
+    <el-form-item>
+      <el-input placeholder="请输入您所擅长的领域(JAVA,嵌入式等)" v-model="form.teacher_field"/>
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="back">返回登录</el-button>
+      <el-button type="primary" @click="register">确认绑定</el-button>
     </el-form-item>
   </el-form>
 </template>

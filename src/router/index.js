@@ -8,6 +8,7 @@ import FindPasswordView from '../views/FindPasswordView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import ChangePasswordView from "@/components/ChangePasswordView.vue";
 import ExecutorView from '../views/ExecutorView.vue';
+import CompanyView from '@/views/CompanyView.vue';
 
 import studentBindIDView from '../components/student/BindIDView.vue';
 import studentCheckView from "@/components/student/CheckView.vue";
@@ -44,6 +45,8 @@ import managerStudentDetailView from "@/components/manager/StudentDetailView.vue
 import managerTeacherManageView from "@/components/manager/TeacherManageView.vue";
 import managerTeacherDetailView from "@/components/manager/TeacherDeatilView.vue";
 import managerExecutorManageView from "@/components/manager/ExecutorManageView.vue";
+
+import companyBindIDView from '@/components/company/BindIDView.vue';
 
 
 const router = createRouter({
@@ -126,12 +129,6 @@ const router = createRouter({
                     name: 'teacherSearchEvaluate',
                     component:teachersearchEvaluateView,
                 },
-                {
-                    path: '/teacher/bindid',
-                    name: 'teacherBindID',
-                    component:teacherBindIDView,
-                }
-                
             ]
         },
         {
@@ -229,11 +226,6 @@ const router = createRouter({
                     component:ChangePasswordView,
                 },
                 {
-                    path:"/executor/bindid",
-                    name: 'executorBindID',
-                    component:executorBindIDView,
-                },
-                {
                     path:"/executor/studentManage",
                     name: 'executorStudentManage',
                     component:executorStudentManageView,
@@ -286,20 +278,44 @@ const router = createRouter({
 
             ]
         },
+        {
+            path: '/company',
+            name: 'company',
+            component: CompanyView,
+            // children:[
+            //     {
+            //     },
+            // ]
+        },
+        {
+            path: "/company/bindid",
+            name: 'companyBind',
+            component:companyBindIDView,
+        },
+        {
+            path:"/executor/bindid",
+            name: 'executorBindID',
+            component:executorBindIDView,
+        },
+        {
+            path: '/teacher/bindid',
+            name: 'teacherBindID',
+            component:teacherBindIDView,
+        }
 
     ]
 })
 
-router.beforeEach((to, from, next) => {
-    if (to.path === '/login' || to.path === '/findpassword' || to.path === '/register') {
-        next()
-    } else {
-        const username = sessionStorage.getItem("username")
-        if (username == null) {
-            next('/login')
-        } else {
-            next();
-        }
-    }
-})
+// router.beforeEach((to, from, next) => {
+//     if (to.path === '/login' || to.path === '/findpassword' || to.path === '/register') {
+//         next()
+//     } else {
+//         const username = sessionStorage.getItem("username")
+//         if (username == null) {
+//             next('/login')
+//         } else {
+//             next();
+//         }
+//     }
+// })
 export default router
