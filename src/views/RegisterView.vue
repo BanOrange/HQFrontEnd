@@ -53,7 +53,7 @@ function handleRegister() {        //向后端发送注册的数据，根据后�
       query: {
         username: username.value,
         password: password.value,
-        companyKey: companyKey.value,
+        company_key: company_key.value,
         userType: userType.value,
       }
     })

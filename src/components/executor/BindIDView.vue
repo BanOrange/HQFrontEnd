@@ -28,8 +28,8 @@ function register() {
     username: username,
     password: password,
     usertype:"executor",
-    exe_id: Exeform.id,
-    exe_name: Exeform.name,
+    exe_id: Exeform.exe_id,
+    exe_name: Exeform.exe_name,
     company_key: company_key,
   }
 
