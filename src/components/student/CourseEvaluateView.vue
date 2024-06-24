@@ -10,7 +10,7 @@ const tableData = ref([])
 const form = reactive({
   name: '',
   id: '',
-  rank: '',
+  score: '',
   evaluate: '',
 })
 onMounted(() => {
@@ -27,7 +27,7 @@ function getAllCourse() {
 function onSubmit() {
   let data = {
     id: form.id,
-    rank: form.rank,
+    score: form.score,
     evaluate: form.evaluate,
   }
   axios.post("http://localhost:8080/student/courseEvaluate", qs.stringify(data))
@@ -66,7 +66,7 @@ function onSubmit() {
     <el-text>课程评分</el-text>
     <br><br>
     <el-select
-        v-model="form.rank"
+        v-model="form.score"
         placeholder="Select"
         size="large"
         style="width: 240px"
