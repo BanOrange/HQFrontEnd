@@ -6,7 +6,6 @@ import {ElMessage} from 'element-plus';
 import {onMounted} from 'vue';
 import router from '@/router';
 
-
 const tableData = ref([])
 const form = reactive({
   name: '',
