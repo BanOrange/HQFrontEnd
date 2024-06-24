@@ -124,7 +124,7 @@ function handleAdd(){
     <el-table-column prop="teacher_name" label="姓名" width="120" />
     <el-table-column prop="teacher_field" label="擅长领域" width="120" />
     <el-table-column prop="teacher_tele" label="电话号码" width="150" />
-    <el-table-column fixed="right" label="操作" width="120" >
+    <el-table-column fixed="right" label="操作" width="200" >
       <template #default="scope">
         <el-button link type="primary" size="large" @click="handleDetail(scope.$index)">详情</el-button>
         <el-button link type="primary" size="large" @click="handleModify(scope.$index)">修改</el-button>

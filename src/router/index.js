@@ -35,7 +35,7 @@ import executorCourseAddView from "@/components/executor/CourseAddView.vue";
 import executorCourseModifyView from "@/components/executor/CourseModifyView.vue";
 import executorTeacherManageView from "@/components/executor/TeacherManageView.vue";
 import executorTeacherAddView from "@/components/executor/TeacherAddView.vue";
-import executorTeacherModifyView from "@/components/executor/TeacherAddView.vue";
+import executorTeacherModifyView from "@/components/executor/TeacherModifyView.vue";
 import executorSearchEvaluateView from "@/components/executor/SearchEvaluateView.vue";
 import executorTeacherDetailView from "@/components/executor/TeacherDetailView.vue"
 
