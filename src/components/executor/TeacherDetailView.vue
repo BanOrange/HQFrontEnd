@@ -54,7 +54,7 @@ function getTeacherCourse() {
     let data = {
         teacher_id: teacher_id,
     }
-    axios.post("http://localhost:8080/executor/getTeacher", qs.stringify(data))
+    axios.post("http://localhost:8080/executor/getTeacherCourse", qs.stringify(data))
         .then((res) => {
             if (code == 200) {
                 CourseData.value = res.data;
