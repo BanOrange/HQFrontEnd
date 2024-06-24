@@ -15,14 +15,14 @@ let teacher_id = route.query.teacher_id;
 const CourseData = ref([])
 
 //讲师的基本信息
-    teacherid = ref(''),
-    teacher_name = ref(''),
-    teacher_position = ref(''),
+    teacherid = ref('')
+    teacher_name = ref('')
+    teacher_position = ref('')
 
     //该表单存储讲师的详细信息
-    teacher_field = ref(''),
-    teacher_tele = ref(''),
-    teacher_email = ref(''),
+    teacher_field = ref('')
+    teacher_tele = ref('')
+    teacher_email = ref('')
 
     function back() {
         router.replace("/executor/TeacherManage")

@@ -12,30 +12,29 @@ let route = useRoute();
 let teacher_id = route.query.teacher_id;
 
 //讲师的基本信息
-    teacherid = ref(''),
-    teacher_name = ref(''),
-    teacher_position = ref(''),
+    teacherid = ref('');
+    teacher_name = ref('');
+    teacher_position = "jiangshi";
 
-    //该表单存储讲师的详细信息
-    teacher_field = ref(''),
-    teacher_tele = ref(''),
-    teacher_email = ref(''),
+ //存储讲师的详细信息
+    teacher_field = ref('');
+    teacher_tele = ref('');
+    teacher_email = ref('');
 
-const options = [
-    {
-        label: '讲师',
-        value: '讲师',
-    },
-    {
-        value: '资深讲师',
-        label: '资深讲师',
-    },
-    {
-        label: '领域专家',
-        value: '领域专家',
-    },
+    const options = [
+  {
+    label: '讲师',
+    value: '讲师',
+  },
+  {
+    value: '资深讲师',
+    label: '资深讲师',
+  },
+  {
+    label: '领域专家',
+    value: '领域专家',
+  },
 ]
-
 function back() {
     router.replace("/executor/teacherManage")
 }
@@ -93,7 +92,7 @@ function onSubmit() {
     <el-input label="讲师名称"  v-model="teacher_name" />
     <el-label>讲师职称：</el-label>
     <el-select v-model="teacher_position" placeholder="请选择职称" style="width: 150px">
-        <el-option v-for="item in options" :label="item.label" :value="item.value" />
+      <el-option v-for="item in options" :label="item.label" :value="item.value" />
     </el-select>
     <br>
     <h2>讲师详细信息</h2>
