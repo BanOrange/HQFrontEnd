@@ -90,11 +90,8 @@ onMounted(() => {
             </el-icon>
             <span>账户操作</span>
           </template>
-          <el-menu-item index="2-1">
-            <router-link to="/executor/bindid">绑定身份信息</router-link>
-          </el-menu-item>
-          <el-menu-item index="2-2" @click="logOut">退出登陆</el-menu-item>
-          <el-menu-item index="2-3">
+          <el-menu-item index="2-1" @click="logOut">退出登陆</el-menu-item>
+          <el-menu-item index="2-2">
             <router-link to="/executor/change-password">修改密码</router-link>
           </el-menu-item>
 

@@ -9,23 +9,38 @@ import qs from 'querystring';
 let router = useRouter();
 let route = useRoute();
 
-let id = route.query.id;
+let teacher_id = route.query.teacher_id;
 
 //存储讲师的基本信息
 //编号和姓名
 const form = reactive({
-    id: '',
-    name: '',
+    teacher_id: '',
+    teacher_name: '', 
+    teacher_position: '',
 })
+
 
 //该表单存储讲师的详细信息
 const form1 = reactive({
-    title: '',
-    field: '',
-    level: '',
-    telephone: '',
-    email: '',
+    teacher_field: '',
+    teacher_tele: '',
+    teacher_email: '',
 })
+
+const options = [
+  {
+    label: '讲师',
+    value: '讲师',
+  },
+  {
+    value: '资深讲师',
+    label: '资深讲师',
+  },
+  {
+    label: '领域专家',
+    value: '领域专家',
+  },
+]
 
 function back() {
     router.replace("/executor/teacherManage")
@@ -34,18 +49,17 @@ function back() {
 //根据传过来的ID信息得到一个讲师信息
 function getTeacher() {
     let data = {
-        id: id,
+        teacher_id: teacher_id,
     }
 
     axios.post("http://localhost:8080/executor/getTeacher", qs.stringify(data))
         .then((res) => {
-            form.name = res.data.name;
-            form.id = res.data.id;
-            form1.title = res.data.title;
-            form1.field = res.data.field;
-            form1.level = res.data.level;
-            form1.telephone = res.data.telephone;
-            form1.email = res.data.email;
+            form.teacher_name = res.data.teacher_name;
+            form.teacher_id = res.data.teacher_id;
+            form1.teacher_position = res.data.teacher_position;
+            form1.teacher_field = res.data.teacher_field;
+            form1.teacher_tele = res.data.teacher_tele;
+            form1.teacher_email = res.data.teacher_email;
         })
 
 }
@@ -57,13 +71,11 @@ onMounted(() => {
 
 function onSubmit() {
     let data = {
-        id: form.id,
-        name: form.name,
-        title: form1.title,
-        field: form1.field,
-        level: form1.level,
-        telephone: form1.telephone,
-        email: form1.email,
+        teacher_name: form.teacher_name,
+        teacher_position: form1.teacher_position,
+        teacher_field: form1.teacher_field,
+        teacher_tele: form1.teacher_tele,
+        teacher_email: form1.teacher_email,
     }
 
     axios.post("http://localhost:8080/executor/teacherModify", qs.stringify(data))
@@ -82,30 +94,26 @@ function onSubmit() {
     <h2>讲师基本信息</h2>
     <br><br>
     <el-form :model="form" label-width="auto" style="max-width: 300px">
-        <el-form-item label="讲师编号：">
-            <el-input v-model="form.id" />
-        </el-form-item>
         <el-form-item label="讲师姓名：">
-            <el-input v-model="form.name" />
+            <el-input v-model="form.teacher_name" />
+        </el-form-item>
+        <el-form-item>
+            <el-select v-model="form.teacher_position" placeholder="请选择职称" style="width: 150px">
+                <el-option v-for="item in options" :label="item.label" :value="item.value" />
+            </el-select>
         </el-form-item>
     </el-form>
     <br>
     <h2>讲师详细信息</h2>
     <el-form :model="form1" label-width="auto" style="max-width: 300px">
-        <el-form-item label="讲师职称：">
-            <el-input v-model="form1.title" />
-        </el-form-item>
         <el-form-item label="擅长领域：">
-            <el-input v-model="form1.field" />
-        </el-form-item>
-        <el-form-item label="技术水平：">
-            <el-input v-model="form1.level" />
+            <el-input v-model="form1.teacher_field" />
         </el-form-item>
         <el-form-item label="电话号码：">
-            <el-input v-model="form1.telephone" />
+            <el-input v-model="form1.teacher_tele" />
         </el-form-item>
         <el-form-item label="电子邮箱：">
-            <el-input v-model="form1.email" />
+            <el-input v-model="form1.teacher_email" />
         </el-form-item>
     </el-form>
     <el-button type="primary" @click="back">返回</el-button>
