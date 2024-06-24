@@ -8,17 +8,15 @@ import { useRouter,useRoute } from 'vue-router';
 
 let router = useRouter();
 
-//用来装课程的信息
 const tableData = ref([])
 
-//用来装搜索条件
+
 const searchForm = reactive({
   name: '',
-  id: '',
+  key: '',
 })
 
-//找到所有的课程信息
-//由于和执行人用的是同一套逻辑，所以请求域名不需要变化
+
 function findAllCourse(){
   axios.get('http://localhost:8080/executor/findallcourse')
       .then((res)=>{
@@ -26,16 +24,16 @@ function findAllCourse(){
       })
 }
 
-//挂载,但是为了方便开发，先注释掉
+
 onMounted(() =>{
-//   findAllCourse();
+  findAllCourse();
 })
 
 
-//搜索课程
+
 function handleSearch(){
   let data = {
-    id:searchForm.id,
+    key:searchForm.key,
     name:searchForm.name,
   }
   axios.get('http://localhost:8080/executor/findcourse',qs.stringify(data))
@@ -45,13 +43,13 @@ function handleSearch(){
 
 }
 
-//查看课程详细信息。跳转到另一个界面
+
 const handleDetail = (index)=>{
-  let id = tableData.value[index].id;
+  let key = tableData.value[index].key;
   router.push({
-    path:'/manager/courseDetail',
+    path:'/company/CourseDetail',
     query:{
-      id:id,
+      key:key,
     }
   })
 }
@@ -77,10 +75,6 @@ const handleDetail = (index)=>{
     <el-table-column prop="course_name" label="课程名称" width="120"/>
     <el-table-column prop="teacher_name" label="讲师名称" width="120"/>
     <el-table-column prop="course_fee" label="课程费用(￥)" width="150"/>
-    <el-table-column prop="course_place" label="上课地点" width="120"/>
-    <el-table-column prop="course_start" label="课程开始时间" width="120"/>
-    <el-table-column prop="course_end" label="课程结束时间" width="120"/>
-    <el-table-column prop="course_info" label="课程简介" width="120"/>
     <el-table-column fixed="right" label="操作" width="120">
       <template #default="scope">
         <!-- <el-link type="primary">修改</el-link> -->
