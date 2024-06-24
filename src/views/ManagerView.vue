@@ -81,6 +81,9 @@ onMounted(() => {
             <el-menu-item index="1-5">
               <router-link to="/manager/executorManage">查阅执行人信息</router-link>
             </el-menu-item>
+            <el-menu-item index="1-6">
+              <router-link to="/manager/executorWorkStatus">查阅执行人工作状态</router-link>
+            </el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>
 
