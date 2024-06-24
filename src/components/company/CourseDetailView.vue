@@ -55,7 +55,7 @@ function getCourse() {
 
 //返回到总览界面
 function back(){
-  router.replace("/manager/CourseManageView");
+  router.replace("/company/courseManage");
 }
 
 </script>

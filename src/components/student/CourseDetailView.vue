@@ -16,16 +16,15 @@ const form = reactive({
   name: '',
   start: '',
   end: '',
-  pay: '',
+  fee: '',
 })
 
 
 //用来装课程的详细信息
 const form1 = reactive({
-  teacher: '',
   info: '',
   state: '',
-  location: '',
+  place: '',
 })
 
 //由于这里需要一开始就挂载，但是还没有和后端发生信息交互，所以会导致报名和返回用不了
@@ -36,39 +35,38 @@ onMounted(() => {
 
 //得到该门课程的课程的详细信息,需要在一开始就运行
 function getCourse(){
-    let data ={
-        id: id,
-    }
+  let data ={
+    id: id,
+  }
 
-    axios.post("http://localhost:8080/student/getOneCourse", qs.stringify(data))
+  axios.post("http://localhost:8080/student/getOneCourse", qs.stringify(data))
       .then((res) => {
-            form.id = res.data.id;
-            form.id = res.data.courseName;
-            form.start = res.data.start;
-            form.end = res.data.end;
-            form.price = res.data.price;
-            form1.teacher = res.data.teacher;
-            form1.info = res.data.info;
-            form1.state = res.data.state;
-            form1.location = res.data.location;
+        form.id = res.data.id;
+        form.id = res.data.courseName;
+        form.start = res.data.start;
+        form.end = res.data.end;
+        form.fee = res.data.fee;
+        form1.info = res.data.info;
+        form1.state = res.data.state;
+        form1.place = res.data.place;
       })
 }
 
 
 //返回到总览界面
 function back(){
-    router.replace("/student/searchCourse")
+  router.replace("/student/searchCourse")
 }
 
 //向后端发送报名请求,需要后端发送是否报名成功或者其他异常情况
 function signUp(){
-    let username = sessionStorage.getItem("username");
-    let data ={
-        uername: username,
-        courseID:form.id,
-    }
+  let username = sessionStorage.getItem("username");
+  let data ={
+    uername: username,
+    courseID:form.id,
+  }
 
-    axios.post("http://localhost:8080/student/signup", qs.stringify(data))
+  axios.post("http://localhost:8080/student/signup", qs.stringify(data))
       .then((res) => {
         if (res.data.code == 200) {
           ElMessage("报名成功")
@@ -81,8 +79,8 @@ function signUp(){
 </script>
 
 <template>
-<h2>课程基本信息</h2>
-<el-form :inline="true" :model="form" label-width="auto" style="max-width: 700px">
+  <h2>课程基本信息</h2>
+  <el-form :inline="true" :model="form" label-width="auto" style="max-width: 700px">
     <el-form-item label="课程编号：">
       <el-input disabled v-model="form.id"/>
     </el-form-item>
@@ -95,20 +93,17 @@ function signUp(){
       <el-input disabled v-model="form.end" style="width:200px"/>
     </el-form-item>
     <el-form-item label="课程费用：">
-      <el-input disabled v-model="form.pay" style="width:200px"/>
+      <el-input disabled v-model="form.fee" style="width:200px"/>
       <el-text>￥/人</el-text>
     </el-form-item>
   </el-form><br>
   <h2>课程详细信息</h2>
   <el-form :model="form1" label-width="auto" style="max-width: 300px">
-    <el-form-item label="主讲教师：">
-      <el-input disabled v-model="form1.teacher"/>
-    </el-form-item>
     <el-form-item label="课程简介：">
       <el-input disabled v-model="form1.info"/>
     </el-form-item>
     <el-form-item label="上课地点：">
-      <el-input disabled v-model="form1.location"/>
+      <el-input disabled v-model="form1.place"/>
     </el-form-item>
     <el-form-item label="课程状态：">
       <el-input disabled v-model="form1.state"/>
