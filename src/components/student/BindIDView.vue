@@ -8,8 +8,8 @@ import qs from 'querystring';
 
 let router = useRouter();
 const form = reactive({
-  name: '',
-  companyName: '',
+  stu_name: '',
+  stu_company: '',
   jobPosition: '',
   telephone: '',
   email: '',
@@ -54,6 +54,9 @@ function onSubmit() {
     </el-form-item>
     <el-form-item label="公司名称：">
       <el-input v-model="form.companyName"/>
+    </el-form-item>
+    <el-form-item label="公司密钥：">
+      <el-input v-model="form.companyKey"/>
     </el-form-item>
     <el-form-item label="工作岗位：">
       <el-input v-model="form.jobPosition"/>

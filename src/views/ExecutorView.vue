@@ -57,7 +57,7 @@ onMounted(() => {
   <h1>执行人您好！欢迎使用本系统！</h1>
   <el-row class="tac">
     <el-col :span="4">
-      <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
+      <el-menu default-active="2" class="el-menu-vertical-demo">
         <el-sub-menu index="1">
           <template #title>
             <el-icon>

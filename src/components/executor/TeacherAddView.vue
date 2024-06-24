@@ -72,7 +72,6 @@ function onSubmit() {
 
 <template>
   <h2>讲师基本信息</h2>
-  <br><br>
   <el-form :model="form" label-width="auto" style="max-width: 300px">
     <el-form-item label="讲师姓名：">
       <el-input v-model="form.teacher_name"/>
@@ -86,7 +85,7 @@ function onSubmit() {
 <br>
 
   <h2>讲师详细信息</h2>
-  <el-form :model="form1" label-width="auto" style="max-width: 300px">
+  <el-form :model="form1" label-width="auto" style="max-width: 400px">
     <el-form-item label="擅长领域：">
       <el-input placeholder="请输入所擅长的领域(JAVA,嵌入式等)" v-model="form1.teacher_field"/>
     </el-form-item>
@@ -104,9 +103,10 @@ function onSubmit() {
         <el-input placeholder="请输入该老师对应的账户名" v-model="form2.username"/>
     </el-form-item>
     <el-form-item label="密码：">
-        <el-input placeholder="请输入该老师的帐户密码"  v-model="form2.password"/>
+        <el-input placeholder="请输入该老师的帐户密码" type="password" v-model="form2.password"/>
     </el-form-item>
   </el-form>
+  <br>
   <el-button type="primary" @click="back">返回</el-button>
   <el-button type="primary" @click="onSubmit">提交</el-button>
 </template>

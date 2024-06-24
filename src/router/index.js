@@ -276,6 +276,11 @@ const router = createRouter({
                     name: 'executorSearchEvaluate',
                     component:executorSearchEvaluateView,
                 },
+                {
+                    path:"/executor/teacherDetail",
+                    name: 'executorTeacherDetail',
+                    component:executorTeacherDetailView,
+                },
 
             ]
         },
