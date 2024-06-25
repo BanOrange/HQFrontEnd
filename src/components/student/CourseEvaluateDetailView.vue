@@ -46,32 +46,41 @@ function onSubmit() {
 
 <template>
   <el-form :model="form" label-width="auto" style="max-width: 300px">
-    <h1>课程查询</h1><br><br>
-    <el-form-item label="课程编号：">
-      <el-input v-model="form.name"/>
-    </el-form-item>
-    <el-form-item label="课程名称：">
-      <el-input v-model="form.id"/>
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="handleSearch">查询</el-button>
-    </el-form-item>
+    <h1>填写课程评价</h1><br><br>
+    <el-text>选择你要评价的课程</el-text>
+    <br><br>
+    <el-select
+        v-model="form.CourseID"
+        placeholder="Select"
+        size="large"
+        style="width: 240px"
+    >
+      <el-option
+          v-for="item in tableData"
+          :key="item.id"
+          :label="item.name"
+          :value="item.id"
+      >
+      </el-option>
+    </el-select>
+    <br><br>
+    <el-text>课程评分</el-text>
+    <br><br>
+    <el-input style="width:250px" placeholder="请输入评价分值：" v-model="form.eva_score"/>
+    <el-text>(0-100)</el-text>
+    <br><br>
+    <el-text>课程评价</el-text>
+    <br><br>
+    <el-input
+        v-model="form.eva_content"
+        style="width:400px"
+        :autosize="{ minRows: 10, maxRows: 100 }"
+        type="textarea"
+        placeholder="请输入课程评价"
+    />
   </el-form>
-  <br><br>
-  <el-table :data="tableData" width="400px" max-height="200">
-    <el-table-column fixed prop="id" label="课程编号" width="150"/>
-    <el-table-column prop="name" label="课程名称" width="120"/>
-    <el-table-column prop="teacher" label="讲师名称" width="120"/>
-    <el-table-column prop="state" label="课程状态" width="120"/>
-    <el-table-column prop="pay" label="课程费用(￥)" width="150"/>
-    <el-table-column fixed="right" label="选择" width="200">
-      <template #default="scope">
-        <el-button type="primary" @click="getDetails(scope.$index)">详情</el-button>
-      </template>
-    </el-table-column>
-  </el-table>
-  <br><br>
-  <el-button type="primary" @click="searchSelected">查询已选课程列表</el-button>
+  <br>
+  <el-button type="primary" @click="onSubmit">提交</el-button>
 </template>
 
 <style scoped>

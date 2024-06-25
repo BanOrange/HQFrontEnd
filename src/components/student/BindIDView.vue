@@ -37,7 +37,9 @@ function getStudentInfo() {
     })
 }
 
-
+onMounted(() => {
+  getStudentInfo();
+})
 function back() {
   router.replace("/student")
 }
