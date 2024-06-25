@@ -19,17 +19,21 @@ let stu_state = ref('')
 let company_key = ref('')
 
 function getStudentInfo() {
-  axios.get('http://localhost:8080/student/getStudentInfo')
+  let username = sessionStorage.getItem("username");
+  let data = {
+    username: username,
+  }
+  axios.post('http://localhost:8080/student/getStudentInfo', qs.stringify(data))
     .then((res) => {
-      stu_id.value = res.data.stu_id;
-      stu_name.value = res.data.stu_name;
-      stu_company.value = res.data.stu_company;
-      stu_position.value = res.data.stu_position;
-      stu_tele.value = res.data.stu_tele;
-      stu_email.value = res.data.stu_email;
-      stu_level.value = res.data.stu_name;
-      company_key.value = res.data.company_key;
-      stu_state.value = res.data.stu_state;
+      stu_id.value = res.data[0].stu_id;
+      stu_name.value = res.data[0].stu_name;
+      stu_company.value = res.data[0].stu_company;
+      stu_position.value = res.data[0].stu_position;
+      stu_tele.value = res.data[0].stu_tele;
+      stu_email.value = res.data[0].stu_email;
+      stu_level.value = res.data[0].stu_name;
+      company_key.value = res.data[0].company_key;
+      stu_state.value = res.data[0].stu_state;
     })
 }
 
@@ -40,8 +44,13 @@ function back() {
 
 function onSubmit() {
   let username = sessionStorage.getItem("username");
+  if(stu_name.value == '' ||stu_company.value == '' ||stu_position.value == '' ||stu_tele.value == '' ||stu_email.value == '' ||stu_level.value == '' ||company_key.value == ''){
+      ElMessage.error("请填入所有信息后再提交")
+      return;
+    }
   let data = {
     username: username,
+    stu_id: stu_id,
     stu_name: stu_name.value,
     stu_company: stu_company.value,
     stu_position: stu_position.value,
@@ -66,7 +75,7 @@ function onSubmit() {
 
 <template>
   <h2>个人信息</h2>
-  <el-text>请仔细检查信息再提交</el-text>
+  <el-text>请仔细检查并填入所有信息再提交</el-text>
   <br><br>
   <el-text>学员学号：</el-text>
   <el-input disabled v-model="stu_id" style="width:200px"/><br>

@@ -8,10 +8,8 @@ import router from '@/router';
 
 const tableData = ref([])
 const form = reactive({
-  name: '',
-  id: '',
-  rank: '',
-  evaluate: '',
+  eva_score: '',
+  eva_content: '',
 })
 onMounted(() => {
   getAllCourse();
@@ -65,26 +63,13 @@ function onSubmit() {
     <br><br>
     <el-text>课程评分</el-text>
     <br><br>
-    <el-select
-        v-model="form.rank"
-        placeholder="Select"
-        size="large"
-        style="width: 240px"
-    >
-      <el-option
-          v-for="item in [1,2,3,4,5]"
-          :key="item"
-          :label="item + '分'"
-          :value="item"
-      />
-
-    </el-select>
+    <el-input placeholder/>
     <br><br>
     <el-text>课程评价</el-text>
     <br><br>
     <el-input
-        v-model="form.CourseEvaluate"
-        style="width:240px"
+        v-model="form.eva_content"
+        style="width:400px"
         :autosize="{ minRows: 10, maxRows: 100 }"
         type="textarea"
         placeholder="请输入课程评价"
