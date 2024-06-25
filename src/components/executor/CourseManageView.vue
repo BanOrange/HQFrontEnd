@@ -17,7 +17,8 @@ const searchForm = reactive({
   course_id: '',
 })
 
-//向后端发送得到所有课程信息的请求，需要返回tableData中对应的数据，下文el-table中列明了数据
+//向后端发送寻找课程的请求，希望返回对应课程的信息
+//此外需要返回讲师的名称而不是仅仅是讲师编号
 function findAllCourse(){
   axios.get('http://localhost:8080/executor/findallcourse')
   .then((res)=>{
@@ -73,6 +74,7 @@ const handleModify = (index)=>{
 }
 
 //向后端发送寻找课程的请求，希望返回对应课程的信息
+//此外需要返回讲师的名称而不是讲师编号
 function handleSearch(){
   let data = {
     course_id:searchForm.course_id,

@@ -12,7 +12,9 @@ const searchForm = reactive({
 
 //查询课程对应反馈功能，将符合搜索条件的课程反馈列出来
 function handleSearch() {
+  let username = sessionStorage.getItem("username");
   let data = {
+    username: username,
     course_id: searchForm.course_id,
     course_name: searchForm.course_name,
   }
