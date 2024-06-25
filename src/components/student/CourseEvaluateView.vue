@@ -8,11 +8,13 @@ import router from '@/router';
 
 const tableData = ref([])
 const form = reactive({
-  name: '',
-  id: '',
-  score: '',
-  evaluate: '',
+  course_name: '',
+  course_id: '',
+  eva_score: '',
+  eva_content: '',
 })
+
+
 onMounted(() => {
   getAllCourse();
 })
@@ -26,9 +28,9 @@ function getAllCourse() {
 
 function onSubmit() {
   let data = {
-    id: form.id,
-    score: form.score,
-    evaluate: form.evaluate,
+    course_id: form.course_id,
+    eva_score: form.eva_score,
+    eva_content: form.eva_content,
   }
   axios.post("http://localhost:8080/student/courseEvaluate", qs.stringify(data))
       .then((res) => {
@@ -49,7 +51,7 @@ function onSubmit() {
     <el-text>选择你要评价的课程</el-text>
     <br><br>
     <el-select
-        v-model="form.CourseID"
+        v-model="form.course_id"
         placeholder="Select"
         size="large"
         style="width: 240px"
@@ -66,7 +68,7 @@ function onSubmit() {
     <el-text>课程评分</el-text>
     <br><br>
     <el-select
-        v-model="form.score"
+        v-model="form.eva_score"
         placeholder="Select"
         size="large"
         style="width: 240px"
@@ -83,7 +85,7 @@ function onSubmit() {
     <el-text>课程评价</el-text>
     <br><br>
     <el-input
-        v-model="form.CourseEvaluate"
+        v-model="form.eva_content"
         style="width:240px"
         :autosize="{ minRows: 10, maxRows: 100 }"
         type="textarea"

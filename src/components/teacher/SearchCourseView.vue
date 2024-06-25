@@ -9,8 +9,8 @@ import router from '@/router';
 
 const tableData = ref([])
 const form = reactive({
-  name: '',
-  id: '',
+  course_name: '',
+  course_id: '',
 })
 let checkList = [];
 const Select = (index) => {
@@ -37,8 +37,8 @@ function getAllCourse() {
 
 function handleSearch() {
   let data = {
-    id: form.id,
-    name: form.name,
+    course_id: form.course_id,
+    course_name: form.course_name,
   }
 
   axios.post("http://localhost:8080/searchCourse", qs.stringify(data))
@@ -81,10 +81,10 @@ const getDetails = (index) => {
   <el-form :model="form" label-width="auto" style="max-width: 300px">
     <h1>课程查询</h1><br><br>
     <el-form-item label="课程编号：">
-      <el-input v-model="form.id"/>
+      <el-input v-model="form.course_id"/>
     </el-form-item>
     <el-form-item label="课程名称：">
-      <el-input v-model="form.name"/>
+      <el-input v-model="form.course_name"/>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="handleSearch">查询</el-button>
@@ -93,11 +93,11 @@ const getDetails = (index) => {
   <br><br>
 
   <el-table :data="tableData" width="400px" max-height="200">
-    <el-table-column fixed prop="id" label="课程编号" width="150"/>
-    <el-table-column prop="name" label="课程名称" width="120"/>
-    <el-table-column prop="place" label="上课地点" width="120"/>
-    <el-table-column prop="start" label="课程开始时间" width="120"/>
-    <el-table-column prop="end" label="课程结束时间" width="120"/>
+    <el-table-column fixed prop="course_id" label="课程编号" width="150"/>
+    <el-table-column prop="course_name" label="课程名称" width="120"/>
+    <el-table-column prop="course_place" label="上课地点" width="120"/>
+    <el-table-column prop="course_start" label="课程开始时间" width="120"/>
+    <el-table-column prop="course_end" label="课程结束时间" width="120"/>
     <el-table-column fixed="right" label="选择" width="200">
       <template #default="scope">
         <el-button type="primary" @click="getDetails(scope.$index)">详情</el-button>

@@ -13,8 +13,8 @@ const tableData = ref([])
 
 //用来装搜索条件
 const searchForm = reactive({
-  name: '',
-  id: '',
+  course_name: '',
+  course_id: '',
 })
 
 //找到所有的课程信息
@@ -35,8 +35,8 @@ onMounted(() =>{
 //搜索课程
 function handleSearch(){
   let data = {
-    id:searchForm.id,
-    name:searchForm.name,
+    course_id:searchForm.course_id,
+    course_name:searchForm.course_name,
   }
   axios.get('http://localhost:8080/executor/findcourse',qs.stringify(data))
       .then((res)=>{
@@ -49,7 +49,7 @@ function handleSearch(){
 const handleDetail = (index)=>{
   let id = tableData.value[index].id;
   router.push({
-    path:'/manager/courseDetail',
+    path:'/manager/CourseDetailView',
     query:{
       id:id,
     }
@@ -61,10 +61,10 @@ const handleDetail = (index)=>{
   <el-form :model="searchForm" label-width="auto" style="max-width: 300px">
     <h1>课程查询</h1><br><br>
     <el-form-item label="课程编号：">
-      <el-input v-model="searchForm.id"/>
+      <el-input v-model="searchForm.course_id"/>
     </el-form-item>
     <el-form-item label="课程名称：">
-      <el-input v-model="searchForm.name"/>
+      <el-input v-model="searchForm.course_name"/>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="handleSearch">查询</el-button>

@@ -12,19 +12,19 @@ let router = useRouter();
 let id = route.query.id
 //装课程的基本信息
 const form = reactive({
-  id: '',
-  name: '',
-  start: '',
-  end: '',
-  fee: '',
+  course_id: '',
+  course_name: '',
+  course_start: '',
+  course_end: '',
+  course_fee: '',
 })
 
 
 //用来装课程的详细信息
 const form1 = reactive({
-  info: '',
-  state: '',
-  place: '',
+  course_info: '',
+  course_state: '',
+  course_place: '',
 })
 
 //由于这里需要一开始就挂载，但是还没有和后端发生信息交互，所以会导致报名和返回用不了
@@ -41,34 +41,34 @@ function getCourse(){
 
   axios.post("http://localhost:8080/student/getOneCourse", qs.stringify(data))
       .then((res) => {
-        form.id = res.data.id;
-        form.id = res.data.courseName;
-        form.start = res.data.start;
-        form.end = res.data.end;
-        form.fee = res.data.fee;
-        form1.info = res.data.info;
-        form1.state = res.data.state;
-        form1.place = res.data.place;
+        form.course_id = res.data.course_id;
+        form.course_name = res.data.course_name;
+        form.course_start = res.data.course_start;
+        form.course_end = res.data.course_end;
+        form.course_fee = res.data.course_fee;
+        form1.course_info = res.data.course_info;
+        form1.course_state = res.data.course_state;
+        form1.course_place = res.data.course_place;
       })
 }
 
 
 //返回到总览界面
 function back(){
-  router.replace("/student/searchCourse")
+  router.replace("/student/SearchCourseView")
 }
 
 //向后端发送报名请求,需要后端发送是否报名成功或者其他异常情况
 function signUp(){
   let username = sessionStorage.getItem("username");
   let data ={
-    uername: username,
-    courseID:form.id,
+    username: username,
+    course_id:form.course_id,
   }
 
   axios.post("http://localhost:8080/student/signup", qs.stringify(data))
       .then((res) => {
-        if (res.data.code == 200) {
+        if (res.data.code === 200) {
           ElMessage("报名成功")
         } else {
           ElMessage.error(res.data.msg)
@@ -82,31 +82,31 @@ function signUp(){
   <h2>课程基本信息</h2>
   <el-form :inline="true" :model="form" label-width="auto" style="max-width: 700px">
     <el-form-item label="课程编号：">
-      <el-input disabled v-model="form.id"/>
+      <el-input disabled v-model="form.course_id"/>
     </el-form-item>
     <el-form-item   label="课程名称：">
-      <el-input disabled v-model="form.name"/>
+      <el-input disabled v-model="form.course_name"/>
     </el-form-item>
     <el-form-item  label="上课时间：">
-      <el-input disabled v-model="form.start" style="width:200px"/>
+      <el-input disabled v-model="form.course_start" style="width:200px"/>
       <el-text>至</el-text>
-      <el-input disabled v-model="form.end" style="width:200px"/>
+      <el-input disabled v-model="form.course_end" style="width:200px"/>
     </el-form-item>
     <el-form-item label="课程费用：">
-      <el-input disabled v-model="form.fee" style="width:200px"/>
+      <el-input disabled v-model="form.course_fee" style="width:200px"/>
       <el-text>￥/人</el-text>
     </el-form-item>
   </el-form><br>
   <h2>课程详细信息</h2>
   <el-form :model="form1" label-width="auto" style="max-width: 300px">
     <el-form-item label="课程简介：">
-      <el-input disabled v-model="form1.info"/>
+      <el-input disabled v-model="form1.course_info"/>
     </el-form-item>
     <el-form-item label="上课地点：">
-      <el-input disabled v-model="form1.place"/>
+      <el-input disabled v-model="form1.course_place"/>
     </el-form-item>
     <el-form-item label="课程状态：">
-      <el-input disabled v-model="form1.state"/>
+      <el-input disabled v-model="form1.course_state"/>
     </el-form-item>
   </el-form>
 

@@ -73,7 +73,7 @@ function onSubmit(){
 
 //返回到刚才的界面
 function back(){
-    router.replace("teacher/enterGrade");
+    router.replace("teacher/EnterCourseGradeView");
 }
 </script>
 
