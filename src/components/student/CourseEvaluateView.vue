@@ -1,9 +1,9 @@
 <script setup>
-import {ref, reactive} from 'vue'
+import { ref, reactive } from 'vue'
 import axios from 'axios';
 import qs from 'querystring';
-import {ElMessage} from 'element-plus';
-import {onMounted} from 'vue';
+import { ElMessage } from 'element-plus';
+import { onMounted } from 'vue';
 import router from '@/router';
 
 const tableData = ref([])
@@ -11,36 +11,54 @@ const form = reactive({
   eva_score: '',
   eva_content: '',
 })
-onMounted(() => {
-  getAllCourse();
+
+const searchForm = reactive({
+  course_name: '',
+  course_id: '',
 })
 
-function getAllCourse() {
-  axios.get('http://localhost:8080/student/getAllCourse')
-      .then((res) => {
-        tableData.value = res.data;
-      })
+onMounted(() => {
+  getStudentCourse();
+})
+
+const evaluate = (index) => {
+  if (tableData.value[index].course_state == "反馈中") {
+    router.push({
+      name: 'studentCourseEvaluateDetail',
+      query: {
+        id: tableData.value[index].course_id,
+      }
+    })
+  }else if(tableData.value[index].course_state == "已结束"){
+    ElMessage("该门课程已经结束了，感谢您的选择")
+  }else{
+    ElMessage.error("该门课程还没有进入评价阶段，请稍候再评价吧")
+  }
 }
 
-function onSubmit() {
-  if(eva>100 || eva<0){
-    ElMessage.error("您的评价分数不在范围内")
-  }
+//查询该学员报名的所有课程，后端返回这些课程list，无需判断课程状态
+function getStudentCourse() {
+  let username = sessionStorage.getItem("username");
   let data = {
-    id: form.id,
-    rank: form.rank,
-    evaluate: form.evaluate,
+    username: username,
   }
-  axios.post("http://localhost:8080/student/courseEvaluate", qs.stringify(data))
-      .then((res) => {
-        if (res.data.code === 200) {
-          ElMessage("评价成功")
-          router.replace("/student")
-        } else {
-          ElMessage.error(res.data.msg)
-        }
-      })
+  axios.post('http://localhost:8080/student/getStudentCourse')
+    .then((res) => {
+      tableData.value = res.data;
+    })
 }
+
+function handleSearch(){
+  let data={
+    course_name: searchForm.course_name,
+    course_id: searchForm.course_id,
+  }
+  axios.post('http://localhost:8080/student/searchCourse')
+    .then((res) => {
+      tableData.value = res.data;
+    })
+}
+
 
 </script>
 
@@ -48,10 +66,10 @@ function onSubmit() {
   <el-form :model="form" label-width="auto" style="max-width: 300px">
     <h1>课程查询</h1><br><br>
     <el-form-item label="课程编号：">
-      <el-input v-model="form.name"/>
+      <el-input v-model="searchForm.course_name" />
     </el-form-item>
     <el-form-item label="课程名称：">
-      <el-input v-model="form.id"/>
+      <el-input v-model="searchForm.course_id" />
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="handleSearch">查询</el-button>
@@ -59,21 +77,18 @@ function onSubmit() {
   </el-form>
   <br><br>
   <el-table :data="tableData" width="400px" max-height="200">
-    <el-table-column fixed prop="id" label="课程编号" width="150"/>
-    <el-table-column prop="name" label="课程名称" width="120"/>
-    <el-table-column prop="teacher" label="讲师名称" width="120"/>
-    <el-table-column prop="state" label="课程状态" width="120"/>
-    <el-table-column prop="pay" label="课程费用(￥)" width="150"/>
+    <el-table-column fixed prop="id" label="课程编号" width="150" />
+    <el-table-column prop="name" label="课程名称" width="120" />
+    <el-table-column prop="teacher" label="讲师名称" width="120" />
+    <el-table-column prop="state" label="课程状态" width="120" />
+    <el-table-column prop="pay" label="课程费用(￥)" width="150" />
     <el-table-column fixed="right" label="选择" width="200">
       <template #default="scope">
-        <el-button type="primary" @click="getDetails(scope.$index)">详情</el-button>
+        <el-button type="primary" @click="evaluate(scope.$index)">去评价</el-button>
       </template>
     </el-table-column>
   </el-table>
   <br><br>
-  <el-button type="primary" @click="searchSelected">查询已选课程列表</el-button>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

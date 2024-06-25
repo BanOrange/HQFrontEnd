@@ -16,6 +16,7 @@ import studentSearchCourseView from "@/components/student/SearchCourseView.vue";
 import CourseDetailView from '@/components/student/CourseDetailView.vue';
 import studentSearchGradeView from '@/components/student/SearchGradeView.vue';
 import studentCourseEvaluateView from '@/components/student/CourseEvaluateView.vue';
+import studentCourseEvaluateDetailView from '@/components/student/CourseEvaluateDetailView.vue'
 
 import teacherSearchCourseView from "@/components/teacher/SearchCourseView.vue";
 import teacherEnterCouerseGradeView from "@/components/teacher/EnterCourseGradeView.vue";
@@ -97,7 +98,12 @@ const router = createRouter({
                     path: '/student/coursedetail',
                     name: 'studentCourseDetail',
                     component:CourseDetailView
-                }
+                },
+                {
+                    path: '/student/courseEvaluateDetail',
+                    name: 'studentCourseEvaluateDetail',
+                    component:studentCourseEvaluateDetailView
+                },
             ]
         },
         {

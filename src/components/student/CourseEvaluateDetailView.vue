@@ -4,38 +4,56 @@ import axios from 'axios';
 import qs from 'querystring';
 import {ElMessage} from 'element-plus';
 import {onMounted} from 'vue';
-import router from '@/router';
+import { useRouter, useRoute } from 'vue-router';
+
+let route = useRoute();
+let course_id = route.query.course_id;
 
 const tableData = ref([])
-const form = reactive({
-  eva_score: '',
-  eva_content: '',
-})
+
+let eva_content=ref('');
+let eva_score=ref('');
+
 onMounted(() => {
-  getAllCourse();
+  getCourseEvaluate();
 })
 
-function getAllCourse() {
-  axios.get('http://localhost:8080/student/getAllCourse')
+//可以不用判断课程状态，前端已经帮忙判断了
+//需要得到对应课程的评价信息（如果存在的话）
+function getCourseEvaluate(){
+  let username = sessionStorage.getItem("username");
+  let data = {
+    username: username,
+    course_id: course_id,
+  }
+  axios.post("http://localhost:8080/student/getCourseEvaluate", qs.stringify(data))
       .then((res) => {
-        tableData.value = res.data;
+        eva_score.value = res.data.eva_score;
+        eva_content.value = res.data.eva_score;
       })
 }
 
+//提交或者重新提交课程评价，也不用判断课程状态了，因为前端帮忙判断了
 function onSubmit() {
-  if(eva>100 || eva<0){
+  if(eva_score.value>100 || eva_score.value<0){
     ElMessage.error("您的评价分数不在范围内")
   }
+  if(eva_content.value == ''){
+    console.log(eva_content.value)
+    ElMessage("您的评价意见不能为空，谢谢")
+    return;
+  }
   let data = {
-    id: form.id,
-    rank: form.rank,
-    evaluate: form.evaluate,
+    course_id: course_id,
+    username: username,
+    eva_score: eva_score,
+    eva_content: eva_content,
   }
   axios.post("http://localhost:8080/student/courseEvaluate", qs.stringify(data))
       .then((res) => {
         if (res.data.code === 200) {
           ElMessage("评价成功")
-          router.replace("/student")
+          router.replace("/student/courseEvaluate")
         } else {
           ElMessage.error(res.data.msg)
         }
@@ -45,41 +63,22 @@ function onSubmit() {
 </script>
 
 <template>
-  <el-form :model="form" label-width="auto" style="max-width: 300px">
-    <h1>填写课程评价</h1><br><br>
-    <el-text>选择你要评价的课程</el-text>
+<h1>填写课程评价</h1><br>
+    <el-text>课程内容评分</el-text>
     <br><br>
-    <el-select
-        v-model="form.CourseID"
-        placeholder="Select"
-        size="large"
-        style="width: 240px"
-    >
-      <el-option
-          v-for="item in tableData"
-          :key="item.id"
-          :label="item.name"
-          :value="item.id"
-      >
-      </el-option>
-    </el-select>
+    <el-input style="width:150px" placeholder="请输入评价分值" v-model="eva_score"/>
+    <el-text>分(0-100)</el-text>
     <br><br>
-    <el-text>课程评分</el-text>
-    <br><br>
-    <el-input style="width:250px" placeholder="请输入评价分值：" v-model="form.eva_score"/>
-    <el-text>(0-100)</el-text>
-    <br><br>
-    <el-text>课程评价</el-text>
+    <el-text>课程评价意见</el-text>
     <br><br>
     <el-input
-        v-model="form.eva_content"
+        v-model="eva_content"
         style="width:400px"
         :autosize="{ minRows: 10, maxRows: 100 }"
         type="textarea"
-        placeholder="请输入课程评价"
+        placeholder="请输入您对这门课的评价意见"
     />
-  </el-form>
-  <br>
+  <br><br>
   <el-button type="primary" @click="onSubmit">提交</el-button>
 </template>
 

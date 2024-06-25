@@ -2,9 +2,8 @@
 import {ref, reactive} from 'vue'
 import axios from 'axios';
 import qs from 'querystring';
-import {ElMessage} from 'element-plus';
+import { ElMessage, ElMessageBox } from 'element-plus'
 import {onMounted} from 'vue';
-import router from '@/router';
 
 const searchForm = reactive({
   course_name: '',
@@ -18,32 +17,36 @@ function handleSearch() {
     course_name: searchForm.course_name,
   }
 
-  axios.post("http://localhost:8080/executor/searchCourseScore", qs.stringify(data))
+  axios.post("http://localhost:8080/teacher/searchCourseEvaluate", qs.stringify(data))
       .then((res) => {
         tableData.value = res.data;
       })
 }
 
-//挂载,但是为了方便开发，先注释掉
 onMounted(() =>{
-  getCourseScore();
+  getCourseEvaluate();
 })
 
-//课程的评分
+//课程的评分和评价意见
 const tableData = ref([])
 
-function getCourseScore(){
+function getCourseEvaluate(){
   let username = sessionStorage.getItem("username");
   let data = {
     username: username
   }
 
-  axios.post("http://localhost:8080/teacher/getCourseScore", qs.stringify(data))
+  axios.post("http://localhost:8080/teacher/getCourseEvaluate", qs.stringify(data))
       .then((res) => {
           tableData.value = res.data;
       })
 }
 
+// const evaluate = (index) => {
+//   ElMessageBox.alert(tableData[index].eva_content.value, '评价意见', {
+//     confirmButtonText: 'OK',
+//   })
+// }
 
 </script>
 
@@ -57,7 +60,7 @@ function getCourseScore(){
       <el-input v-model="searchForm.course_name"/>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="handleSearch">查询</el-button>
+      <el-button type="primary" @click="evaluate">查询</el-button>
     </el-form-item>
   </el-form>
   
@@ -66,7 +69,12 @@ function getCourseScore(){
     <el-table-column fixed prop="course_id" label="课程编号" width="150"/>
     <el-table-column prop="course_name" label="课程名称" width="120"/>
     <el-table-column prop="eva_score" label="评价分数" width="150"/>
-    <el-table-column prop="eva_content" label="评价内容" width="400"/>
+    <el-table-column prop="eva_content" label="评价意见" width="400"/>
+    <!-- <el-table-column fixed="right" label="选择" width="200">
+      <template #default="scope">
+        <el-button type="primary" @click="evaluate(scope.$index)">查看评价意见</el-button>
+      </template>
+    </el-table-column> -->
   </el-table>
 </template>
 
