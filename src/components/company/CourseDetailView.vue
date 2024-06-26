@@ -28,7 +28,7 @@ course_id1.value = course_id;
 
 
 function back() {
-    router.replace("/manager/searchCourse")
+    router.replace("/company/searchCourse")
 }
 
 

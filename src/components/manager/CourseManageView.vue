@@ -44,7 +44,7 @@ const getDetails = (index) => {
   router.push({
     name: 'teacherCourseDetail',
     query: {
-      course_id:tableData.value[index].id,
+      course_id:tableData.value[index].course_id,
     }
   })
 }

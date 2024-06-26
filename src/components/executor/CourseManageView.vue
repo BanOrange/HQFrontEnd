@@ -2,7 +2,7 @@
 import {ref, reactive} from 'vue'
 import axios from 'axios';
 import qs from 'querystring';
-import {ElMessage} from 'element-plus';
+import {ElMessage,ElMessageBox} from 'element-plus';
 import {onMounted} from 'vue';
 import { useRouter,useRoute } from 'vue-router';
 
@@ -24,15 +24,17 @@ function findAllCourse(){
   let data = {
     username: username,
   }
+  console.log(username)
   axios.post("http://localhost:8080/executor/getAllCourse", qs.stringify(data))
     .then((res) => {
+      console.log(res.data)
       tableData.value = res.data
     })
 }
 
 //挂载,但是为了方便开发，先注释掉
 onMounted(() =>{
-//   findAllCourse();
+  findAllCourse();
 })
 
 
@@ -50,14 +52,12 @@ const handleDel = (index) => {
     }
   )
     .then(() => {
-      ElMessage({
-        type: 'success',
-        message: '删除成功',
-      })
+      
       let course_id = tableData.value[index].course_id
       console.log(course_id);
       axios.delete(`http://localhost:8080/executor/courseDelete/${course_id}`)
       .then((res)=>{
+        ElMessage(res.data.msg)
         findAllCourse();
       })
     })
@@ -114,7 +114,7 @@ function handleAdd(){
   <el-table :data="tableData" style="width: 100%">
     <el-table-column fixed prop="course_id" label="课程编号" width="150"/>
     <el-table-column prop="course_name" label="课程名称" width="120"/>
-    <el-table-column prop="teacher_name" label="讲师名称" width="120"/>
+    <el-table-column prop="course_teacher" label="讲师名称" width="120"/>
     <el-table-column prop="course_fee" label="课程费用(￥)" width="150"/>
     <el-table-column fixed="right" label="操作" width="120">
       <template #default="scope">

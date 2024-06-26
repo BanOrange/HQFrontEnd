@@ -57,11 +57,12 @@ function back() {
 }
 
 //找到所有的讲师信息,用于给执行人选择讲师，复用了之前的接口
-function findAllTeacher(){
-  axios.get('http://localhost:8080/executor/findallteacher')
-  .then((res)=>{
-    teacherData.value = res.data;
-  })
+function findAllTeacher() {
+    axios.get('http://localhost:8080/executor/findallteacher')
+        .then((res) => {
+            teacherData.value = res.data;
+            console.log(res.data)
+        })
 }
 
 
@@ -93,10 +94,11 @@ function onSubmit() {
     ElMessage.error("您输入的日结束时间有误")
     return;
   }
-
-  let start = form.course_start1 + '-' + form.course_start2 +'-'+form.course_start3;
-  let end = form.course_end1 + '-' + form.course_end2 +'-'+form.course_end3;
+  let username = sessionStorage.getItem("username")
+  let start = form.course_start1 + '-' + form.course_start2 + '-' + form.course_start3;
+  let end = form.course_end1 + '-' + form.course_end2 + '-' + form.course_end3;
   let data = {
+    username: username,
     course_id: form.course_id,
     course_name: form.course_name,
     course_start: start,
@@ -107,7 +109,7 @@ function onSubmit() {
     course_state: form.course_state,
     course_place: form.course_place,
   }
-
+  console.log(data)
   axios.post("http://localhost:8080/executor/courseAdd", qs.stringify(data))
     .then((res) => {
       if (res.data.code === 200) {
@@ -118,6 +120,12 @@ function onSubmit() {
       }
     })
 }
+
+//挂载,但是为了方便开发，先注释掉
+onMounted(() =>{
+  findAllTeacher();
+  console.log(teacherData.value)
+})
 </script>
 
 <template>
@@ -149,9 +157,9 @@ function onSubmit() {
       <el-input v-model="form.course_fee" style="width: 100px" />
       <el-text>￥/人</el-text>
     </el-form-item>
-    <el-form-item>
+    <el-form-item label="课程讲师：">
       <el-select v-model="form.course_teacher" placeholder="请选择讲师" style="width: 150px">
-      <el-option v-for="item in teacherData" :label="item.teacher_name" :value="item.teacher_id" />
+      <el-option v-for="item in teacherData.value" :label="item.teacher_name" :value="item.teacher_id" />
     </el-select>
   </el-form-item>
     <el-form-item label="上课地点：">

@@ -9,6 +9,7 @@ import qs from 'querystring';
 let router = useRouter();
 let route = useRoute();
 let course_id = route.query.course_id;
+
 const teacherData = reactive({})
 //课程信息
 let course_id1 = ref('');
@@ -63,6 +64,7 @@ function findAllTeacher() {
     axios.get('http://localhost:8080/executor/findallteacher')
         .then((res) => {
             teacherData.value = res.data;
+            console.log(res.data)
         })
 }
 
@@ -73,10 +75,12 @@ function getCourse() {
     course_id: course_id,
   }
 
+
   axios.post("http://localhost:8080/executor/getCourse", qs.stringify(data))
     .then((res) => {
+      
       course_id1.value = res.data.course_id
-      course_name.value = res.datacourse_name
+      course_name.value = res.data.course_name
 
       var start = res.data.course_start.split("-");
       course_start1.value = start[0]
@@ -91,21 +95,22 @@ function getCourse() {
       course_fee.value = res.data.course_fee
       course_teacher.value = res.data.course_teacher
       course_info.value = res.data.course_info
-      course_state.value = res.data_course_state
-      course_place.value = res.data_place
+      course_state.value = res.data.course_state
+      course_place.value = res.data.course_place
     })
 
 }
 
 //由于这里需要一开始就挂载，但是还没有和后端发生信息交互,暂时注释方便开发
 onMounted(() => {
-    //   getCourse();
+      getCourse();
+      findAllTeacher();
 })
 
 //向后端发送修改课程信息的请求，返回是否修改成功
 function onSubmit() {
-    let start = course_start1 + '-' + course_start2 + '-' + course_start3;
-    let end = course_end1 + '-' + course_end2 + '-' + course_end3;
+    let start = course_start1.value + '-' + course_start2.value + '-' + course_start3.value;
+    let end = course_end1.value + '-' + course_end2.value + '-' + course_end3.value;
     let data = {
         course_id: course_id1.value,
         course_name: course_name.value,
@@ -117,7 +122,6 @@ function onSubmit() {
         course_state: course_state.value,
         course_place: course_place.value,
     }
-
     axios.post("http://localhost:8080/executor/courseModify", qs.stringify(data))
         .then((res) => {
             if (res.data.code === 200) {
@@ -133,9 +137,9 @@ function onSubmit() {
 <template>
     <h1>课程信息</h1>
     <el-text>课程编号：</el-text>
-    <el-input v-model="course_id1" style="width:200px" /><br><br>
+    <el-input disabled v-model="course_id1" style="width:200px" /><br><br>
     <el-text>课程名称：</el-text>
-    <el-input v-model="course_id1" style="width:200px" /><br><br>
+    <el-input v-model="course_name" style="width:200px" /><br><br>
     <el-text>课程开始时间：</el-text>
     <el-input v-model="course_start1" style="width:60px" />
     <el-text>年</el-text>
@@ -155,7 +159,7 @@ function onSubmit() {
     <el-text>￥/人</el-text><br><br>
     <el-text>课程讲师：</el-text>
     <el-select v-model="course_teacher" placeholder="请选择讲师" style="width: 150px">
-        <el-option v-for="item in options" :label="item.teacher_name" :value="item.teacher_id" />
+        <el-option v-for="item in teacherData.value" :label="item.teacher_name" :value="item.teacher_id" />
     </el-select><br><br>
     <el-text>上课地点：</el-text>
     <el-input v-model="course_place" style="width:200px" /><br><br>
