@@ -40,7 +40,7 @@ function handleLogin() {
   let data = {
     username: username.value,
     password: password.value,
-    userType: userType.value
+    usertype: userType.value
   }
   console.log(data);
   axios.post('http://localhost:8080/login', qs.stringify(data))
