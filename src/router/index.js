@@ -16,7 +16,9 @@ import studentSearchCourseView from "@/components/student/SearchCourseView.vue";
 import CourseDetailView from '@/components/student/CourseDetailView.vue';
 import studentSearchGradeView from '@/components/student/SearchGradeView.vue';
 import studentCourseEvaluateView from '@/components/student/CourseEvaluateView.vue';
-import studentCourseEvaluateDetailView from '@/components/student/CourseEvaluateDetailView.vue'
+import studentCourseEvaluateDetailView from '@/components/student/CourseEvaluateDetailView.vue';
+import studentPayView from '@/components/student/PayView.vue';
+import studentPayDetailView from '@/components/student/PayDetailView.vue';
 
 import teacherSearchCourseView from "@/components/teacher/SearchCourseView.vue";
 import teacherEnterCouerseGradeView from "@/components/teacher/EnterCourseGradeView.vue";
@@ -105,6 +107,17 @@ const router = createRouter({
                     name: 'studentCourseEvaluateDetail',
                     component:studentCourseEvaluateDetailView
                 },
+                {
+                    path: '/student/pay',
+                    name: 'studentPay',
+                    component:studentPayView
+                },
+                {
+                    path: '/student/payDetail',
+                    name: 'studentPayDetail',
+                    component:studentPayDetailView
+                },
+                
             ]
         },
         {
