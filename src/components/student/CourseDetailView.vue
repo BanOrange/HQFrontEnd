@@ -1,124 +1,139 @@
 <script setup>
-import {ref, reactive} from 'vue'
-import axios from 'axios';
+import { reactive, ref } from 'vue'
+import { ElMessage, ElMessageBox } from 'element-plus';
+import { useRouter, useRoute } from 'vue-router';
+import { onMounted } from 'vue';
+import axios from 'axios'
 import qs from 'querystring';
-import {ElMessage} from 'element-plus';
-import {onMounted} from 'vue';
-import { useRouter,useRoute } from 'vue-router';
 
-let route = useRoute();
 let router = useRouter();
-//路由传参传过来的ID，可能会出现问题建议检查一下
-let id = route.query.id
-//装课程的基本信息
-const form = reactive({
-  id: '',
-  name: '',
-  start: '',
-  end: '',
-  pay: '',
-})
+let route = useRoute();
+let course_id = route.query.course_id;
+//课程信息
+let course_id1 = ref('');
+let course_name = ref('');
+let course_start1 = ref('');
+let course_start2 = ref('');
+let course_start3 = ref('');
+let course_end1 = ref('');
+let course_end2 = ref('');
+let course_end3 = ref('');
+let course_fee = ref('');
+let course_teacher = ref('');
+let course_info = ref('');
+let course_state = ref('');
+let course_place = ref('');
+
+course_id1 = course_id;
 
 
-//用来装课程的详细信息
-const form1 = reactive({
-  teacher: '',
-  info: '',
-  state: '',
-  location: '',
-})
+function back() {
+  router.replace("/teacher/searchCourse")
+}
 
-//由于这里需要一开始就挂载，但是还没有和后端发生信息交互，所以会导致报名和返回用不了
-//是正常情况，需要后端先传过来给门课程的数据才行
+
+
+
+//向后端发送课程ID获取对应课程，返回对应数据，注意其中需要给出的是老师名称
+//复用了执行人寻找课程的接口
+function getCourse() {
+  let data = {
+    course_id: course_id,
+  }
+
+  axios.post("http://localhost:8080/executor/getCourse", qs.stringify(data))
+    .then((res) => {
+      course_id1 = res.data.course_id
+      course_name = res.datacourse_name
+
+      var start = res.data.course_start.split("-");
+      course_start1 = start[0]
+      course_start2 = start[1]
+      course_start3 = start[2]
+
+      var end = res.data.course_end.split("-");
+      course_end1 = end[0]
+      course_end2 = end[1]
+      course_end3 = end[2]
+
+      course_fee = res.data.course_fee
+      course_teacher = res.data.course_teacher
+      course_info = res.data.course_info
+      course_state = res.data_course_state
+      course_place = res.data_place
+    })
+
+}
+
+//由于这里需要一开始就挂载，但是还没有和后端发生信息交互,暂时注释方便开发
 onMounted(() => {
-  getCourse();
+  //   getCourse();
 })
 
-//得到该门课程的课程的详细信息,需要在一开始就运行
-function getCourse(){
-    let data ={
-        id: id,
-    }
+//向后端发送报名请求，传送username和course_id，后端需要返回是否报名成功，已判断课程状态，后端不必再判断
+function signup() {
+  if (course_state != "报名中") {
+    ElMessage.error("这门课程现在还不能报名")
+    return;
+  }
 
-    axios.post("http://localhost:8080/student/getOneCourse", qs.stringify(data))
-      .then((res) => {
-            form.id = res.data.id;
-            form.id = res.data.courseName;
-            form.start = res.data.start;
-            form.end = res.data.end;
-            form.price = res.data.price;
-            form1.teacher = res.data.teacher;
-            form1.info = res.data.info;
-            form1.state = res.data.state;
-            form1.location = res.data.location;
-      })
-}
+  let username = sessionStorage.getItem("username");
+  let data = {
+    username: username,
+    course_id: course_id1,
+  }
 
+  axios.post("http://localhost:8080/executor/getCourse", qs.stringify(data))
+    .then((res) => {
+      if (res.data.code === 200) {
+        ElMessage("报名成功！")
+        router.replace("/student/bindid")
+      } else {
+        ElMessage.error(res.data.msg);
+      }
+    })
 
-//返回到总览界面
-function back(){
-    router.replace("/student/searchCourse")
-}
-
-//向后端发送报名请求,需要后端发送是否报名成功或者其他异常情况
-function signUp(){
-    let username = sessionStorage.getItem("username");
-    let data ={
-        uername: username,
-        courseID:form.id,
-    }
-
-    axios.post("http://localhost:8080/student/signup", qs.stringify(data))
-      .then((res) => {
-        if (res.data.code == 200) {
-          ElMessage("报名成功")
-        } else {
-          ElMessage.error(res.data.msg)
-        }
-      })
 }
 
 </script>
 
 <template>
-<h2>课程基本信息</h2>
-<el-form :inline="true" :model="form" label-width="auto" style="max-width: 700px">
-    <el-form-item label="课程编号：">
-      <el-input disabled v-model="form.id"/>
-    </el-form-item>
-    <el-form-item   label="课程名称：">
-      <el-input disabled v-model="form.name"/>
-    </el-form-item>
-    <el-form-item  label="上课时间：">
-      <el-input disabled v-model="form.start" style="width:200px"/>
-      <el-text>至</el-text>
-      <el-input disabled v-model="form.end" style="width:200px"/>
-    </el-form-item>
-    <el-form-item label="课程费用：">
-      <el-input disabled v-model="form.pay" style="width:200px"/>
-      <el-text>￥/人</el-text>
-    </el-form-item>
-  </el-form><br>
-  <h2>课程详细信息</h2>
-  <el-form :model="form1" label-width="auto" style="max-width: 300px">
-    <el-form-item label="主讲教师：">
-      <el-input disabled v-model="form1.teacher"/>
-    </el-form-item>
-    <el-form-item label="课程简介：">
-      <el-input disabled v-model="form1.info"/>
-    </el-form-item>
-    <el-form-item label="上课地点：">
-      <el-input disabled v-model="form1.location"/>
-    </el-form-item>
-    <el-form-item label="课程状态：">
-      <el-input disabled v-model="form1.state"/>
-    </el-form-item>
-  </el-form>
+  <h1>课程信息</h1>
+  <el-text>课程编号：</el-text>
+  <el-input disabled v-model="course_id1" style="width:200px" /><br><br>
+  <el-text>课程名称：</el-text>
+  <el-input disabled v-model="course_id1" style="width:200px" /><br><br>
+  <el-text>课程开始时间：</el-text>
+  <el-input disabled v-model="course_start1" style="width:60px" />
+  <el-text>年</el-text>
+  <el-input disabled v-model="course_start2" style="width:50px" />
+  <el-text>月</el-text>
+  <el-input disabled v-model="course_start3" style="width:50px" />
+  <el-text>日</el-text><br><br>
+  <el-text>课程结束时间：</el-text>
+  <el-input disabled v-model="course_end1" style="width:60px" />
+  <el-text>年</el-text>
+  <el-input disabled v-model="course_end2" style="width:50px" />
+  <el-text>月</el-text>
+  <el-input disabled v-model="course_end3" style="width:50px" />
+  <el-text>日</el-text><br><br>
+  <el-text>课程费用:</el-text>
+  <el-input disabled v-model="course_fee" style="width: 100px" />
+  <el-text>￥/人</el-text><br><br>
+  <el-text>课程讲师：</el-text>
+  <el-input disabled v-model="course_teacher" style="width: 100px" /><br><br>
+  <el-text>上课地点：</el-text>
+  <el-input disabled v-model="course_place" style="width:200px" /><br><br>
+  <el-text>课程简介：</el-text><br>
+  <el-input disabled v-model="course_info" style="width:500px" :autosize="{ minRows: 10, maxRows: 100 }"
+    type="textarea" /><br><br>
+  <el-text>课程状态：</el-text>
+  <el-input disabled v-model="course_state" style="width: 100px" />
+  <br><br>
 
-  <el-button type="primary" @click="back">返回</el-button>
-  <el-button type="primary" @click="signUp">报名</el-button>
+  <el-button type="primary" size="large" @click="back">返回</el-button>
+  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+  <el-button type="primary" size="large" @click="signup">报名</el-button>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

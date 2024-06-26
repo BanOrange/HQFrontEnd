@@ -300,10 +300,6 @@ const router = createRouter({
             path: '/company',
             name: 'company',
             component: CompanyView,
-            // children:[
-            //     {
-            //     },
-            // ]
         },
         {
             path: "/company/bindid",
