@@ -17,7 +17,7 @@ const searchForm = reactive({
   course_id: '',
 })
 
-//向后端发送寻找课程的请求，希望返回对应课程的信息
+//向后端发送寻找课程的请求，希望返回所有课程的信息
 //此外需要返回讲师的名称而不是仅仅是讲师编号
 function findAllCourse(){
   axios.get('http://localhost:8080/executor/findallcourse')
@@ -50,9 +50,9 @@ const handleDel = (index) => {
         type: 'success',
         message: '删除成功',
       })
-      let courseID = tableData.value[index].courseID
-      console.log(courseID);
-      axios.delete(`http://localhost:8080/executor/courseDelete/${courseID}`)
+      let course_id = tableData.value[index].course_id
+      console.log(course_id);
+      axios.delete(`http://localhost:8080/executor/courseDelete/${course_id}`)
       .then((res)=>{
         findAllCourse();
       })

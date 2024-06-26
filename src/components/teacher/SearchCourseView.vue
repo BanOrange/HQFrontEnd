@@ -8,27 +8,18 @@ import router from '@/router';
 
 
 const tableData = ref([])
-const form = reactive({
-  name: '',
-  id: '',
+const searchForm = reactive({
+  course_name: '',
+  course_id: '',
 })
-let checkList = [];
-const Select = (index) => {
-  if (checkList.includes(index)) {
-    checkList.splice(checkList.indexOf(index), 1);
-  } else {
-    checkList.push(index);
-  }
-  console.log(checkList);
-}
 
 onMounted(() => {
   getAllCourse();
 })
 
-//得到所有课程
+//得到所有课程,复用了执行人的接口
 function getAllCourse() {
-  axios.get('http://localhost:8080/getAllCourse')
+  axios.get('http://localhost:8080/executor/findallcourse')
       .then((res) => {
         tableData.value = res.data;
       })
@@ -37,19 +28,13 @@ function getAllCourse() {
 //查询功能
 function handleSearch() {
   let data = {
-    id: form.id,
-    name: form.name,
+    course_id: searchForm.course_id,
+    course_name: searchForm.course_name,
   }
 
   axios.post("http://localhost:8080/searchCourse", qs.stringify(data))
       .then((res) => {
-        if (res.data.code === 200) {
-          ElMessage("查询成功")
           tableData.value = res.data;
-
-        } else {
-          ElMessage.error(res.data.msg)
-        }
       })
 }
 
@@ -71,7 +56,7 @@ const getDetails = (index) => {
   this.$router.push({
     path: 'student/coursedetail',
     query: {
-      id: tableData.value[index].id
+      course_id: tableData.value[index].course_id
     }
   })
 }
@@ -81,10 +66,10 @@ const getDetails = (index) => {
   <el-form :model="form" label-width="auto" style="max-width: 300px">
     <h1>课程查询</h1><br><br>
     <el-form-item label="课程编号：">
-      <el-input v-model="form.name"/>
+      <el-input v-model="searchForm.course_name"/>
     </el-form-item>
     <el-form-item label="课程名称：">
-      <el-input v-model="form.id"/>
+      <el-input v-model="searchForm.course_id"/>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="handleSearch">查询</el-button>
@@ -93,10 +78,10 @@ const getDetails = (index) => {
   <br><br>
   
   <el-table :data="tableData" width="400px" max-height="200">
-    <el-table-column fixed prop="id" label="课程编号" width="150"/>
-    <el-table-column prop="name" label="课程名称" width="120"/>
-    <el-table-column prop="teacher" label="讲师名称" width="120"/>
-    <el-table-column prop="pay" label="课程费用(￥)" width="150"/>
+    <el-table-column fixed prop="course_id" label="课程编号" width="150"/>
+    <el-table-column prop="course_name" label="课程名称" width="120"/>
+    <el-table-column prop="course_teacher" label="讲师名称" width="120"/>
+    <el-table-column prop="course_fee" label="课程费用(￥)" width="150"/>
     <el-table-column fixed="right" label="选择" width="200">
       <template #default="scope">
         <el-button type="primary" @click="getDetails(scope.$index)">详情</el-button>

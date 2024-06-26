@@ -44,11 +44,6 @@ function getCourseEvaluate(){
       })
 }
 
-// const evaluate = (index) => {
-//   ElMessageBox.alert(tableData[index].eva_content.value, '评价意见', {
-//     confirmButtonText: 'OK',
-//   })
-// }
 
 </script>
 
@@ -72,11 +67,6 @@ function getCourseEvaluate(){
     <el-table-column prop="course_name" label="课程名称" width="120"/>
     <el-table-column prop="eva_score" label="评价分数" width="150"/>
     <el-table-column prop="eva_content" label="评价意见" width="400"/>
-    <!-- <el-table-column fixed="right" label="选择" width="200">
-      <template #default="scope">
-        <el-button type="primary" @click="evaluate(scope.$index)">查看评价意见</el-button>
-      </template>
-    </el-table-column> -->
   </el-table>
 </template>
 
