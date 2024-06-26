@@ -4,9 +4,9 @@ import axios from 'axios';
 import qs from 'querystring';
 import {ElMessage} from 'element-plus';
 import {onMounted} from 'vue';
-import router from '@/router';
+import { useRouter, useRoute } from 'vue-router';
 
-
+let router = useRouter();
 const tableData = ref([])
 const searchForm = reactive({
   course_name: '',
@@ -53,8 +53,8 @@ function searchSelected() {
 
 //查看课程的详情
 const getDetails = (index) => {
-  this.$router.push({
-    path: 'student/coursedetail',
+  router.push({
+    path: '/teacher/courseDetail',
     query: {
       course_id: tableData.value[index].course_id
     }
@@ -63,7 +63,7 @@ const getDetails = (index) => {
 </script>
 
 <template>
-  <el-form :model="form" label-width="auto" style="max-width: 300px">
+  <el-form :model="searchForm" label-width="auto" style="max-width: 300px">
     <h1>课程查询</h1><br><br>
     <el-form-item label="课程编号：">
       <el-input v-model="searchForm.course_name"/>

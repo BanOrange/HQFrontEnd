@@ -70,7 +70,7 @@ onMounted(() => {
               <router-link to="/executor/courseManage">缴费</router-link>
             </el-menu-item>
             <el-menu-item index="1-2">
-              <router-link to="/executor/teacherManage">查询课程</router-link>
+              <router-link to="/company/searchCourse">查询课程</router-link>
             </el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group title="课程相关">

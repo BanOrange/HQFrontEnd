@@ -47,7 +47,7 @@ function handleLogin() {
       .then((res) => {
         if (res.data.code === 200) {
           sessionStorage.setItem("username", username.value)
-          router.replace(userType.value === 'student' ? '/student' : userType.value === 'teacher' ? '/teacher' : userType.value === 'manager' ? '/manager' : userType.value === 'staff' ? '/staff' : 'executor')
+          router.replace(userType.value === 'student' ? '/student' : userType.value === 'teacher' ? '/teacher' : userType.value === 'manager' ? '/manager' : userType.value === 'staff' ? '/staff' :userType.value === 'company' ? '/company' : 'executor')
           console.log(res.data.msg)
         } else {
           ElMessage.error(res.data.msg)

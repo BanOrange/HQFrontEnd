@@ -28,7 +28,7 @@ course_id1.value = course_id;
 
 
 function back() {
-  router.replace("/teacher/searchCourse")
+  router.replace("/student/searchCourse")
 }
 
 
@@ -41,6 +41,7 @@ function getCourse() {
 
   axios.post("http://localhost:8080/executor/getCourse", qs.stringify(data))
     .then((res) => {
+      console.log(res.data)
       course_id1.value = res.data.course_id
       course_name.value = res.datacourse_name
 
@@ -57,15 +58,15 @@ function getCourse() {
       course_fee.value = res.data.course_fee
       course_teacher.value = res.data.course_teacher
       course_info.value = res.data.course_info
-      course_state.value = res.data_course_state
-      course_place.value = res.data_place
+      course_state.value = res.data.course_state
+      course_place.value = res.data.course_place
     })
 
 }
 
 //由于这里需要一开始就挂载，但是还没有和后端发生信息交互,暂时注释方便开发
 onMounted(() => {
-  //   getCourse();
+    getCourse();
 })
 
 //向后端发送报名请求，传送username和course_id，后端需要返回是否报名成功，已判断课程状态，后端不必再判断

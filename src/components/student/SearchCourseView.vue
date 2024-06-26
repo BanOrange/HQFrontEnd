@@ -56,7 +56,7 @@ const getDetails = (index) => {
   router.push({
     name: 'studentCourseDetail',
     query: {
-      course_id:tableData.value[index].id,
+      course_id:tableData.value[index].course_id,
     }
   })
 }
@@ -80,7 +80,7 @@ const getDetails = (index) => {
   <el-table :data="tableData" style="width: 100%">
     <el-table-column fixed prop="course_id" label="课程编号" width="150"/>
     <el-table-column prop="course_name" label="课程名称" width="120"/>
-    <el-table-column prop="teacher_name" label="讲师名称" width="120"/>
+    <el-table-column prop="course_teacher" label="讲师名称" width="120"/>
     <el-table-column prop="course_fee" label="课程费用(￥)" width="150"/>
     <el-table-column fixed="right" label="操作" width="120">
       <template #default="scope">

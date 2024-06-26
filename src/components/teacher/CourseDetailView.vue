@@ -41,8 +41,9 @@ function getCourse() {
 
   axios.post("http://localhost:8080/executor/getCourse", qs.stringify(data))
     .then((res) => {
+      console.log(res.data);
       course_id1.value = res.data.course_id
-      course_name.value = res.datacourse_name
+      course_name.value = res.data.course_name
 
       var start = res.data.course_start.split("-");
       course_start1.value = start[0]
@@ -57,15 +58,15 @@ function getCourse() {
       course_fee.value = res.data.course_fee
       course_teacher.value = res.data.course_teacher
       course_info.value = res.data.course_info
-      course_state.value = res.data_course_state
-      course_place.value = res.data_place
+      course_state.value = res.data.course_state
+      course_place.value = res.data.course_place
     })
 
 }
 
 //由于这里需要一开始就挂载，但是还没有和后端发生信息交互,暂时注释方便开发
 onMounted(() => {
-    //   getCourse();
+      getCourse();
 })
 
 </script>

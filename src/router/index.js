@@ -44,14 +44,16 @@ import executorSearchEvaluateView from "@/components/executor/SearchEvaluateView
 import executorTeacherDetailView from "@/components/executor/TeacherDetailView.vue"
 
 import managerCourseManageView from "@/components/manager/CourseManageView.vue";
-import managerCourseDetailView from "@/components/manager/CourseDetailView.vue";
 import managerStudentManageView from "@/components/manager/StudentManageView.vue";
 import managerStudentDetailView from "@/components/manager/StudentDetailView.vue";
 import managerTeacherManageView from "@/components/manager/TeacherManageView.vue";
 import managerTeacherDetailView from "@/components/manager/TeacherDeatilView.vue";
 import managerExecutorManageView from "@/components/manager/ExecutorManageView.vue";
+import managerCourseDetailView from "@/components/manager/CourseDetailView.vue"
 
 import companyBindIDView from '@/components/company/BindIDView.vue';
+import companySearchCourseView from  '@/components/company/SearchTheCourseView.vue';
+import companyCourseDetailView from '@/components/company/CourseDetailView.vue'
 
 
 const router = createRouter({
@@ -188,11 +190,6 @@ const router = createRouter({
                     component:managerCourseManageView,
                 },
                 {
-                    path: '/manager/courseDetail',
-                    name: 'managerCourseDetail',
-                    component:managerCourseDetailView,
-                },
-                {
                     path: '/manager/executorManage',
                     name: 'managerExecutorManage',
                     component:managerExecutorManageView,
@@ -206,6 +203,11 @@ const router = createRouter({
                     path:"/manager/searchEvaluate",
                     name: 'managerSearhEvaluate',
                     component:executorSearchEvaluateView,
+                },
+                {
+                    path:"/manager/courseDetail",
+                    name: 'managerCourseDetail',
+                    component:managerCourseDetailView,
                 },
             ]
         },
@@ -313,6 +315,18 @@ const router = createRouter({
             path: '/company',
             name: 'company',
             component: CompanyView,
+            children:[
+                {
+                    path:"/company/searchCourse",
+                    name: 'companySearchCourse',
+                    component:companySearchCourseView,
+                },
+                {
+                    path:"/company/courseDetail",
+                    name: 'companyCourseDetail',
+                    component:companyCourseDetailView,
+                },
+            ]
         },
         {
             path: "/company/bindid",
