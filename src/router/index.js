@@ -16,12 +16,16 @@ import studentSearchCourseView from "@/components/student/SearchCourseView.vue";
 import CourseDetailView from '@/components/student/CourseDetailView.vue';
 import studentSearchGradeView from '@/components/student/SearchGradeView.vue';
 import studentCourseEvaluateView from '@/components/student/CourseEvaluateView.vue';
+import studentCourseEvaluateDetailView from '@/components/student/CourseEvaluateDetailView.vue';
+import studentPayView from '@/components/student/PayView.vue';
+import studentPayDetailView from '@/components/student/PayDetailView.vue';
 
 import teacherSearchCourseView from "@/components/teacher/SearchCourseView.vue";
 import teacherEnterCouerseGradeView from "@/components/teacher/EnterCourseGradeView.vue";
 import teacherGradeDetailView from "@/components/teacher/GradeDetailView.vue";
-import teachersearchEvaluateView from "@/components/teacher/SearchEvaluateView.vue";
+import teacherSearchEvaluateView from "@/components/teacher/SearchEvaluateView.vue";
 import teacherBindIDView from "@/components/teacher/BindIDView.vue";
+import teacherCourseDetailView from "@/components/teacher/CourseDetailView.vue"
 
 import staffRequestCheckView from "@/components/staff/RequestCheckView.vue";
 import staffCheckDetailView from "@/components/staff/CheckDetailView.vue";
@@ -40,14 +44,16 @@ import executorSearchEvaluateView from "@/components/executor/SearchEvaluateView
 import executorTeacherDetailView from "@/components/executor/TeacherDetailView.vue"
 
 import managerCourseManageView from "@/components/manager/CourseManageView.vue";
-import managerCourseDetailView from "@/components/manager/CourseDetailView.vue";
 import managerStudentManageView from "@/components/manager/StudentManageView.vue";
 import managerStudentDetailView from "@/components/manager/StudentDetailView.vue";
 import managerTeacherManageView from "@/components/manager/TeacherManageView.vue";
 import managerTeacherDetailView from "@/components/manager/TeacherDeatilView.vue";
 import managerExecutorManageView from "@/components/manager/ExecutorManageView.vue";
+import managerCourseDetailView from "@/components/manager/CourseDetailView.vue"
 
 import companyBindIDView from '@/components/company/BindIDView.vue';
+import companySearchCourseView from  '@/components/company/SearchTheCourseView.vue';
+import companyCourseDetailView from '@/components/company/CourseDetailView.vue'
 
 
 const router = createRouter({
@@ -97,7 +103,23 @@ const router = createRouter({
                     path: '/student/coursedetail',
                     name: 'studentCourseDetail',
                     component:CourseDetailView
-                }
+                },
+                {
+                    path: '/student/courseEvaluateDetail',
+                    name: 'studentCourseEvaluateDetail',
+                    component:studentCourseEvaluateDetailView
+                },
+                {
+                    path: '/student/pay',
+                    name: 'studentPay',
+                    component:studentPayView
+                },
+                {
+                    path: '/student/payDetail',
+                    name: 'studentPayDetail',
+                    component:studentPayDetailView
+                },
+                
             ]
         },
         {
@@ -128,7 +150,12 @@ const router = createRouter({
                 {
                     path: '/teacher/searchEvaluate',
                     name: 'teacherSearchEvaluate',
-                    component:teachersearchEvaluateView,
+                    component:teacherSearchEvaluateView,
+                },
+                {
+                    path: '/teacher/courseDetail',
+                    name: 'teacherCourseDetail',
+                    component:teacherCourseDetailView,
                 },
             ]
         },
@@ -163,11 +190,6 @@ const router = createRouter({
                     component:managerCourseManageView,
                 },
                 {
-                    path: '/manager/courseDetail',
-                    name: 'managerCourseDetail',
-                    component:managerCourseDetailView,
-                },
-                {
                     path: '/manager/executorManage',
                     name: 'managerExecutorManage',
                     component:managerExecutorManageView,
@@ -181,6 +203,11 @@ const router = createRouter({
                     path:"/manager/searchEvaluate",
                     name: 'managerSearhEvaluate',
                     component:executorSearchEvaluateView,
+                },
+                {
+                    path:"/manager/courseDetail",
+                    name: 'managerCourseDetail',
+                    component:managerCourseDetailView,
                 },
             ]
         },
@@ -288,10 +315,18 @@ const router = createRouter({
             path: '/company',
             name: 'company',
             component: CompanyView,
-            // children:[
-            //     {
-            //     },
-            // ]
+            children:[
+                {
+                    path:"/company/searchCourse",
+                    name: 'companySearchCourse',
+                    component:companySearchCourseView,
+                },
+                {
+                    path:"/company/courseDetail",
+                    name: 'companyCourseDetail',
+                    component:companyCourseDetailView,
+                },
+            ]
         },
         {
             path: "/company/bindid",

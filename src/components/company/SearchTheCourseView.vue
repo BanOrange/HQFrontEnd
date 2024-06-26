@@ -6,9 +6,10 @@ import {ElMessage} from 'element-plus';
 import {onMounted} from 'vue';
 import router from '@/router';
 
+//用来装课程的信息
 const tableData = ref([])
 
-
+//用来装搜索条件
 const searchForm = reactive({
   course_name: '',
   course_id: '',
@@ -41,7 +42,7 @@ function handleSearch() {
 //查看课程的详情
 const getDetails = (index) => {
   router.push({
-    name: 'teacherCourseDetail',
+    name: 'companyCourseDetail',
     query: {
       course_id:tableData.value[index].course_id,
     }

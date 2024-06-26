@@ -1,97 +1,181 @@
 <script setup>
-import {reactive} from 'vue'
-import {ElMessage, ElMessageBox} from 'element-plus';
-import {useRouter, useRoute} from 'vue-router';
-import {onMounted} from 'vue';
+import { reactive,ref} from 'vue'
+import { ElMessage, ElMessageBox } from 'element-plus';
+import { useRouter, useRoute } from 'vue-router';
+import { onMounted } from 'vue';
 import axios from 'axios'
 import qs from 'querystring';
 
 let router = useRouter();
 
-//装课程的基本信息
+//装课程信息
 const form = reactive({
-  id: '',
-  name: '',
-  start: '',
-  end: '',
-  pay: '',
+  course_id: '',
+  course_name: '',
+  course_info: '',
+  course_start1: '',
+  course_start2: '',
+  course_start3: '',
+  course_end1: '',
+  course_end2: '',
+  course_end3: '',
+  course_fee: '',
+  course_place: '',
+  course_state: '',
+  course_teacher: '',
 })
-
-//用来装课程的详细信息
-const form1 = reactive({
-  teacher: '',
-  info: '',
-  state: '',
-  location: '',
-})
+const teacherData = reactive({})
+const options = [
+  {
+    label: '未开课',
+    value: '未开课',
+  },
+  {
+    value: '报名中',
+    label: '报名中',
+  },
+  {
+    label: '授课中',
+    value: '授课中',
+  },
+  {
+    label: '阅卷中',
+    value: '阅卷中',
+  },
+  {
+    label: '评价中',
+    value: '评价中',
+  },
+  {
+    label: '已结束',
+    value: '已结束',
+  },
+]
 
 function back() {
-  router.replace("/executor/studentManage")
+  router.replace("/executor/courseManage")
 }
+
+//找到所有的讲师信息,用于给执行人选择讲师，复用了之前的接口
+function findAllTeacher() {
+    axios.get('http://localhost:8080/executor/findallteacher')
+        .then((res) => {
+            teacherData.value = res.data;
+            console.log(res.data)
+        })
+}
+
 
 
 //向后端发送添加课程的请求，返回是否添加成功
 function onSubmit() {
-  let data = {
-    id:form.id,
-    name:form.name,
-    start:form.start,
-    end:form.end,
-    pay:form.pay,
-    teacher:form1.teacher,
-    info:form1.info,
-    state:form1.state,
-    location:form1.location,
+  if(form.course_start1>9999 || form.course_start1<2000 ){
+    ElMessage.error("您输入的年开始时间有误")
+    return;
+  }
+  if(form.course_start2 > 13 || form.course_start2<1 ){
+    ElMessage.error("您输入的月开始时间有误")
+    return;
+  }
+  if(form.course_start3 > 31 || form.course_start3 <1 ){
+    ElMessage.error("您输入的日开始时间有误")
+    return;
   }
 
+  if(form.course_end1>9999 || form.course_end1<2000){
+    ElMessage.error("您输入的年结束时间有误")
+    return;
+  }
+  if(form.course_end2>31 || form.course_end1<1){
+    ElMessage.error("您输入的月结束时间有误")
+    return;
+  }
+  if(form.course_end3>31 || form.course_end3<1){
+    ElMessage.error("您输入的日结束时间有误")
+    return;
+  }
+  let username = sessionStorage.getItem("username")
+  let start = form.course_start1 + '-' + form.course_start2 + '-' + form.course_start3;
+  let end = form.course_end1 + '-' + form.course_end2 + '-' + form.course_end3;
+  let data = {
+    username: username,
+    course_id: form.course_id,
+    course_name: form.course_name,
+    course_start: start,
+    course_end: end,
+    course_fee: form.course_fee,
+    course_teacher: form.course_teacher,
+    course_info: form.course_info,
+    course_state: form.course_state,
+    course_place: form.course_place,
+  }
+  console.log(data)
   axios.post("http://localhost:8080/executor/courseAdd", qs.stringify(data))
-      .then((res) => {
-        if (res.data.code === 200) {
-          ElMessage("增加成功！")
-          router.replace("/executor/courseManage")
-        } else {
-          ElMessage.error(res.data.msg);
-        }
-      })
+    .then((res) => {
+      if (res.data.code === 200) {
+        ElMessage("增加成功！")
+        router.replace("/executor/courseManage")
+      } else {
+        ElMessage.error(res.data.msg);
+      }
+    })
 }
+
+//挂载,但是为了方便开发，先注释掉
+onMounted(() =>{
+  findAllTeacher();
+  console.log(teacherData.value)
+})
 </script>
 
 <template>
-<h2>课程基本信息</h2>
-<el-form :inline="true" :model="form" label-width="auto" style="max-width: 700px">
+  <h2>新增课程信息</h2>
+  <el-form :inline="true" :model="form" label-width="auto" style="max-width: 500px">
     <el-form-item label="课程编号：">
-      <el-input v-model="form.id"/>
+      <el-input v-model="form.course_id" />
     </el-form-item>
-    <el-form-item   label="课程名称：">
-      <el-input v-model="form.name"/>
+    <el-form-item label="课程名称：">
+      <el-input v-model="form.course_name" />
     </el-form-item>
-    <el-form-item  label="上课时间：">
-      <el-input v-model="form.start" style="width:200px"/>
-      <el-text>至</el-text>
-      <el-input  v-model="form.end" style="width:200px"/>
+    <el-form-item label="课程开始时间：">
+      <el-input v-model="form.course_start1" style="width:60px" />
+      <el-text>年</el-text>
+      <el-input v-model="form.course_start2" style="width:50px" />
+      <el-text>月</el-text>
+      <el-input v-model="form.course_start3" style="width:50px" />
+      <el-text>日</el-text><br>
+    </el-form-item>
+    <el-form-item label="课程结束时间：">
+      <el-input v-model="form.course_end1" style="width:60px" />
+      <el-text>年</el-text>
+      <el-input v-model="form.course_end2" style="width:50px" />
+      <el-text>月</el-text>
+      <el-input v-model="form.course_end3" style="width:50px" />
+      <el-text>日</el-text>
     </el-form-item>
     <el-form-item label="课程费用：">
-      <el-input v-model="form.pay" style="width:200px"/>
+      <el-input v-model="form.course_fee" style="width: 100px" />
       <el-text>￥/人</el-text>
     </el-form-item>
-  </el-form><br>
-  <h2>课程详细信息</h2>
-  <el-form :model="form1" label-width="auto" style="max-width: 300px">
-    <el-form-item label="主讲教师：">
-      <el-input v-model="form1.teacher"/>
-    </el-form-item>
-    <el-form-item label="课程简介：">
-      <el-input v-model="form1.info"/>
-    </el-form-item>
+    <el-form-item label="课程讲师：">
+      <el-select v-model="form.course_teacher" placeholder="请选择讲师" style="width: 150px">
+      <el-option v-for="item in teacherData.value" :label="item.teacher_name" :value="item.teacher_id" />
+    </el-select>
+  </el-form-item>
     <el-form-item label="上课地点：">
-      <el-input v-model="form1.location"/>
+      <el-input v-model="form.course_place" />
+    </el-form-item>
+    <el-form-item label="课程简介">
+      <el-input v-model="form.course_info" 
+      style="width:400px" 
+      :autosize="{ minRows: 10, maxRows: 100 }" 
+      type="textarea"
+        placeholder="请输入这门课的简介" />
     </el-form-item>
     <el-form-item label="课程状态：">
-        <el-radio-group v-model="form1.state">
-        <el-radio value="enroll">报名中</el-radio>
-        <el-radio value="teach">授课中</el-radio>
-        <el-radio value="end">已经结束</el-radio>
-      </el-radio-group>
+      <el-select v-model="form.course_state" placeholder="请选择课程状态" style="width: 150px">
+      <el-option v-for="item in options" :label="item.label" :value="item.value" />
+    </el-select>
     </el-form-item>
   </el-form>
 
