@@ -94,9 +94,6 @@ function onSubmit() {
     ElMessage.error("您输入的日结束时间有误")
     return;
   }
-  let username = sessionStorage.getItem("username");
-  let start = form.course_start1 + '-' + form.course_start2 +'-'+form.course_start3;
-  let end = form.course_end1 + '-' + form.course_end2 +'-'+form.course_end3;
   let username = sessionStorage.getItem("username")
   let start = form.course_start1 + '-' + form.course_start2 + '-' + form.course_start3;
   let end = form.course_end1 + '-' + form.course_end2 + '-' + form.course_end3;

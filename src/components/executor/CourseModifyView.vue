@@ -137,7 +137,6 @@ function onSubmit() {
 <template>
     <h1>课程信息</h1>
     <el-text>课程编号：</el-text>
-    <el-input disabled ="course_id1" style="width:200px" /><br><br>
     <el-input disabled v-model="course_id1" style="width:200px" /><br><br>
     <el-text>课程名称：</el-text>
     <el-input v-model="course_name" style="width:200px" /><br><br>
