@@ -44,6 +44,7 @@ import managerStudentDetailView from "@/components/manager/StudentDetailView.vue
 import managerTeacherManageView from "@/components/manager/TeacherManageView.vue";
 import managerTeacherDetailView from "@/components/manager/TeacherDeatilView.vue";
 import managerExecutorManageView from "@/components/manager/ExecutorManageView.vue";
+import managerExecutorWorkStatusView from "@/components/manager/ExecutorWorkStatusView.vue";
 
 
 const router = createRouter({
@@ -183,6 +184,11 @@ const router = createRouter({
                     path:"/manager/searchEvaluate",
                     name: 'managerSearhEvaluate',
                     component:executorSearchEvaluateView,
+                },
+                {
+                    path:"/manager/executorWorkStatus",
+                    name: 'managerExecutorWorkStatus',
+                    component:managerExecutorWorkStatusView,
                 },
             ]
         },
