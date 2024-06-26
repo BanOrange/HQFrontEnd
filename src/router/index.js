@@ -21,6 +21,7 @@ import teacherEnterCouerseGradeView from "@/components/teacher/EnterCourseGradeV
 import teacherGradeDetailView from "@/components/teacher/GradeDetailView.vue";
 import teachersearchEvaluateView from "@/components/teacher/SearchEvaluateView.vue";
 import teacherBindIDView from "@/components/teacher/BindIDView.vue";
+import teacherSearchGradeView from "@/components/teacher/SearchGradeView.vue";
 
 import staffRequestCheckView from "@/components/staff/RequestCheckView.vue";
 import staffCheckDetailView from "@/components/staff/CheckDetailView.vue";
@@ -131,7 +132,12 @@ const router = createRouter({
                     path: '/teacher/bindid',
                     name: 'teacherBindID',
                     component:teacherBindIDView,
-                }
+                },
+                {
+                    path: '/teacher/searchGrade',
+                    name:'teacherSearchGrade',
+                    component:teacherSearchGradeView,
+                },
                 
             ]
         },
