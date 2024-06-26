@@ -24,7 +24,7 @@ let course_info = ref('');
 let course_state = ref('');
 let course_place = ref('');
 
-course_id1 = course_id;
+course_id1.value = course_id;
 
 
 function back() {
@@ -41,24 +41,24 @@ function getCourse() {
 
   axios.post("http://localhost:8080/executor/getCourse", qs.stringify(data))
     .then((res) => {
-      course_id1 = res.data.course_id
-      course_name = res.datacourse_name
+      course_id1.value = res.data.course_id
+      course_name.value = res.datacourse_name
 
       var start = res.data.course_start.split("-");
-      course_start1 = start[0]
-      course_start2 = start[1]
-      course_start3 = start[2]
+      course_start1.value = start[0]
+      course_start2.value = start[1]
+      course_start3.value = start[2]
 
       var end = res.data.course_end.split("-");
-      course_end1 = end[0]
-      course_end2 = end[1]
-      course_end3 = end[2]
+      course_end1.value = end[0]
+      course_end2.value = end[1]
+      course_end3.value = end[2]
 
-      course_fee = res.data.course_fee
-      course_teacher = res.data.course_teacher
-      course_info = res.data.course_info
-      course_state = res.data_course_state
-      course_place = res.data_place
+      course_fee.value = res.data.course_fee
+      course_teacher.value = res.data.course_teacher
+      course_info.value = res.data.course_info
+      course_state.value = res.data_course_state
+      course_place.value = res.data_place
     })
 
 }
@@ -70,7 +70,7 @@ onMounted(() => {
 
 //向后端发送报名请求，传送username和course_id，后端需要返回是否报名成功，已判断课程状态，后端不必再判断
 function signup() {
-  if (course_state != "报名中") {
+  if (course_state.value != "报名中") {
     ElMessage.error("这门课程现在还不能报名")
     return;
   }
@@ -78,13 +78,37 @@ function signup() {
   let username = sessionStorage.getItem("username");
   let data = {
     username: username,
-    course_id: course_id1,
+    course_id: course_id1.value,
   }
 
   axios.post("http://localhost:8080/executor/getCourse", qs.stringify(data))
     .then((res) => {
       if (res.data.code === 200) {
         ElMessage("报名成功！")
+      } else {
+        ElMessage.error(res.data.msg);
+      }
+    })
+
+}
+
+//向后端发送退课请求，传送username和course_id，后端需要返回是否退课成功，已判断课程状态，后端不必再判断
+function signup() {
+  if (course_state.value != "报名中") {
+    ElMessage.error("这门课程现在已经不在退课的阶段了，本当にすみません")
+    return;
+  }
+
+  let username = sessionStorage.getItem("username");
+  let data = {
+    username: username,
+    course_id: course_id1.value,
+  }
+
+  axios.post("http://localhost:8080/executor/dropCourse", qs.stringify(data))
+    .then((res) => {
+      if (res.data.code === 200) {
+        ElMessage("退课成功！")
       } else {
         ElMessage.error(res.data.msg);
       }
@@ -131,6 +155,7 @@ function signup() {
   <el-button type="primary" size="large" @click="back">返回</el-button>
   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
   <el-button type="primary" size="large" @click="signup">报名</el-button>
+  <el-button type="primary" size="large" @click="drop">报名</el-button>
 </template>
 
 <style scoped></style>

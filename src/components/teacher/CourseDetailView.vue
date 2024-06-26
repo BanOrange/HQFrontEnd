@@ -24,7 +24,7 @@ let course_info = ref('');
 let course_state = ref('');
 let course_place = ref('');
 
-course_id1 = course_id;
+course_id1.value = course_id;
 
 
 function back() {
@@ -32,36 +32,34 @@ function back() {
 }
 
 
-
-
 //向后端发送课程ID获取对应课程，返回对应数据，注意其中需要给出的是老师名称
 //复用了执行人寻找课程的接口
 function getCourse() {
-    let data = {
-        course_id: course_id,
-    }
+  let data = {
+    course_id: course_id,
+  }
 
-    axios.post("http://localhost:8080/executor/getCourse", qs.stringify(data))
-        .then((res) => {
-            course_id1 = res.data.course_id
-            course_name = res.datacourse_name
+  axios.post("http://localhost:8080/executor/getCourse", qs.stringify(data))
+    .then((res) => {
+      course_id1.value = res.data.course_id
+      course_name.value = res.datacourse_name
 
-            var start = res.data.course_start.split("-");
-            course_start1 = start[0]
-            course_start2 = start[1]
-            course_start3 = start[2]
+      var start = res.data.course_start.split("-");
+      course_start1.value = start[0]
+      course_start2.value = start[1]
+      course_start3.value = start[2]
 
-            var end = res.data.course_end.split("-");
-            course_end1 = end[0]
-            course_end2 = end[1]
-            course_end3 = end[2]
+      var end = res.data.course_end.split("-");
+      course_end1.value = end[0]
+      course_end2.value = end[1]
+      course_end3.value = end[2]
 
-            course_fee = res.data.course_fee
-            course_teacher = res.data.course_teacher
-            course_info = res.data.course_info
-            course_state = res.data_course_state
-            course_place = res.data_place
-        })
+      course_fee.value = res.data.course_fee
+      course_teacher.value = res.data.course_teacher
+      course_info.value = res.data.course_info
+      course_state.value = res.data_course_state
+      course_place.value = res.data_place
+    })
 
 }
 
@@ -77,7 +75,7 @@ onMounted(() => {
     <el-text>课程编号：</el-text>
     <el-input disabled v-model="course_id1" style="width:200px" /><br><br>
     <el-text>课程名称：</el-text>
-    <el-input disabled v-model="course_id1" style="width:200px" /><br><br>
+    <el-input disabled v-model="course_name" style="width:200px" /><br><br>
     <el-text>课程开始时间：</el-text>
     <el-input disabled v-model="course_start1" style="width:60px" />
     <el-text>年</el-text>

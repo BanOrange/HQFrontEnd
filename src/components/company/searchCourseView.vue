@@ -6,23 +6,14 @@ import {ElMessage} from 'element-plus';
 import {onMounted} from 'vue';
 import router from '@/router';
 
-
 //用来装课程的信息
 const tableData = ref([])
 
-const form = reactive({
-  name: '',
-  id: '',
+//用来装搜索条件
+const searchForm = reactive({
+  course_name: '',
+  course_id: '',
 })
-let checkList = [];
-const Select = (index) => {
-  if (checkList.includes(index)) {
-    checkList.splice(checkList.indexOf(index), 1);
-  } else {
-    checkList.push(index);
-  }
-  console.log(checkList);
-}
 
 onMounted(() => {
   getAllCourse();
@@ -39,16 +30,14 @@ function getAllCourse() {
 //模糊查询功能
 function handleSearch() {
   let data = {
-    id: form.id,
-    name: form.name,
+    course_id: searchForm.course_id,
+    course_name: searchForm.course_name,
   }
-
   axios.post("http://localhost:8080/searchCourse", qs.stringify(data))
       .then((res) => {
           tableData.value = res.data;
       })
 }
-
 
 //查看课程的详情
 const getDetails = (index) => {
@@ -62,28 +51,28 @@ const getDetails = (index) => {
 </script>
 
 <template>
-  <el-form :model="form" label-width="auto" style="max-width: 300px">
+  <el-form :model="searchForm" label-width="auto" style="max-width: 300px">
     <h1>课程查询</h1><br><br>
     <el-form-item label="课程编号：">
-      <el-input v-model="form.name"/>
+      <el-input v-model="searchForm.course_id"/>
     </el-form-item>
     <el-form-item label="课程名称：">
-      <el-input v-model="form.id"/>
+      <el-input v-model="searchForm.course_name"/>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="handleSearch">查询</el-button>
     </el-form-item>
   </el-form>
   <br><br>
-  <el-table :data="tableData" width="400px" max-height="200">
-    <el-table-column fixed prop="id" label="课程编号" width="150"/>
-    <el-table-column prop="name" label="课程名称" width="120"/>
-    <el-table-column prop="teacher" label="讲师名称" width="120"/>
-    <el-table-column prop="state" label="课程状态" width="120"/>
-    <el-table-column prop="pay" label="课程费用(￥)" width="150"/>
-    <el-table-column fixed="right" label="选择" width="200">
+  <h1>课程信息总览</h1>
+  <el-table :data="tableData" style="width: 100%">
+    <el-table-column fixed prop="course_id" label="课程编号" width="150"/>
+    <el-table-column prop="course_name" label="课程名称" width="120"/>
+    <el-table-column prop="teacher_name" label="讲师名称" width="120"/>
+    <el-table-column prop="course_fee" label="课程费用(￥)" width="150"/>
+    <el-table-column fixed="right" label="操作" width="120">
       <template #default="scope">
-        <el-button type="primary" @click="getDetails(scope.$index)">详情</el-button>
+        <el-button link type="primary" size="large" @click="getDetails(scope.$index)">详情</el-button>
       </template>
     </el-table-column>
   </el-table>
