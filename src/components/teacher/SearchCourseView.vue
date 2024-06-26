@@ -17,15 +17,15 @@ onMounted(() => {
   getAllCourse();
 })
 
-//得到所有课程,复用了执行人的接口
+//得到所有课程,复用了公共接口
 function getAllCourse() {
-  axios.get('http://localhost:8080/executor/findallcourse')
+  axios.get('http://localhost:8080/getAllCourse')
       .then((res) => {
         tableData.value = res.data;
       })
 }
 
-//查询功能
+//模糊查询功能
 function handleSearch() {
   let data = {
     course_id: searchForm.course_id,
@@ -38,7 +38,7 @@ function handleSearch() {
       })
 }
 
-//查看所教授的课程
+//查看老师所教授的课程
 function searchSelected() {
   let username = sessionStorage.getItem("username");
   let data = {

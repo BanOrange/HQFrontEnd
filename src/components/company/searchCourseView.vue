@@ -7,15 +7,9 @@ import {onMounted} from 'vue';
 import router from '@/router';
 
 
-const tableData = [
-  {
-    id:"1",
-    name:"1",
-    tercher:"1",
-    state:"1",
-    pay:"1",
-  },
-]
+//用来装课程的信息
+const tableData = ref([])
+
 const form = reactive({
   name: '',
   id: '',
@@ -34,7 +28,7 @@ onMounted(() => {
   getAllCourse();
 })
 
-//得到所有课程
+//得到所有课程，复用了公共接口
 function getAllCourse() {
   axios.get('http://localhost:8080/getAllCourse')
       .then((res) => {
@@ -42,7 +36,7 @@ function getAllCourse() {
       })
 }
 
-//查询功能
+//模糊查询功能
 function handleSearch() {
   let data = {
     id: form.id,
@@ -55,23 +49,11 @@ function handleSearch() {
       })
 }
 
-//查看已选课程
-function searchSelected() {
-  let username = sessionStorage.getItem("username");
-  let data = {
-    username: username
-  }
-
-  axios.post("http://localhost:8080/student/searchSelected", qs.stringify(data))
-      .then((res) => {
-        tableData.value = res.data;
-      })
-}
 
 //查看课程的详情
 const getDetails = (index) => {
   router.push({
-    name: 'studentCourseDetail',
+    name: 'teacherCourseDetail',
     query: {
       course_id:tableData.value[index].id,
     }
@@ -105,8 +87,6 @@ const getDetails = (index) => {
       </template>
     </el-table-column>
   </el-table>
-  <br><br>
-  <el-button type="primary" @click="searchSelected">查询已选课程列表</el-button>
 </template>
 
 <style scoped>

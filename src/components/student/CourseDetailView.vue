@@ -32,8 +32,6 @@ function back() {
 }
 
 
-
-
 //向后端发送课程ID获取对应课程，返回对应数据，注意其中需要给出的是老师名称
 //复用了执行人寻找课程的接口
 function getCourse() {
@@ -87,7 +85,6 @@ function signup() {
     .then((res) => {
       if (res.data.code === 200) {
         ElMessage("报名成功！")
-        router.replace("/student/bindid")
       } else {
         ElMessage.error(res.data.msg);
       }

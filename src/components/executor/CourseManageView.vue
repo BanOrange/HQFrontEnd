@@ -17,13 +17,17 @@ const searchForm = reactive({
   course_id: '',
 })
 
-//向后端发送寻找课程的请求，希望返回所有课程的信息
+//向后端发送寻找课程的请求，希望返回该执行人负责的课程信息
 //此外需要返回讲师的名称而不是仅仅是讲师编号
 function findAllCourse(){
-  axios.get('http://localhost:8080/executor/findallcourse')
-  .then((res)=>{
-    tableData.value = res.data;
-  })
+  let username = sessionStorage.getItem("username");
+  let data = {
+    username: username,
+  }
+  axios.post("http://localhost:8080/executor/getAllCourse", qs.stringify(data))
+    .then((res) => {
+      tableData.value = res.data
+    })
 }
 
 //挂载,但是为了方便开发，先注释掉
@@ -80,7 +84,7 @@ function handleSearch(){
     course_id:searchForm.course_id,
     course_name:searchForm.course_name,
   }
-  axios.get('http://localhost:8080/executor/findCourse',qs.stringify(data))
+  axios.get('http://localhost:8080/searchCourse',qs.stringify(data))
   .then((res)=>{
     tableData.value = res.data;
   })
