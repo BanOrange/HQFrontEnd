@@ -11,6 +11,7 @@ import axios from 'axios';
 import qs from 'querystring';
 import {ElMessage} from 'element-plus';
 import {onMounted} from 'vue';
+import RouterView from "@/App.vue";
 
 let router = useRouter();
 const handleClose = (key, keyPath) => {

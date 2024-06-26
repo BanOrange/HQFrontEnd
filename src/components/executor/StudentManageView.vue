@@ -107,7 +107,7 @@ function handleAdd(){
     <el-table-column prop="stu_name" label="姓名" width="120" />
     <el-table-column prop="stu_company" label="隶属公司" width="120" />
     <el-table-column prop="stu_position" label="工作岗位" width="120" />
-    <el-table-column prop="stu_level" label="学生年级" width="120" />
+    <el-table-column prop="stu_level" label="学生水平" width="120" />
     <el-table-column prop="stu_email" label="电子邮件" width="120" />
     <el-table-column prop="stu_tele" label="电话号码" width="120" />
     <el-table-column fixed="right" label="操作" width="120">

@@ -8,12 +8,12 @@ import qs from 'querystring';
 
 let router = useRouter();
 const form = reactive({
-  name: '',
-  companyName: '',
-  jobPosition: '',
-  telephone: '',
-  email: '',
-  level: '',
+  stu_name: '',
+  stu_company: '',
+  stu_position: '',
+  stu_tele: '',
+  stu_email: '',
+  stu_level: '',
 })
 
 function back() {
@@ -24,12 +24,12 @@ function onSubmit() {
   let username = sessionStorage.getItem("username");
   let data = {
     username: username,
-    companyName: form.companyName,
-    name: form.name,
-    jobPosition: form.jobPosition,
-    telephone: form.telephone,
-    email: form.email,
-    level: form.level,
+    stu_company: form.stu_company,
+    stu_name: form.stu_name,
+    stu_position: form.stu_position,
+    stu_tele: form.stu_tele,
+    stu_email: form.stu_email,
+    stu_level: form.stu_level,
   }
 
   axios.post("http://localhost:8080/student/bindid", qs.stringify(data))
@@ -50,22 +50,22 @@ function onSubmit() {
   <br><br>
   <el-form :model="form" label-width="auto" style="max-width: 300px">
     <el-form-item label="姓名：">
-      <el-input v-model="form.name"/>
+      <el-input v-model="form.stu_name"/>
     </el-form-item>
     <el-form-item label="公司名称：">
-      <el-input v-model="form.companyName"/>
+      <el-input v-model="form.stu_company"/>
     </el-form-item>
     <el-form-item label="工作岗位：">
-      <el-input v-model="form.jobPosition"/>
+      <el-input v-model="form.stu_position"/>
     </el-form-item>
     <el-form-item label="电话号码：">
-      <el-input v-model="form.telephone"/>
+      <el-input v-model="form.stu_tele"/>
     </el-form-item>
     <el-form-item label="电子邮件：">
-      <el-input v-model="form.email"/>
+      <el-input v-model="form.stu_email"/>
     </el-form-item>
     <el-form-item label="技术水平：">
-      <el-radio-group v-model="form.level">
+      <el-radio-group v-model="form.stu_level">
         <el-radio value="high">高级</el-radio>
         <el-radio value="middle">中级</el-radio>
         <el-radio value="low">入门</el-radio>

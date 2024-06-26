@@ -70,6 +70,10 @@ onMounted(() => {
             <el-menu-item index="1-1">
               <router-link to="/manager/ExecutorWorkStatusView">执行人工作情况</router-link>
             </el-menu-item>
+          </el-menu-item-group>
+
+        </el-sub-menu>
+
         <el-sub-menu index="2">
           <template #title>
             <el-icon>
