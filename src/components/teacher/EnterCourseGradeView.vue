@@ -9,8 +9,8 @@ import router from '@/router';
 let cid="";
 //查询课程所需要的信息
 const form = reactive({
-  name: '',
-  id: '',
+  course_name: '',
+  course_id: '',
 })
 
 //该门课程下的学生数据
@@ -22,8 +22,8 @@ const tableData = ref([])
 function handleSearch() {
   let username = sessionStorage.getItem("username");  
   let data = {
-    id: form.id,
-    name : form.name,
+    course_id: form.course_id,
+    course_name : form.course_name,
     username: username,
   }
 
@@ -51,10 +51,10 @@ const EnterGrade = (index) =>{
  <el-form :model="form" label-width="auto" style="max-width: 400px">
     <h1>请选择要录入成绩的课程</h1><br><br>
     <el-form-item label="课程编号：">
-      <el-input v-model="form.id"/>
+      <el-input v-model="form.course_id"/>
     </el-form-item>
     <el-form-item label="课程名称：">
-      <el-input v-model="form.name"/>
+      <el-input v-model="form.course_name"/>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="handleSearch">查询</el-button>
@@ -62,8 +62,8 @@ const EnterGrade = (index) =>{
   </el-form>
 
 <el-table :data="tableData" width="400px" max-height="200">
-    <el-table-column fixed prop="name" label="学生名称" width="150" />
-    <el-table-column prop="id" label="学生学号" width="150" />
+    <el-table-column fixed prop="stu_name" label="学生名称" width="150" />
+    <el-table-column prop="stu_id" label="学生学号" width="150" />
     <el-table-column prop="state" label="成绩录入状态" width="120" />
     <el-table-column fixed="right" label="操作" width="200">
       <template #default="scope">
