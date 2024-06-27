@@ -49,11 +49,15 @@ import managerStudentDetailView from "@/components/manager/StudentDetailView.vue
 import managerTeacherManageView from "@/components/manager/TeacherManageView.vue";
 import managerTeacherDetailView from "@/components/manager/TeacherDeatilView.vue";
 import managerExecutorManageView from "@/components/manager/ExecutorManageView.vue";
-import managerCourseDetailView from "@/components/manager/CourseDetailView.vue"
+import managerCourseDetailView from "@/components/manager/CourseDetailView.vue";
+import managerSearchBillView from "@/components/manager/SearchBillView.vue";
 
 import companyBindIDView from '@/components/company/BindIDView.vue';
 import companySearchCourseView from  '@/components/company/SearchTheCourseView.vue';
-import companyCourseDetailView from '@/components/company/CourseDetailView.vue'
+import companyCourseDetailView from '@/components/company/CourseDetailView.vue';
+import companyPayView from '@/components/company/PayView.vue';
+import companyPayDetailView from '@/components/company/PayDetailView.vue';
+import companyPayStudentView from '@/components/company/PayStudentView.vue';
 
 
 const router = createRouter({
@@ -209,6 +213,11 @@ const router = createRouter({
                     name: 'managerCourseDetail',
                     component:managerCourseDetailView,
                 },
+                {
+                    path:"/manager/searchBill",
+                    name: 'managerSearchBill',
+                    component:managerSearchBillView,
+                },
             ]
         },
         {
@@ -325,6 +334,21 @@ const router = createRouter({
                     path:"/company/courseDetail",
                     name: 'companyCourseDetail',
                     component:companyCourseDetailView,
+                },
+                {
+                    path:"/company/pay",
+                    name: 'companyPay',
+                    component:companyPayView,
+                },
+                {
+                    path:"/company/payStudent",
+                    name: 'companyPayStudent',
+                    component:companyPayStudentView,
+                },
+                {
+                    path:"/company/payDetail",
+                    name: 'companyPayDetail',
+                    component:companyPayDetailView,
                 },
             ]
         },

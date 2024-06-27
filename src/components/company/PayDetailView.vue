@@ -8,36 +8,59 @@ import { useRouter, useRoute } from 'vue-router';
 
 let route = useRoute();
 let router = useRouter();
-let course_id = route.query.course_id;
+var studentList = new Array();
+studentList = route.query.studentList;
+let course_id = route.query.Course_id;
 let course_fee = route.query.course_fee;
-let course_name = route.query.course_name;
+let course_name = route.query.course_name
+let course_num = 0;
 
 function back() {
-  router.replace("/student/pay")
+  router.replace("/company/payStudent")
 }
 
-//学员向后端发送请求进行缴费，后端需要返回是否成功
+//计算一下总费用
+function calc(){
+  var fee = 0;
+  var number = 0;
+  var length=0;
+  if(studentList){
+    length = studentList.length;
+  }
+  for(var i=0;i<length;i++){
+    fee += course_fee;
+    number++;
+  }
+  course_fee = fee;
+  course_num = number;
+}
+
+onMounted(() => {
+  calc();
+})
+
+
+//向后端发送课程id，学员列表，company的username以及缴费金额，后端需要返回是否缴费成功
 function finish() {
   let username = sessionStorage.getItem("username");
-  let data = {
-    //学员的username和课程的id
+  let data={
     username: username,
     course_id: course_id,
-    //可能会用到的信息
+    studentList: studentList,
+
+    //可能用不上
     course_fee: course_fee,
-    corse_name: course_name,
   }
 
-  axios.post("http://localhost:8080/student/pay", qs.stringify(data))
+  axios.post("http://localhost:8080/company/pay", qs.stringify(data))
     .then((res) => {
-      if(res.data.code == 200){
-        ElMessage.success("缴费成功");
+      if(res.data.code==200){
+        ElMessage.success("缴费成功")
       }else{
-        ElMessage.error(res.data.msg);
+        ElMessage.error(res.data.msg)
       }
     })
 
-  router.push("student/pay")
 }
 
 

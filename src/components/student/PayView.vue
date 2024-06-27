@@ -47,7 +47,7 @@ function handleSearch() {
         course_id: searchForm.course_id,
         course_name: searchForm.course_name,
     }
-    axios.post("http://localhost:8080/student/search", qs.stringify(data))
+    axios.post("http://localhost:8080/student/searchPayment", qs.stringify(data))
         .then((res) => {
             tableData.value = res.data;
             for(var i=0;i<tableData.value.length;i++){
@@ -63,9 +63,11 @@ function handleSearch() {
 //跳转到缴费的二维码页面
 const pay = (index) => {
     router.push({
-        name: 'studentPayDetailView',
+        name: 'studentPayDetail',
         query: {
-            course_id: tableData.value[index].id,
+            course_id: tableData.value[index].course_id,
+            course_name: tableData.value[index].course_name,
+            course_fee: tableData.value[i].course_fee,
         }
     })
 }
@@ -75,7 +77,7 @@ const getDetails = (index) => {
     router.push({
         name: 'studentCourseDetail',
         query: {
-            course_id: tableData.value[index].id,
+            course_id: tableData.value[index].course_id,
         }
     })
 }

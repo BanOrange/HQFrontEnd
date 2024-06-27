@@ -93,11 +93,11 @@ function handleSearch(){
 
 //查看课程详细信息。跳转到另一个界面
 const handleDetail = (index)=>{
-  let id = tableData.value[index].id;
+  let course_id = tableData.value[index].course_id;
   router.push({
     path:'/manager/courseDetail',
     query:{
-      id:id,
+      course_id: course_id,
     }
   })
 }

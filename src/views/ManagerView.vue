@@ -65,7 +65,7 @@ onMounted(() => {
             </el-icon>
             <span>培训相关</span>
           </template>
-          <el-menu-item-group title="查看信息">
+          <el-menu-item-group title="培训信息">
             <el-menu-item index="1-1">
               <router-link to="/manager/courseManage">查阅课程信息</router-link>
             </el-menu-item>
@@ -83,6 +83,11 @@ onMounted(() => {
             </el-menu-item>
             <el-menu-item index="1-6">
               <router-link to="/manager/executorWorkStatus">查阅执行人工作状态</router-link>
+            </el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item-group title="财务相关">
+            <el-menu-item index="1-4">
+              <router-link to="/manager/searchBill">查询账单</router-link> 
             </el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>

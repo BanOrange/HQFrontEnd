@@ -6,7 +6,7 @@ import {ElMessage} from 'element-plus';
 import {onMounted} from 'vue';
 import router from '@/router';
 
-
+const studentList = reactive({})
 const tableData = ref([])
 const form = reactive({
   name: '',
@@ -80,8 +80,9 @@ const getDetails = (index) => {
     <el-table-column prop="Tteacher" label="讲师名称" width="120"/>
     <el-table-column prop="pay" label="课程费用(￥)" width="150"/>
     <el-table-column fixed="right" label="选择" width="200">
-      <template #default="scope">
+      <template v-slot="studentList">
         <el-button type="primary" @click="getDetails(scope.$index)">发起签到</el-button>
+        
       </template>
     </el-table-column>
   </el-table>
