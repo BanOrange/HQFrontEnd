@@ -8,51 +8,41 @@ import { useRouter, useRoute } from 'vue-router';
 
 let route = useRoute();
 let router = useRouter();
-var studentList = new Array();
-studentList = route.query.studentList;
-let course_id = route.query.Course_id;
-let course_fee = route.query.course_fee;
-let course_name = route.query.course_name
-let course_num = 0;
+
+const studentList = JSON.parse(route.query.studentList)
+console.log(studentList);
+let course_id = route.query.course_id;
+let course_name = route.query.course_name;
+let course_num = studentList.length;
 
 function back() {
   router.replace("/company/payStudent")
 }
 
-//计算一下总费用
-function calc(){
-  var fee = 0;
-  var number = 0;
-  var length=0;
-  if(studentList){
-    length = studentList.length;
-  }
-  for(var i=0;i<length;i++){
-    fee += course_fee;
-    number++;
-  }
-  course_fee = fee;
-  course_num = number;
-}
 
 onMounted(() => {
-  calc();
+
 })
 
 
 //向后端发送课程id，学员列表，company的username以及缴费金额，后端需要返回是否缴费成功
 function finish() {
   let username = sessionStorage.getItem("username");
+  let List = [];
+  for(var i=0;i<studentList.length;i++){
+    List.push({stu_id: studentList[i].stu_id,
+              stu_name: studentList[i].stu_name,
+            course_id: course_id,
+            username: username,});
+  }
+  console.log(List)
   let data={
     username: username,
     course_id: course_id,
-    studentList: studentList,
-
-    //可能用不上
-    course_fee: course_fee,
+    studentList: List,
   }
 
-  axios.post("http://localhost:8080/company/pay", qs.stringify(data))
+  axios.post("http://localhost:8080/company/pay", List)
     .then((res) => {
       if(res.data.code==200){
         ElMessage.success("缴费成功")
@@ -60,7 +50,6 @@ function finish() {
         ElMessage.error(res.data.msg)
       }
     })
-
 }
 
 
@@ -71,9 +60,11 @@ function finish() {
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <img src="/QR.jpg" alt="缴费二维码" style="width:150px" /> <br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <el-text>缴费课程名称：<span>{{ course_name }}</span></el-text><br>
+  <el-text>缴费课程编号：<span>{{ course_id }}</span></el-text><br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <el-text>缴费费用：<span>{{ course_fee }}</span></el-text><br><br>
+  <el-text>缴费课程名称：<span>{{ course_name }}</span></el-text><br><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <el-text>本次缴费人数：<span>{{ course_num }}</span></el-text><br><br>
   <el-button type="primary" size="large" @click="back">返回前界面</el-button>&nbsp;&nbsp;&nbsp;
   <el-button type="primary" size="large" @click="finish">已完成缴费</el-button>
 </template>

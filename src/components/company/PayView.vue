@@ -16,17 +16,18 @@ const searchForm = reactive({
 })
 
 onMounted(() => {
-    // getAllCourse();
+    getAllCoursePayment();
 })
 
 //软件公司得到所有需要付费的课程，这些课程是被所属员工选择的课程
 //需要返回一组课程编号，课程名称和课程缴费状态（signup_state）构成的列表
 //这里的课程缴费状态是指是否为全部员工缴费，也即后端需要遍历一下该公司选了对应课的员工是否全部缴费
-function getAllCourse() {
+function getAllCoursePayment() {
     let username = sessionStorage.getItem("username");
     let data = {
         username: username,
     }
+    console.log(username)
     axios.post("http://localhost:8080/company/getAllPayment", qs.stringify(data))
         .then((res) => {
             tableData.value = res.data;
@@ -67,14 +68,14 @@ const pay = (index) => {
         name: 'companyPayStudent',
         query: {
             course_id: tableData.value[index].course_id,
-            course_name: tableData.value[index].course_id,
-            course_fee: tableData.value[i].course_fee,
+            course_name: tableData.value[index].course_name,
         }
     })
 }
 
 //查看课程的详情
 const getDetails = (index) => {
+    console.log(course_name)
     router.push({
         name: 'companyCourseDetail',
         query: {
@@ -105,8 +106,7 @@ const getDetails = (index) => {
         <el-table-column prop="signup_state" label="是否已为员工缴费" width="150" />
         <el-table-column fixed="right" label="操作" width="120">
             <template #default="scope">
-                <el-button link type="primary" size="large" @click="getDetails(scope.$index)">详情</el-button>
-                <el-button link type="primary" size="large" @click="pay(scope.$index)">去缴费</el-button>
+                <el-button  type="primary" size="large" @click="pay(scope.$index)">去缴费</el-button>
             </template>
         </el-table-column>
     </el-table>

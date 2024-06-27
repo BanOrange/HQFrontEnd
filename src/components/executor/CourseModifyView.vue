@@ -132,6 +132,10 @@ function onSubmit() {
             }
         })
 }
+
+function getNotice(){
+  ElMessageBox.alert('您好，浩奇公司开设的一门名为《'+course_name.value+'》的课程即将开始。请您及时进入官网查询课程简介以获取上课具体时间和地点，祝您学有所成','课程即将开课通知')
+}
 </script>
 
 <template>
@@ -173,6 +177,8 @@ function onSubmit() {
 
     <el-button type="primary" @click="back">返回</el-button>&nbsp;&nbsp;&nbsp;
     <el-button type="primary" @click="onSubmit">修改</el-button>
+    <el-button type="primary" @click="getNotice">一键生成培训通知</el-button>
+
 </template>
 
 <style scoped></style>

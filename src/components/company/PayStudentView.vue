@@ -10,8 +10,7 @@ import { useRouter, useRoute } from 'vue-router';
 let route = useRoute();
 let router = useRouter();
 let course_id = route.query.course_id;
-let course_fee = route.query.course_fee;
-let course_name = route.query.course_fee;
+let course_name = route.query.course_name;
 
 let studentList = []
 const tableData = ref([])
@@ -23,7 +22,7 @@ function back() {
 }
 
 //通过课程ID和软件公司的username，得到该公司选了这门课的所有员工的信息（id，姓名即可）以及他们对应的缴费状态
-function getAllCourse() {
+function getPaymentStudent() {
     let username = sessionStorage.getItem("username");
     let data = {
         username: username,
@@ -43,23 +42,31 @@ function getAllCourse() {
 }
 
 onMounted(() => {
-
+    getPaymentStudent();
 })
 
 function pay() {
     for (var i = 0; i < tableData.value.length; i++) {
         const item = tableData.value[i];
+        if(tableData.value[i].signup_state == "未缴费"){
+            studentList.push(item);
+        }
+    
         if(tableData.value[i].signup_state == "已缴费"){
             ElMessage.error("您选择的员工中已经有人缴过费了，请点击下方的“删去已缴费员工”")
+            return;
         }
-        studentList.add(item);
     }
+    if(studentList.length == 0){
+            ElMessage.error("所有员工均已缴费")
+            return;
+        }
+    console.log(studentList)
     router.push({
         name: "companyPayDetail",
         query:{
-            studentList: studentList,
+            studentList: window.JSON.stringify(studentList),
             course_id: course_id,
-            course_fee: course_fee,
             course_name: course_name,
         }
     })
@@ -68,7 +75,8 @@ function pay() {
 
 function deletePaid() {
     for (var i = tableData.value.length; i > 0; i--) {
-        if (tableData.value[i].signup_state == "已缴费") {
+        console.log(tableData.value)
+        if (tableData.value[i-1].signup_state == "已缴费") {
 
         } else {
             const item = table.value[i];
@@ -79,9 +87,9 @@ function deletePaid() {
 }
 
 
-const deleStu = (index) => {
+const deleteStu = (index) => {
     let stu_id = tableData.value[index].stu_id;
-    tableData1.clear();
+    tableData1.value.clear;
     for (var i = 0; i < tableData.value.length; i++) {
         if (tableData.value[i].stu_id == stu_id) {
 

@@ -51,6 +51,8 @@ import managerTeacherDetailView from "@/components/manager/TeacherDeatilView.vue
 import managerExecutorManageView from "@/components/manager/ExecutorManageView.vue";
 import managerCourseDetailView from "@/components/manager/CourseDetailView.vue";
 import managerSearchBillView from "@/components/manager/SearchBillView.vue";
+import managerSearchReportView from "@/components/manager/SearchReportView.vue";
+import managerReportDetailView from "@/components/manager/ReportDetailView.vue";
 
 import companyBindIDView from '@/components/company/BindIDView.vue';
 import companySearchCourseView from  '@/components/company/SearchTheCourseView.vue';
@@ -217,6 +219,16 @@ const router = createRouter({
                     path:"/manager/searchBill",
                     name: 'managerSearchBill',
                     component:managerSearchBillView,
+                },
+                {
+                    path:"/manager/searchReport",
+                    name: 'managerSearchReport',
+                    component:managerSearchReportView,
+                },
+                {
+                    path:"/manager/reportDetail",
+                    name: 'managerReportDetail',
+                    component:managerReportDetailView,
                 },
             ]
         },

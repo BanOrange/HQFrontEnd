@@ -86,8 +86,11 @@ onMounted(() => {
             </el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group title="财务相关">
-            <el-menu-item index="1-4">
+            <el-menu-item index="2-1">
               <router-link to="/manager/searchBill">查询账单</router-link> 
+            </el-menu-item>
+            <el-menu-item index="2-2">
+              <router-link to="/manager/searchReport">查询报表</router-link> 
             </el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>

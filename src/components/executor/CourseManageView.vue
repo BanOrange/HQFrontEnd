@@ -101,6 +101,10 @@ const handleDetail = (index)=>{
     }
   })
 }
+
+function handleAdd(){
+  router.replace("/executor/courseAdd")
+}
 </script>
 
 <template>
@@ -118,6 +122,7 @@ const handleDetail = (index)=>{
   </el-form>
   <br><br>
   <h1>课程信息总览</h1>
+  <el-button link type="primary" size="large" @click="handleAdd">增加课程</el-button>
   <el-table :data="tableData" style="width: 100%">
     <el-table-column fixed prop="course_id" label="课程编号" width="150"/>
     <el-table-column prop="course_name" label="课程名称" width="120"/>

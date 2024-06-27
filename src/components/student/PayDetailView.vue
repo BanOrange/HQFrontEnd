@@ -9,7 +9,6 @@ import { useRouter, useRoute } from 'vue-router';
 let route = useRoute();
 let router = useRouter();
 let course_id = route.query.course_id;
-let course_fee = route.query.course_fee;
 let course_name = route.query.course_name;
 
 function back() {
@@ -23,8 +22,6 @@ function finish() {
     //学员的username和课程的id
     username: username,
     course_id: course_id,
-    //可能会用到的信息
-    course_fee: course_fee,
     corse_name: course_name,
   }
 
@@ -37,7 +34,7 @@ function finish() {
       }
     })
 
-  router.push("student/pay")
+  
 }
 
 
@@ -48,9 +45,9 @@ function finish() {
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <img src="/QR.jpg" alt="缴费二维码" style="width:150px" /> <br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <el-text>缴费课程名称：<span>{{ course_name }}</span></el-text><br>
+  <el-text>缴费课程编号：<span>{{ course_id }}</span></el-text><br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <el-text>缴费费用：<span>{{ course_fee }}</span></el-text><br><br>
+  <el-text>缴费课程名称：<span>{{ course_name }}</span></el-text><br><br>
   <el-button type="primary" size="large" @click="back">返回前界面</el-button>&nbsp;&nbsp;&nbsp;
   <el-button type="primary" size="large" @click="finish">已完成缴费</el-button>
 </template>

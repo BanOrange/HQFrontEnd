@@ -17,9 +17,12 @@ const searchForm = reactive({
     bill_start1: '',
     bill_start2: '',
     bill_start3: '',
+    bill_end1: '',
+    bill_end2: '',
+    bill_end3: '',
 })
 
-//经理向后端发送寻找账单的请求，希望返回所有的账单
+//经理向后端发送获取账单的请求，希望返回所有的账单
 function findAllBill() {
     let username = sessionStorage.getItem("username");
     let data = {
@@ -28,8 +31,8 @@ function findAllBill() {
     console.log(username)
     axios.post("http://localhost:8080/manager/getAllBill", qs.stringify(data))
         .then((res) => {
-            console.log(res.data)
-            tableData.value = res.data
+            console.log(res.data);
+            tableData.value = res.data;
         })
 }
 
@@ -42,13 +45,14 @@ onMounted(() => {
 
 //向后端发送寻找账单的请求，希望返回对应账单的信息
 function handleSearch() {
-    let bill_time = searchForm.bill_start1 + '-' + searchForm.bill_start2 + '-' + searchForm.bill_start3;
-
+    let bill_start = searchForm.bill_start1 + '-' + searchForm.bill_start2 + '-' + searchForm.bill_start3;
+    let bill_end = searchForm.bill_end1 + '-' + searchForm.bill_end2 + '-' + searchForm.bill_end3;
     let data = {
+        bill_start: bill_start,
+        bill_end: bill_end,
         bill_id: searchForm.bill_id,
-        bill_time: bill_time,
     }
-    axios.post('http://localhost:8080/searchCourse', qs.stringify(data))
+    axios.post('http://localhost:8080/searchBill', qs.stringify(data))
         .then((res) => {
             tableData.value = res.data;
         })
@@ -61,14 +65,22 @@ function handleSearch() {
     <el-form :model="searchForm" label-width="auto" style="max-width: 300px">
         <h1>账单查询</h1><br><br>
         <el-form-item label="账单编号：">
-            <el-input v-model="searchForm.course_id" />
+            <el-input v-model="searchForm.bill_id" />
         </el-form-item>
-        <el-form-item label="账单时间：">
+        <el-form-item label="开始时间：">
             <el-input v-model="searchForm.bill_start1" style="width:60px" />
             <el-text>年</el-text>
             <el-input v-model="searchForm.bill_start2" style="width:50px" />
             <el-text>月</el-text>
             <el-input v-model="searchForm.bill_start3" style="width:50px" />
+            <el-text>日</el-text><br>
+        </el-form-item>
+        <el-form-item label="结束时间：">
+            <el-input v-model="searchForm.bill_end1" style="width:60px" />
+            <el-text>年</el-text>
+            <el-input v-model="searchForm.bill_end2" style="width:50px" />
+            <el-text>月</el-text>
+            <el-input v-model="searchForm.bill_end3" style="width:50px" />
             <el-text>日</el-text><br>
         </el-form-item>
         <el-form-item>

@@ -7,7 +7,8 @@ import axios from 'axios'
 import qs from 'querystring';
 
 let router = useRouter();
-
+let end = "";
+let start = "";
 //装课程信息
 const form = reactive({
   course_id: '',
@@ -95,8 +96,8 @@ function onSubmit() {
     return;
   }
   let username = sessionStorage.getItem("username")
-  let start = form.course_start1 + '-' + form.course_start2 + '-' + form.course_start3;
-  let end = form.course_end1 + '-' + form.course_end2 + '-' + form.course_end3;
+  start = form.course_start1 + '-' + form.course_start2 + '-' + form.course_start3;
+  end = form.course_end1 + '-' + form.course_end2 + '-' + form.course_end3;
   let data = {
     username: username,
     course_id: form.course_id,
@@ -126,6 +127,10 @@ onMounted(() =>{
   findAllTeacher();
   console.log(teacherData.value)
 })
+
+function getNotice(){
+  ElMessageBox.alert('您好，浩奇公司开设了一门名为《'+form.course_name+'》的课程，课程费用为'+form.course_fee+'￥,欢迎您进入官网查询该课程的详细信息','开课通知')
+}
 </script>
 
 <template>
@@ -181,6 +186,7 @@ onMounted(() =>{
 
   <el-button type="primary" @click="back">返回</el-button>
   <el-button type="primary" @click="onSubmit">添加</el-button>
+  <el-button type="primary" @click="getNotice">一键生成开课通知</el-button>
 </template>
 
 <style scoped></style>
