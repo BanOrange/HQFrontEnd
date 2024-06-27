@@ -47,12 +47,18 @@ onMounted(() => {
 function handleSearch() {
     let bill_start = searchForm.bill_start1 + '-' + searchForm.bill_start2 + '-' + searchForm.bill_start3;
     let bill_end = searchForm.bill_end1 + '-' + searchForm.bill_end2 + '-' + searchForm.bill_end3;
+    if(searchForm.bill_start1=="" && searchForm.bill_start2=="" && searchForm.bill_start3==""){
+        bill_start = "";
+        bill_end = "";
+    }
+    console.log(bill_start)
+    console.log(bill_end)
     let data = {
         bill_start: bill_start,
         bill_end: bill_end,
         bill_id: searchForm.bill_id,
     }
-    axios.post('http://localhost:8080/searchBill', qs.stringify(data))
+    axios.post('http://localhost:8080/manager/searchBill', qs.stringify(data))
         .then((res) => {
             tableData.value = res.data;
         })

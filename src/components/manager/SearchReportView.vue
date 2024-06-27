@@ -43,18 +43,26 @@ onMounted(() => {
 
 
 
-//向后端发送寻找账单的请求，希望返回对应账单的信息
+//向后端发送寻找报表的请求，希望返回对应报表的信息
 function handleSearch() {
     let report_start = searchForm.report_start1 + '-' + searchForm.report_start2 + '-' + searchForm.report_start3;
     let report_end = searchForm.report_end1 + '-' + searchForm.report_end2 + '-' + searchForm.report_end3;
+    if(searchForm.report_start1=="" && searchForm.report_start2=="" && searchForm.report_start3==""){
+        report_start = "";
+        report_end = "";
+    }
+    console.log(searchForm.report_end1)
+    console.log(report_start)
+    console.log(report_end)
     let data = {
         report_start: report_start,
         report_end: report_end,
         report_id: searchForm.report_id,
     }
-    axios.post('http://localhost:8080/searchReport', qs.stringify(data))
+    axios.post('http://localhost:8080/manager/searchReport', qs.stringify(data))
         .then((res) => {
             tableData.value = res.data;
+            
         })
 
 }
@@ -74,23 +82,23 @@ const getDetail= (index) =>{
 <template>
     <el-form :model="searchForm" label-width="auto" style="max-width: 300px">
         <h1>报表查询</h1><br><br>
-        <el-form-item label="账单编号：">
+        <el-form-item label="报表编号：">
             <el-input v-model="searchForm.course_id" />
         </el-form-item>
         <el-form-item label="开始时间：">
-            <el-input v-model="searchForm.bill_start1" style="width:60px" />
+            <el-input v-model="searchForm.report_start1" style="width:60px" />
             <el-text>年</el-text>
-            <el-input v-model="searchForm.bill_start2" style="width:50px" />
+            <el-input v-model="searchForm.report_start2" style="width:50px" />
             <el-text>月</el-text>
-            <el-input v-model="searchForm.bill_start3" style="width:50px" />
+            <el-input v-model="searchForm.report_start3" style="width:50px" />
             <el-text>日</el-text><br>
         </el-form-item>
         <el-form-item label="结束时间：">
-            <el-input v-model="searchForm.bill_end1" style="width:60px" />
+            <el-input v-model="searchForm.report_end1" style="width:60px" />
             <el-text>年</el-text>
-            <el-input v-model="searchForm.bill_end2" style="width:50px" />
+            <el-input v-model="searchForm.report_end2" style="width:50px" />
             <el-text>月</el-text>
-            <el-input v-model="searchForm.bill_end3" style="width:50px" />
+            <el-input v-model="searchForm.report_end3" style="width:50px" />
             <el-text>日</el-text><br>
         </el-form-item>
         <el-form-item>
@@ -101,7 +109,7 @@ const getDetail= (index) =>{
     <h1>报表信息总览</h1>
     <el-table :data="tableData" style="width: 100%">
         <el-table-column fixed prop="report_id" label="报表编号" width="150" />
-        <el-table-column prop="report_time" label="报表时间" width="120" />
+        <el-table-column prop="report_start" label="报表时间" width="120" />
         <el-table-column prop="report_income" label="收入(￥)" width="150" />
         <el-table-column fixed="right" label="操作" width="120">
       <template #default="scope">
