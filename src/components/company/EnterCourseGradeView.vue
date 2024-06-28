@@ -49,7 +49,7 @@ const EnterGrade = (index) =>{
 
 <template>
   <el-form :model="form" label-width="auto" style="max-width: 400px">
-    <h1>请选择要录入成绩的课程</h1><br><br>
+    <h1>请选择要查询成绩的课程</h1><br><br>
     <el-form-item label="课程编号：">
       <el-input v-model="form.id"/>
     </el-form-item>
@@ -64,10 +64,13 @@ const EnterGrade = (index) =>{
   <el-table :data="tableData" width="400px" max-height="200">
     <el-table-column fixed prop="name" label="学生名称" width="150" />
     <el-table-column prop="id" label="学生学号" width="150" />
-    <el-table-column prop="state" label="成绩录入状态" width="120" />
+    <el-table-column prop="labScore" label="实验分数" width="120" />
+    <el-table-column prop="homeworkScore" label="作业分数" width="120" />
+    <el-table-column prop="testScore" label="考试分数" width="120" />
+    <el-table-column prop="totalScore" label="总分" width="120" />
     <el-table-column fixed="right" label="操作" width="200">
       <template #default="scope">
-        <el-button type="primary" @click="EnterGrade(scope.$index)">录入</el-button>
+        <el-button type="primary" @click="EnterGrade(scope.$index)">编辑</el-button>
       </template>
     </el-table-column>
   </el-table>
