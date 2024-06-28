@@ -8,18 +8,17 @@ import { useRouter,useRoute } from 'vue-router';
 
 let route = useRoute();
 let router = useRouter();
-//路由传参传过来的ID，可能会出现问题建议检查一下
+//路由传参传过来的ID
 let id = route.query.id;
 let name = route.query.name;
 let cid = route.query.cid;
 
-//装学生的基本信息
+
 const form = reactive({
   id: id,
   name: name,
 })
 
-//存储成绩，注意在学生查询成绩中只需要给出平均成绩grade即可
 const gradeForm = reactive({
   grade:"",
   expergrade:"",
@@ -28,7 +27,6 @@ const gradeForm = reactive({
   comments:"",
 })
 
-//如果该名学生已经有成绩，则将成绩显示出来
 function getGrade(){
   let data={
     id: id,

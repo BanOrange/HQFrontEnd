@@ -60,6 +60,7 @@ import companyCourseDetailView from '@/components/company/CourseDetailView.vue';
 import companyPayView from '@/components/company/PayView.vue';
 import companyPayDetailView from '@/components/company/PayDetailView.vue';
 import companyPayStudentView from '@/components/company/PayStudentView.vue';
+import companySearchGradeView from '@/components/company/SearchGradeView.vue';
 
 
 const router = createRouter({
@@ -362,6 +363,12 @@ const router = createRouter({
                     name: 'companyPayDetail',
                     component:companyPayDetailView,
                 },
+                {
+                    path:"/company/searchGrade",
+                    name: 'companySearchGrade',
+                    component:companySearchGradeView,
+
+                }
             ]
         },
         {
