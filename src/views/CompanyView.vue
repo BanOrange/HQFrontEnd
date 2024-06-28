@@ -78,7 +78,7 @@ onMounted(() => {
               <router-link to="/company/searchEvaluate">查询课程评价</router-link>
             </el-menu-item>
             <el-menu-item index="1-4">
-              <router-link to="/company/searchGrade">查询学员成绩</router-link>
+              <router-link to="/company/enterGrade">查询学员成绩</router-link>
             </el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>
