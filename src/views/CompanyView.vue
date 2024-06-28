@@ -57,7 +57,7 @@ onMounted(() => {
   <h1>您好！欢迎使用本系统进行培训选择！</h1>
   <el-row class="tac">
     <el-col :span="4">
-      <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
+      <el-menu default-active="2" class="el-menu-vertical-demo">
         <el-sub-menu index="1">
           <template #title>
             <el-icon>
@@ -67,7 +67,7 @@ onMounted(() => {
           </template>
           <el-menu-item-group title="管理功能">
             <el-menu-item index="1-1">
-              <router-link to="/executor/courseManage">缴费</router-link>
+              <router-link to="/company/pay">缴费</router-link>
             </el-menu-item>
             <el-menu-item index="1-2">
               <router-link to="/company/searchCourse">查询课程</router-link>

@@ -16,16 +16,17 @@ const searchForm = reactive({
 })
 
 onMounted(() => {
-    // getAllCourse();
+    getAllCoursePayment();
 })
 
 //学员得到所有需要付费的课程
 //需要返回课程编号，课程名称和课程缴费状态（signup_state）
-function getAllCourse() {
+function getAllCoursePayment() {
     let username = sessionStorage.getItem("username");
     let data = {
         username: username,
     }
+    console.log(username)
     axios.post("http://localhost:8080/student/getAllPayment", qs.stringify(data))
         .then((res) => {
             tableData.value = res.data;
@@ -47,7 +48,7 @@ function handleSearch() {
         course_id: searchForm.course_id,
         course_name: searchForm.course_name,
     }
-    axios.post("http://localhost:8080/student/search", qs.stringify(data))
+    axios.post("http://localhost:8080/student/searchPayment", qs.stringify(data))
         .then((res) => {
             tableData.value = res.data;
             for(var i=0;i<tableData.value.length;i++){
@@ -63,9 +64,10 @@ function handleSearch() {
 //跳转到缴费的二维码页面
 const pay = (index) => {
     router.push({
-        name: 'studentPayDetailView',
+        name: 'studentPayDetail',
         query: {
-            course_id: tableData.value[index].id,
+            course_id: tableData.value[index].course_id,
+            course_name: tableData.value[index].course_name,
         }
     })
 }
@@ -75,7 +77,7 @@ const getDetails = (index) => {
     router.push({
         name: 'studentCourseDetail',
         query: {
-            course_id: tableData.value[index].id,
+            course_id: tableData.value[index].course_id,
         }
     })
 }
@@ -102,7 +104,6 @@ const getDetails = (index) => {
         <el-table-column prop="signup_state" label="是否已缴费" width="150" />
         <el-table-column fixed="right" label="操作" width="120">
             <template #default="scope">
-                <el-button link type="primary" size="large" @click="getDetails(scope.$index)">详情</el-button>
                 <el-button link type="primary" size="large" @click="pay(scope.$index)">去缴费</el-button>
             </template>
         </el-table-column>

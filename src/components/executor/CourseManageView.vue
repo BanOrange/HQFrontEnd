@@ -93,13 +93,17 @@ function handleSearch(){
 
 //查看课程详细信息。跳转到另一个界面
 const handleDetail = (index)=>{
-  let id = tableData.value[index].id;
+  let course_id = tableData.value[index].course_id;
   router.push({
     path:'/manager/courseDetail',
     query:{
-      id:id,
+      course_id: course_id,
     }
   })
+}
+
+function handleAdd(){
+  router.replace("/executor/courseAdd")
 }
 </script>
 
@@ -118,6 +122,7 @@ const handleDetail = (index)=>{
   </el-form>
   <br><br>
   <h1>课程信息总览</h1>
+  <el-button link type="primary" size="large" @click="handleAdd">增加课程</el-button>
   <el-table :data="tableData" style="width: 100%">
     <el-table-column fixed prop="course_id" label="课程编号" width="150"/>
     <el-table-column prop="course_name" label="课程名称" width="120"/>

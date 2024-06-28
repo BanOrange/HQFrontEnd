@@ -72,43 +72,6 @@ onMounted(() => {
 </script>
 
 <template>
-<<<<<<< HEAD
-  <h2>课程基本信息</h2>
-  <el-form :inline="true" :model="form" label-width="auto" style="max-width: 700px">
-    <el-form-item label="课程编号：">
-      <el-input disabled v-model="form.id" />
-    </el-form-item>
-    <el-form-item label="课程名称：">
-      <el-input disabled v-model="form.name" />
-    </el-form-item>
-    <el-form-item label="上课时间：">
-      <el-input disabled v-model="form.start" style="width:200px" />
-      <el-text>至</el-text>
-      <el-input disabled v-model="form.end" style="width:200px" />
-    </el-form-item>
-    <el-form-item label="课程费用：">
-      <el-input disabled v-model="form.fee" style="width:200px" />
-      <el-text>￥/人</el-text>
-    </el-form-item>
-  </el-form><br>
-  <h2>课程详细信息</h2>
-  <el-form :model="form1" label-width="auto" style="max-width: 300px">
-    <el-form-item label="主讲教师：">
-      <el-input disabled v-model="form1.teacher" />
-    </el-form-item>
-    <el-form-item label="课程简介：">
-      <el-input disabled v-model="form1.info" />
-    </el-form-item>
-    <el-form-item label="上课地点：">
-      <el-input disabled v-model="form1.place" />
-    </el-form-item>
-    <el-form-item label="课程状态：">
-      <el-input disabled v-model="form1.state" />
-    </el-form-item>
-  </el-form>
-
-  <el-button type="primary" @click="back">返回</el-button>
-=======
     <h1>课程信息</h1>
     <el-text>课程编号：</el-text>
     <el-input disabled v-model="course_id1" style="width:200px" /><br><br>
@@ -143,7 +106,6 @@ onMounted(() => {
     <br><br>
 
     <el-button type="primary" size="large" @click="back">返回</el-button>
->>>>>>> dev_qjk
 </template>
 
 <style scoped></style>
