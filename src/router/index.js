@@ -54,6 +54,7 @@ import managerCourseDetailView from "@/components/manager/CourseDetailView.vue"
 import companyBindIDView from '@/components/company/BindIDView.vue';
 import companySearchCourseView from  '@/components/company/SearchTheCourseView.vue';
 import companyCourseDetailView from '@/components/company/CourseDetailView.vue'
+import companySearchGradeView from '@/components/company/SearchGradeView.vue';
 
 
 const router = createRouter({
@@ -201,7 +202,7 @@ const router = createRouter({
                 },
                 {
                     path:"/manager/searchEvaluate",
-                    name: 'managerSearhEvaluate',
+                    name: 'managerSearchEvaluate',
                     component:executorSearchEvaluateView,
                 },
                 {
@@ -325,6 +326,11 @@ const router = createRouter({
                     path:"/company/courseDetail",
                     name: 'companyCourseDetail',
                     component:companyCourseDetailView,
+                },
+                {
+                    path:"/company/searchGrade",
+                    name: 'companySearchGrade',
+                    component:companySearchGradeView,
                 },
             ]
         },
