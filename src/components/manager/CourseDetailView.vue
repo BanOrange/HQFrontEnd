@@ -24,35 +24,12 @@ let course_info = ref('');
 let course_state = ref('');
 let course_place = ref('');
 
-<<<<<<< HEAD
-const form = reactive({
-  course_id: '',
-  course_name: '',
-  course_start: '',
-  course_end: '',
-  course_fee: '',
-})
-
-
-const form1 = reactive({
-  course_info: '',
-  course_state: '',
-  course_place: '',
-})
-
-
-
-onMounted(() => {
-  getCourse();
-})
-=======
 course_id1.value = course_id;
 
 
 function back() {
     router.replace("/manager/searchCourse")
 }
->>>>>>> temp
 
 
 //向后端发送课程ID获取对应课程，返回对应数据，注意其中需要给出的是老师名称
@@ -63,19 +40,6 @@ function getCourse() {
   }
 
   axios.post("http://localhost:8080/executor/getCourse", qs.stringify(data))
-<<<<<<< HEAD
-      .then((res) => {
-        form.course_id = res.data.course_id;
-        form.course_name = res.data.course_name;
-        form.course_start = res.data.course_start;
-        form.course_end = res.data.course_end;
-        form.course_fee = res.data.course_fee;
-        form1.course_teacher = res.data.course_teacher;
-        form1.course_info = res.data.course_info;
-        form1.course_state = res.course_state;
-        form1.course_place = res.course_place;
-      })
-=======
     .then((res) => {
       console.log(res.data);
       course_id1.value = res.data.course_id
@@ -98,7 +62,6 @@ function getCourse() {
       course_place.value = res.data.course_place
     })
 
->>>>>>> temp
 }
 
 //由于这里需要一开始就挂载，但是还没有和后端发生信息交互,暂时注释方便开发
@@ -109,38 +72,6 @@ onMounted(() => {
 </script>
 
 <template>
-<<<<<<< HEAD
-  <h2>课程基本信息</h2>
-  <el-form :inline="true" :model="form" label-width="auto" style="max-width: 700px">
-    <el-form-item label="课程编号：">
-      <el-input disabled v-model="form.course_id" />
-    </el-form-item>
-    <el-form-item label="课程名称：">
-      <el-input disabled v-model="form.course_name" />
-    </el-form-item>
-    <el-form-item label="上课时间：">
-      <el-input disabled v-model="form.course_start" style="width:200px" />
-      <el-text>至</el-text>
-      <el-input disabled v-model="form.course_end" style="width:200px" />
-    </el-form-item>
-    <el-form-item label="课程费用：">
-      <el-input disabled v-model="form.course_fee" style="width:200px" />
-      <el-text>￥/人</el-text>
-    </el-form-item>
-  </el-form><br>
-  <h2>课程详细信息</h2>
-  <el-form :model="form1" label-width="auto" style="max-width: 300px">
-    <el-form-item label="课程简介：">
-      <el-input disabled v-model="form1.course_info" />
-    </el-form-item>
-    <el-form-item label="上课地点：">
-      <el-input disabled v-model="form1.course_place" />
-    </el-form-item>
-    <el-form-item label="课程状态：">
-      <el-input disabled v-model="form1.course_state" />
-    </el-form-item>
-  </el-form>
-=======
     <h1>课程信息</h1>
     <el-text>课程编号：</el-text>
     <el-input disabled v-model="course_id1" style="width:200px" /><br><br>
@@ -173,7 +104,6 @@ onMounted(() => {
     <el-text>课程状态：</el-text>
     <el-input disabled v-model="course_state" style="width: 100px" />
     <br><br>
->>>>>>> temp
 
     <el-button type="primary" size="large" @click="back">返回</el-button>
 </template>
