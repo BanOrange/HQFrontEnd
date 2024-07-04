@@ -15,7 +15,6 @@ let stu_id = route.query.stu_id;
 //如学号和电话号等
 const form = reactive({
     stu_id: '',
-    username: '',
     stu_name: '',
     stu_tele: '',
 })
@@ -43,7 +42,6 @@ console.log(data)
         .then((res) => {
             console.log(res.data)
             form.stu_id = res.data[0].stu_id;
-            form.username = res.data[0].username;
             form.stu_name = res.data[0].stu_name;
             form.stu_tele = res.data[0].stu_tele;
             form1.stu_company = res.data[0].stu_company;
@@ -62,8 +60,7 @@ onMounted(() => {
 
 function onSubmit() {
     let data = {
-        student_id: form.stu_id,
-        username: form.username,
+        stu_id: form.stu_id,
         stu_name: form.stu_name,
         stu_tele: form.stu_tele,
         stu_company: form1.stu_company,
@@ -72,9 +69,10 @@ function onSubmit() {
         stu_level: form1.stu_level,
         stu_state: form1.stu_state,
     }
-
+    console.log(data)
     axios.post("http://localhost:8080/executor/studentModify", qs.stringify(data))
         .then((res) => {
+            console.log(res.data.msg)
             if (res.data.code === 200) {
                 ElMessage("修改成功！")
                 // router.replace("/executor/studentManage")
@@ -91,9 +89,6 @@ function onSubmit() {
     <el-form :model="form" label-width="auto" style="max-width: 300px">
         <el-form-item label="学号：">
             <el-input v-model="form.stu_id" />
-        </el-form-item>
-        <el-form-item label="用户名：">
-            <el-input v-model="form.username" />
         </el-form-item>
         <el-form-item label="姓名：">
             <el-input v-model="form.stu_name" />

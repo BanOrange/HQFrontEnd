@@ -22,6 +22,7 @@ function findAllStudent(){
   axios.get('http://localhost:8080/executor/findAllStudent')
       .then((res)=>{
         tableData.value = res.data;
+        console.log(res.data)
       })
 }
 
@@ -102,13 +103,13 @@ function handleAdd(){
   <el-button link type="primary" size="large" @click="handleAdd">添加学生信息</el-button>
   <br>
   <el-table :data="tableData" style="width: 100%">
-    <el-table-column fixed prop="stu_id" label="学号" width="150" />
+    <el-table-column fixed prop="stu_id" label="学号" width="100" />
     <el-table-column prop="stu_name" label="姓名" width="120" />
     <el-table-column prop="stu_tele" label="电话号码" width="120" />
-    <el-table-column prop="stu_company" label="隶属公司名称" width="120" />
-    <el-table-column prop="stu_position" label="工作岗位" width="120" />
-    <el-table-column prop="stu_email" label="电子邮件" width="120" />
-    <el-table-column prop="stu_level" label="技术水平" width="120" />
+    <el-table-column prop="stu_company" label="隶属公司" width="100" />
+    <el-table-column prop="stu_position" label="工作岗位" width="100" />
+    <el-table-column prop="stu_email" label="电子邮件" width="100" />
+    <el-table-column prop="stu_level" label="技术水平" width="100" />
     <el-table-column fixed="right" label="操作" width="120">
       <template #default="scope">
         <!-- <el-link type="primary">修改</el-link> -->
