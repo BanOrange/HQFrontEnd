@@ -246,7 +246,7 @@ const router = createRouter({
                 },
                 {
                     path:"/manager/searchEvaluate",
-                    name: 'managerSearhEvaluate',
+                    name: 'managerSearchEvaluate',
                     component:executorSearchEvaluateView,
                 },
 
