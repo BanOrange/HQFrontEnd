@@ -180,24 +180,9 @@ const router = createRouter({
             component: ManagerView,
             children:[
                 {
-                    path: '/manager/teacherManage',
-                    name: 'managerTeacherManage',
-                    component:managerTeacherManageView,
-                },
-                {
-                    path: '/manager/teacherDetail',
-                    name: 'managerTeacherDetail',
-                    component:managerTeacherDetailView,
-                },
-                {
-                    path: '/manager/studentManage',
-                    name: 'managerStudentManage',
-                    component:managerStudentManageView,
-                },
-                {
-                    path: '/manager/studentDetail',
-                    name: 'managerStudentDetail',
-                    component:managerStudentDetailView,
+                    path:"/manager/courseDetail",
+                    name: 'managerCourseDetail',
+                    component:managerCourseDetailView,
                 },
                 {
                     path: '/manager/courseManage',
@@ -205,24 +190,24 @@ const router = createRouter({
                     component:managerCourseManageView,
                 },
                 {
+                    path: '/manager/executorDetail',
+                    name: 'managerExecutorDetail',
+                    component:managerExecutorDetailView,
+                },
+                {
                     path: '/manager/executorManage',
                     name: 'managerExecutorManage',
                     component:managerExecutorManageView,
                 },
                 {
-                    path:"/manager/change-password",
-                    name: 'managerChangePassword',
-                    component:ChangePasswordView,
+                   path: '/manager/executorWorkStatus',
+                   name: 'managerExecutorWorkStatus',
+                   component:managerExecutorWorkStatusView,
                 },
                 {
-                    path:"/manager/searchEvaluate",
-                    name: 'managerSearhEvaluate',
-                    component:executorSearchEvaluateView,
-                },
-                {
-                    path:"/manager/courseDetail",
-                    name: 'managerCourseDetail',
-                    component:managerCourseDetailView,
+                    path:"/manager/reportDetail",
+                    name: 'managerReportDetail',
+                    component:managerReportDetailView,
                 },
                 {
                     path:"/manager/searchBill",
@@ -235,10 +220,39 @@ const router = createRouter({
                     component:managerSearchReportView,
                 },
                 {
-                    path:"/manager/reportDetail",
-                    name: 'managerReportDetail',
-                    component:managerReportDetailView,
+                    path: '/manager/studentDetail',
+                    name: 'managerStudentDetail',
+                    component:managerStudentDetailView,
                 },
+                {
+                    path: '/manager/studentManage',
+                    name: 'managerStudentManage',
+                    component:managerStudentManageView,
+                },
+                {
+                    path: '/manager/teacherDetail',
+                    name: 'managerTeacherDetail',
+                    component:managerTeacherDetailView,
+                },
+                {
+                    path: '/manager/teacherManage',
+                    name: 'managerTeacherManage',
+                    component:managerTeacherManageView,
+                },
+                {
+                    path:"/manager/change-password",
+                    name: 'managerChangePassword',
+                    component:ChangePasswordView,
+                },
+                {
+                    path:"/manager/searchEvaluate",
+                    name: 'managerSearhEvaluate',
+                    component:executorSearchEvaluateView,
+                },
+
+
+
+
             ]
         },
         {
