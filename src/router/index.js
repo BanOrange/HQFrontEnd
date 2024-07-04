@@ -44,13 +44,12 @@ import executorTeacherModifyView from "@/components/executor/TeacherModifyView.v
 import executorSearchEvaluateView from "@/components/executor/SearchEvaluateView.vue";
 import executorTeacherDetailView from "@/components/executor/TeacherDetailView.vue"
 
-import managerCourseManageView from "@/components/manager/CourseManageView.vue";
-import managerStudentManageView from "@/components/manager/StudentManageView.vue";
-import managerStudentDetailView from "@/components/manager/StudentDetailView.vue";
-import managerTeacherManageView from "@/components/manager/TeacherManageView.vue";
-import managerTeacherDetailView from "@/components/manager/TeacherDeatilView.vue";
-import managerExecutorManageView from "@/components/manager/ExecutorManageView.vue";
 import managerCourseDetailView from "@/components/manager/CourseDetailView.vue";
+import managerCourseManageView from "@/components/manager/CourseManageView.vue";
+import managerExecutorDetailView from "@/components/manager/ExecutorDetailView.vue";
+import managerExecutorManageView from "@/components/manager/ExecutorManageView.vue";
+import managerExecutorWorkStatusView from "@/components/manager/ExecutorWorkStatusView.vue";
+import managerReportDetailView from "@/components/manager/ReportDetailView.vue";
 import managerSearchBillView from "@/components/manager/SearchBillView.vue";
 import managerSearchReportView from "@/components/manager/SearchReportView.vue";
 import managerReportDetailView from "@/components/manager/ReportDetailView.vue";
@@ -181,24 +180,9 @@ const router = createRouter({
             component: ManagerView,
             children:[
                 {
-                    path: '/manager/teacherManage',
-                    name: 'managerTeacherManage',
-                    component:managerTeacherManageView,
-                },
-                {
-                    path: '/manager/teacherDetail',
-                    name: 'managerTeacherDetail',
-                    component:managerTeacherDetailView,
-                },
-                {
-                    path: '/manager/studentManage',
-                    name: 'managerStudentManage',
-                    component:managerStudentManageView,
-                },
-                {
-                    path: '/manager/studentDetail',
-                    name: 'managerStudentDetail',
-                    component:managerStudentDetailView,
+                    path:"/manager/courseDetail",
+                    name: 'managerCourseDetail',
+                    component:managerCourseDetailView,
                 },
                 {
                     path: '/manager/courseManage',
@@ -206,24 +190,24 @@ const router = createRouter({
                     component:managerCourseManageView,
                 },
                 {
+                    path: '/manager/executorDetail',
+                    name: 'managerExecutorDetail',
+                    component:managerExecutorDetailView,
+                },
+                {
                     path: '/manager/executorManage',
                     name: 'managerExecutorManage',
                     component:managerExecutorManageView,
                 },
                 {
-                    path:"/manager/change-password",
-                    name: 'managerChangePassword',
-                    component:ChangePasswordView,
+                   path: '/manager/executorWorkStatus',
+                   name: 'managerExecutorWorkStatus',
+                   component:managerExecutorWorkStatusView,
                 },
                 {
-                    path:"/manager/searchEvaluate",
-                    name: 'managerSearhEvaluate',
-                    component:executorSearchEvaluateView,
-                },
-                {
-                    path:"/manager/courseDetail",
-                    name: 'managerCourseDetail',
-                    component:managerCourseDetailView,
+                    path:"/manager/reportDetail",
+                    name: 'managerReportDetail',
+                    component:managerReportDetailView,
                 },
                 {
                     path:"/manager/searchBill",
@@ -236,11 +220,12 @@ const router = createRouter({
                     component:managerSearchReportView,
                 },
                 {
-                    path:"/manager/reportDetail",
-                    name: 'managerReportDetail',
-                    component:managerReportDetailView,
+                    path: '/manager/studentDetail',
+                    name: 'managerStudentDetail',
+                    component:managerStudentDetailView,
                 },
                 {
+<<<<<<< HEAD
                     path:"/manager/searchApplication",
                     name: 'managerSearchApplication',
                     component:managerSearchApplicationView,
@@ -250,6 +235,36 @@ const router = createRouter({
                     name: 'managerApplicationDetail',
                     component:managerApplicationDetailView,
                 },
+=======
+                    path: '/manager/studentManage',
+                    name: 'managerStudentManage',
+                    component:managerStudentManageView,
+                },
+                {
+                    path: '/manager/teacherDetail',
+                    name: 'managerTeacherDetail',
+                    component:managerTeacherDetailView,
+                },
+                {
+                    path: '/manager/teacherManage',
+                    name: 'managerTeacherManage',
+                    component:managerTeacherManageView,
+                },
+                {
+                    path:"/manager/change-password",
+                    name: 'managerChangePassword',
+                    component:ChangePasswordView,
+                },
+                {
+                    path:"/manager/searchEvaluate",
+                    name: 'managerSearchEvaluate',
+                    component:executorSearchEvaluateView,
+                },
+
+
+
+
+>>>>>>> temp
             ]
         },
         {
