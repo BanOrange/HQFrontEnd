@@ -8,7 +8,8 @@ const form = reactive({
   username: '',
   course_id: '',
   course_name: '',
-  signin_state: '',
+  signin_state: '', //签到状态，0表示未签到，1表示以签到
+  signin_OK: '', //工作人员是否发起签到，是为1否0
 })
 const checkedCourses = ref([])
 
@@ -27,6 +28,15 @@ function addCheck() {
     username: form.username,
     course_id: form.course_id,
   }
+  if (signin_state == 1) {
+    ElMessage.error("您已经签到过了")
+    return;
+  }
+  if (signin_OK == 0) {
+    ElMessage.error("工作人员还未发起签到")
+    return;
+  }
+
   axios.post("http://localhost:8080/student/addCheck", qs.stringify(data))
       .then((res) => {
         if (res.data.code == 200) {
