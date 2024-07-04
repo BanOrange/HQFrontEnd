@@ -44,16 +44,18 @@ import executorTeacherModifyView from "@/components/executor/TeacherModifyView.v
 import executorSearchEvaluateView from "@/components/executor/SearchEvaluateView.vue";
 import executorTeacherDetailView from "@/components/executor/TeacherDetailView.vue"
 
-import managerCourseManageView from "@/components/manager/CourseManageView.vue";
-import managerStudentManageView from "@/components/manager/StudentManageView.vue";
-import managerStudentDetailView from "@/components/manager/StudentDetailView.vue";
-import managerTeacherManageView from "@/components/manager/TeacherManageView.vue";
-import managerTeacherDetailView from "@/components/manager/TeacherDeatilView.vue";
-import managerExecutorManageView from "@/components/manager/ExecutorManageView.vue";
 import managerCourseDetailView from "@/components/manager/CourseDetailView.vue";
+import managerCourseManageView from "@/components/manager/CourseManageView.vue";
+import managerExecutorDetailView from "@/components/manager/ExecutorDetailView.vue";
+import managerExecutorManageView from "@/components/manager/ExecutorManageView.vue";
+import managerExecutorWorkStatusView from "@/components/manager/ExecutorWorkStatusView.vue";
+import managerReportDetailView from "@/components/manager/ReportDetailView.vue";
 import managerSearchBillView from "@/components/manager/SearchBillView.vue";
 import managerSearchReportView from "@/components/manager/SearchReportView.vue";
-import managerReportDetailView from "@/components/manager/ReportDetailView.vue";
+import managerStudentDetailView from "@/components/manager/StudentDetailView.vue";
+import managerStudentManageView from "@/components/manager/StudentManageView.vue";
+import managerTeacherDetailView from "@/components/manager/TeacherDeatilView.vue";
+import managerTeacherManageView from "@/components/manager/TeacherManageView.vue";
 
 import companyBindIDView from '@/components/company/BindIDView.vue';
 import companySearchCourseView from  '@/components/company/SearchTheCourseView.vue';
