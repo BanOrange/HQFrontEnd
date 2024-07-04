@@ -9,22 +9,24 @@ import qs from 'querystring';
 let router = useRouter();
 let route = useRoute();
 
-let id = route.query.id;
+let stu_id = route.query.stu_id;
 
 //存储学员的核心信息，和别人不会重复的信息
 //如学号和电话号等
 const form = reactive({
-    id: '',
-    name: '',
-    telephone: '',
+    stu_id: '',
+    username: '',
+    stu_name: '',
+    stu_tele: '',
 })
 
 //该表单存储学生的其他信息
 const form1 = reactive({
-    company: '',
-    position: '',
-    email: '',
-    level: '',
+    stu_company: '',
+    stu_position: '',
+    stu_email: '',
+    stu_level: '',
+    stu_state: '',
 })
 
 function back() {
@@ -34,18 +36,20 @@ function back() {
 //根据传过来的ID信息得到整个学生信息
 function getStudent() {
     let data = {
-        id: id,
+        stu_id: stu_id,
     }
 
     axios.post("http://localhost:8080/executor/getStudent", qs.stringify(data))
         .then((res) => {
-            form.id = res.data.id;
-            form.name = res.data.name;
-            form.telephone = res.data.telephone;
-            form1.company = res.data.company;
-            form1.position = res.data.position;
-            form1.email = res.data.email;
-            form1.level = res.data.level;
+            form.stu_id = res.data.stu_id;
+            form.username = res.data.username;
+            form.stu_name = res.data.stu_name;
+            form.stu_tele = res.data.stu_tele;
+            form1.stu_company = res.data.stu_company;
+            form1.stu_position = res.data.stu_position;
+            form1.stu_email = res.data.stu_email;
+            form1.stu_level = res.data.stu_level;
+            form1.stu_state = res.data.stu_state;
         })
 
 }
@@ -57,13 +61,15 @@ onMounted(() => {
 
 function onSubmit() {
     let data = {
-        id: form.id,
-        name: form.name,
-        telephone: form.telephone,
-        company: form1.company,
-        position: form1.position,
-        email: form1.email,
-        level: form1.level,
+        stu_id: form.stu_id,
+        username: form.username,
+        stu_name: form.stu_name,
+        stu_tele: form.stu_tele,
+        stu_company: form1.stu_company,
+        stu_position: form1.stu_position,
+        stu_email: form1.stu_email,
+        stu_level: form1.stu_level,
+        stu_state: form1.stu_state,
     }
 
     axios.post("http://localhost:8080/executor/studentAdd", qs.stringify(data))
