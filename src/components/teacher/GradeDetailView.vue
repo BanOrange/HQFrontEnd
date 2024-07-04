@@ -13,38 +13,7 @@ let router = useRouter();
 let course_name = route.query.course_name;
 let course_id = route.query.course_id
 
-//装学生的基本信息
-const form = reactive({
-  stu_id: stu_id,
-  stu_name: stu_name,
-})
 
-//存储成绩，注意在学生查询成绩中只需要给出平均成绩grade即可
-// const gradeForm = reactive({
-//     stu_score:"",
-//     expergrade:"",
-//     examgrade:"",
-//     homegrade:"",
-//     teacher_evaluate:"",
-// })
-
-// //如果该名学生已经有成绩，则将成绩显示出来
-// function getGrade(){
-//     let data={
-//         stu_id: stu_id,
-//         course_id: course_id,
-//     }
-
-//     axios.post('http://localhost:8080/teacher/getGrade', qs.stringify(data))
-//       .then((res) => {
-//           gradeForm.stu_score = res.data.stu_score;
-//           gradeForm.examgrade = res.data.examgrade;
-//           gradeForm.expergrade = res.data.expergrade;
-//           gradeForm.teacher_evaluate = res.data.teacher_evaluate;
-//       });
-// }
-//由于还没有和后端建立联系，所以这里会报错
-//必须在一开始就读取成绩显示出来
 
 
 //得到一门课程对应的学员成绩列表
@@ -80,32 +49,11 @@ const EnterGrade = (index) => {
     })
 }
 
-// //提交成绩
-// function onSubmit(){
-//     let data={
-//         stu_score: gradeForm.stu_score,
-//         expergrade: gradeForm.expergrade,
-//         examgrade: gradeForm.examgrade,
-//         homegrade: gradeForm.homegrade,
-//         teacher_evaluate: gradeForm.teacher_evaluate,
-//         stu_id: this.stu_id,
-//         course_id: this.course_id,
-//     }
 
-//     axios.post('http://localhost:8080/teacher/submitGrade', qs.stringify(data))
-//       .then((res) => {
-//         if (res.data.code === 200) {
-//           ElMessage(res.data.msg)
-//         } else {
-//           ElMessage(res.data.msg)
-//         }
-//       });
+// //返回到刚才的界面
+// function back() {
+//   router.replace("teacher/enterGrade");
 // }
-
-//返回到刚才的界面
-function back() {
-  router.replace("teacher/EnterCourseGradeView");
-}
 </script>
 
 <template>
@@ -122,8 +70,7 @@ function back() {
   <el-table :data="tableData" width="400px" max-height="200">
     <el-table-column fixed prop="stu_name" label="学员名称" width="150" />
     <el-table-column prop="stu_id" label="学员编号" width="150" />
-    <el-table-column prop="stu_score" label="成绩" width="150" />
-    <el-table-column prop="grade_state" label="录入状态" width="150" />
+    <el-table-column prop="stu_score" label="成绩" width="100" />
     <el-table-column fixed="right" label="操作" width="200">
       <template #default="scope">
         <el-button type="primary" @click="EnterGrade(scope.$index)">录入成绩</el-button>
@@ -131,7 +78,7 @@ function back() {
     </el-table-column>
   </el-table>
 
-  <el-button type="primary" size="large" @click="back()">返回</el-button>
+  <!-- <el-button type="primary" size="large" @click="back()">返回</el-button> -->
 
 
 </template>

@@ -27,7 +27,7 @@ const gradeForm = reactive({
 //如果该名学生已经有成绩，则将成绩显示出来
 function getGrade() {
     let data = {
-        stu_id: stu_id,
+        stu_id: stuForm.stu_id,
         course_id: course_id,
     }
     console.log(data)
@@ -45,38 +45,27 @@ onMounted(() => {
 })
 
 
-//进入单个学生的成绩录入
+//单个学生的成绩录入或者修改
 const EnterGrade = (index) => {
-    router.push({
-        name: 'teacherStudentGradeDetail',
-        query: {
-            stu_id: tableData.value[index].stu_id,
-            stu_name: tableData.value[index].stu_name,
-        }
-    })
+    let data = {
+        course_id: course_id,
+        stu_id: stuForm.stu_id,
+        stu_score: gradeForm.stu_score,
+        teacher_evaluate: gradeForm.teacher_evaluate,
+    }
+
+    console.log(data)
+    axios.post('http://localhost:8080/teacher/enterGrade', qs.stringify(data))
+        .then((res) => {
+            if(res.data.code == 200){
+                ElMessage.success(res.data.msg)
+            }else{
+                ElMessage.error(res.data.msg)
+            }
+        });
+
+
 }
-
-// //提交成绩
-// function onSubmit(){
-//     let data={
-//         stu_score: gradeForm.stu_score,
-//         expergrade: gradeForm.expergrade,
-//         examgrade: gradeForm.examgrade,
-//         homegrade: gradeForm.homegrade,
-//         teacher_evaluate: gradeForm.teacher_evaluate,
-//         stu_id: this.stu_id,
-//         course_id: this.course_id,
-//     }
-
-//     axios.post('http://localhost:8080/teacher/submitGrade', qs.stringify(data))
-//       .then((res) => {
-//         if (res.data.code === 200) {
-//           ElMessage(res.data.msg)
-//         } else {
-//           ElMessage(res.data.msg)
-//         }
-//       });
-// }
 
 //返回到刚才的界面
 function back() {
@@ -88,16 +77,16 @@ function back() {
     <h2>学员信息</h2>
     <el-form :inline="true" :model="stuForm" label-width="auto" style="max-width: 700px">
         <el-form-item label="学员学号：">
-            <el-input v-model="stuForm.stu_id" />
+            <el-input disabled v-model="stuForm.stu_id" />
         </el-form-item>
         <el-form-item label="学员名称：">
-            <el-input v-model="stuForm.stu_name" />
+            <el-input disbled v-model="stuForm.stu_name" />
         </el-form-item>
     </el-form>
     <h2>成绩信息</h2>
     <el-form :inline="true" :model="gradeForm" label-width="auto" style="max-width: 700px">
         <el-form-item label="课程成绩：">
-            <el-input v-model="gradeForm.examgrade" />
+            <el-input v-model="gradeForm.stu_score" />
         </el-form-item>
         <el-form-item label="教师评语：">
             <el-input v-model="gradeForm.teacher_evaluate" />
@@ -105,6 +94,7 @@ function back() {
     </el-form>
 
     <el-button type="primary" size="large" @click="back()">返回</el-button>
+    <el-button type="primary" size="large" @click="EnterGrade()">返回</el-button>
 
 
 </template>

@@ -75,7 +75,7 @@ onMounted(() => {
           </el-menu-item-group>
           <el-menu-item-group title="课程相关">
             <el-menu-item index="1-4">
-              <router-link to="/company/enterGrade">查询学员成绩</router-link>
+              <router-link to="/company/searchGrade">查询学员成绩</router-link>
             </el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>

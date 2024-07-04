@@ -25,7 +25,8 @@ import teacherEnterCouerseGradeView from "@/components/teacher/EnterCourseGradeV
 import teacherGradeDetailView from "@/components/teacher/GradeDetailView.vue";
 import teacherSearchEvaluateView from "@/components/teacher/SearchEvaluateView.vue";
 import teacherBindIDView from "@/components/teacher/BindIDView.vue";
-import teacherCourseDetailView from "@/components/teacher/CourseDetailView.vue"
+import teacherCourseDetailView from "@/components/teacher/CourseDetailView.vue";
+import teacherStudentGradeDetailView from "@/components/teacher/StudentGradeDetailView.vue"
 
 import staffRequestCheckView from "@/components/staff/RequestCheckView.vue";
 import staffCheckDetailView from "@/components/staff/CheckDetailView.vue";
@@ -60,7 +61,7 @@ import companyCourseDetailView from '@/components/company/CourseDetailView.vue';
 import companyPayView from '@/components/company/PayView.vue';
 import companyPayDetailView from '@/components/company/PayDetailView.vue';
 import companyPayStudentView from '@/components/company/PayStudentView.vue';
-import companyEnterCourseGradeView from '@/components/company/EnterCourseGradeView.vue';
+import companySearchGradeView from '@/components/company/SearchGradeView.vue';
 import companyGradeDetailView from '@/components/company/GradeDetailView.vue';
 
 const router = createRouter({
@@ -163,6 +164,11 @@ const router = createRouter({
                     path: '/teacher/courseDetail',
                     name: 'teacherCourseDetail',
                     component:teacherCourseDetailView,
+                },
+                {
+                    path: '/teacher/studentGradeDetail',
+                    name: 'teacherStudentGradeDetail',
+                    component:teacherStudentGradeDetailView,
                 },
             ]
         },
@@ -364,9 +370,9 @@ const router = createRouter({
                     component:companyPayDetailView,
                 },
                 {
-                    path:"/company/enterGrade",
-                    name: 'companyEnterGrade',
-                    component:companyEnterCourseGradeView,
+                    path:"/company/searchGrade",
+                    name: 'companySearchGrade',
+                    component:companySearchGradeView,
                 },
                 {
                     path:"/company/gradeDetail",

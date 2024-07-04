@@ -8,105 +8,55 @@ import { useRouter,useRoute } from 'vue-router';
 
 let route = useRoute();
 let router = useRouter();
+
 //路由传参传过来的ID
-let id = route.query.id;
-let name = route.query.name;
-let cid = route.query.cid;
+let course_id = route.query.course_id;
+let course_name = route.query.course_name;
+
+//对应课程下该公司的学员相关成绩
+const tableData = ref([])
 
 
-const form = reactive({
-  id: id,
-  name: name,
-})
-
-const gradeForm = reactive({
-  grade:"",
-  expergrade:"",
-  examgrade:"",
-  homegrade:"",
-  comments:"",
-})
-
+//需要后端返回这门课下该公司的所有员工的成绩和老师评语
 function getGrade(){
+  let username = sessionStorage.getItem("username")
   let data={
-    id: id,
-    cid: cid
+    username: username,
+    course_id: course_id,
+    course_name: course_name,
   }
+  console.log("这是前端传输的数据：");
+  console.log(data);
 
   axios.post('http://localhost:8080/company/getGrade', qs.stringify(data))
       .then((res) => {
-        gradeForm.grade = res.data.grade;
-        gradeForm.examgrade = res.dada.examgrade;
-        gradeForm.expergrade = res.data.expergrade;
-        gradeFrom.comments = res.data.comments;
+        console.log(res.data)
+        tableData.value = res.data;
       });
 }
-//由于还没有和后端建立联系，所以这里会报错
-//必须在一开始就读取成绩显示出来
+
+
 onMounted(() => {
   getGrade();
 })
 
-//提交成绩
-function onSubmit(){
-  let data={
-    grade: gradeForm.grade,
-    expergrade: gradeForm.expergrade,
-    examgrade: gradeForm.examgrade,
-    homegrade: gradeForm.homegrade,
-    comments: gradeForm.comments,
-    id: this.id,
-    cid: this.cid,
-  }
-
-  axios.post('http://localhost:8080/company/submitGrade', qs.stringify(data))
-      .then((res) => {
-        if (res.data.code === 200) {
-          ElMessage(res.data.msg)
-        } else {
-          ElMessage(res.data.msg)
-        }
-      });
-}
 
 //返回到刚才的界面
 function back(){
-  router.replace("company/enterGrade");
+  router.replace("company/searchGrade");
 }
 </script>
 
 <template>
-  <h2>学生基本信息</h2>
-  <el-form :inline="true" :model="form" label-width="auto" style="max-width: 700px">
-    <el-form-item label="学生名称：">
-      <el-input disabled v-model="form.name"/>
-    </el-form-item>
-    <el-form-item   label="学号：">
-      <el-input disabled v-model="form.id"/>
-    </el-form-item>
-  </el-form>
-  <br>
-  <h2>成绩信息</h2>
-  <el-form :inline="true" :model="gradeForm" label-width="auto" style="max-width: 700px">
-    <el-form-item label="平均成绩：">
-      <el-input v-model="gradeForm.grade"/>
-    </el-form-item>
-    <el-form-item   label="实验成绩：">
-      <el-input v-model="gradeForm.expergrade"/>
-    </el-form-item>
-    <el-form-item   label="作业成绩：">
-      <el-input v-model="gradeForm.homegrade"/>
-    </el-form-item>
-    <el-form-item   label="考试成绩：">
-      <el-input v-model="gradeForm.examgrade"/>
-    </el-form-item>
-    <el-form-item   label="教师评语：">
-      <el-input v-model="gradeForm.comments"/>
-    </el-form-item>
-  </el-form>
+    <h1>公司员工成绩</h1>
+  <el-table :data="tableData" width="400px" max-height="200">
+    <el-table-column fixed prop="stu_name" label="员工名称" width="150" />
+    <el-table-column prop="stu_id" label="员工学号" width="120" />
+    <el-table-column prop="stu_score" label="成绩" width="120" />
+    <el-table-column prop="teacher_evaluate" label="老师评价" width="200" />
+  </el-table>
 
   <el-button type="primary" size="large" @click="back()">返回</el-button>
-  <el-button type="primary" size="large" @click="onSubmit()">提交成绩</el-button>
 
 
 </template>
