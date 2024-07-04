@@ -11,17 +11,17 @@ let router = useRouter();
 //存储学员的核心信息，和别人不会重复的信息
 //如学号和电话号等
 const form = reactive({
-  id: '',
-  name:'',
-  telephone: '',
+  stu_id: '',
+  stu_name:'',
+  stu_tele: '',
 })
 
 //该表单存储学生的其他信息
 const form1 = reactive({
-  company: '',
-  position: '',
-  email: '',
-  level: '',
+  stu_company: '',
+  stu_position: '',
+  stu_email: '',
+  stu_level: '',
 })
 
 function back() {
@@ -31,13 +31,13 @@ function back() {
 //向后端发送添加学生信息的请求，返回添加成功与否
 function onSubmit() {
   let data = {
-    id:form.id,
-    name: form.name,
-    telephone: form.telephone,
-    company: form1.company,
-    position: form1.position,
-    email: form1.email,
-    level: form1.level,
+    stu_id:form.stu_id,
+    stu_name: form.stu_name,
+    stu_tele: form.stu_tele,
+    stu_company: form1.stu_company,
+    stu_position: form1.stu_position,
+    stu_email: form1.stu_email,
+    stu_level: form1.stu_level,
   }
 
   axios.post("http://localhost:8080/executor/studentAdd", qs.stringify(data))
@@ -57,29 +57,29 @@ function onSubmit() {
   <br><br>
   <el-form :model="form" label-width="auto" style="max-width: 300px">
     <el-form-item label="学号：">
-      <el-input v-model="form.id"/>
+      <el-input v-model="form.stu_id"/>
     </el-form-item>
     <el-form-item label="姓名：">
-      <el-input v-model="form.name"/>
+      <el-input v-model="form.stu_name"/>
     </el-form-item>
     <el-form-item label="电话号码：">
-      <el-input v-model="form.telephone"/>
+      <el-input v-model="form.stu_tele"/>
     </el-form-item>
   </el-form>
 <br>
   <h2>学员详细信息</h2>
   <el-form :model="form1" label-width="auto" style="max-width: 300px">
     <el-form-item label="公司名称：">
-      <el-input v-model="form1.company"/>
+      <el-input v-model="form1.stu_company"/>
     </el-form-item>
     <el-form-item label="工作岗位：">
-      <el-input v-model="form1.position"/>
+      <el-input v-model="form1.stu_position"/>
     </el-form-item>
     <el-form-item label="电子邮件：">
-      <el-input v-model="form1.email"/>
+      <el-input v-model="form1.stu_email"/>
     </el-form-item>
     <el-form-item label="技术水平：">
-      <el-radio-group v-model="form1.level">
+      <el-radio-group v-model="form1.stu_level">
         <el-radio value="high">高级</el-radio>
         <el-radio value="middle">中级</el-radio>
         <el-radio value="low">入门</el-radio>
