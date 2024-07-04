@@ -225,7 +225,6 @@ const router = createRouter({
                     component:managerStudentDetailView,
                 },
                 {
-<<<<<<< HEAD
                     path:"/manager/searchApplication",
                     name: 'managerSearchApplication',
                     component:managerSearchApplicationView,
@@ -235,7 +234,6 @@ const router = createRouter({
                     name: 'managerApplicationDetail',
                     component:managerApplicationDetailView,
                 },
-=======
                     path: '/manager/studentManage',
                     name: 'managerStudentManage',
                     component:managerStudentManageView,
@@ -264,7 +262,6 @@ const router = createRouter({
 
 
 
->>>>>>> temp
             ]
         },
         {
