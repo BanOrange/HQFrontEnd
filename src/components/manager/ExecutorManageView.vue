@@ -64,6 +64,7 @@ const getDetails=(index)=>{
       exe_id:tableData.value[index].exe_id,
     }
   })
+  console.log(tableData.value[index].exe_id); //成功
 }
 
 

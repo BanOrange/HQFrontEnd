@@ -5,6 +5,7 @@ import qs from 'querystring';
 import {ElMessage} from 'element-plus';
 import {onMounted} from 'vue';
 import router from "@/router/index.js";
+import { useRoute } from 'vue-router';
 
 const searchForm = reactive({
   exe_id: '',
@@ -12,14 +13,17 @@ const searchForm = reactive({
 
 const tableData = ref([])
 
+const route = useRoute();
+
 // 新增的函数，用于获取执行人负责的课程信息
 function getExecutorCourses() {
-  let exe_id = sessionStorage.getItem("exe_id")
+  let exe_id = route.query.exe_id;
+ // let exe_id = sessionStorage.getItem("exe_id")
   let data = qs.stringify({
     exe_id: exe_id,
   });
-  console.log(exe_id);
-  axios.post("http://localhost:8080/executor/getCourses", data)
+  //console.log(exe_id); //成功
+  axios.post("http://localhost:8080/manager/getCourses", data)
       .then((res) => {
         console.log(res.data);
         tableData.value = res.data;
