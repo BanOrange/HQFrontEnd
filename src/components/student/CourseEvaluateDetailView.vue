@@ -26,6 +26,7 @@ function getCourseEvaluate(){
     username: username,
     course_id: course_id,
   }
+  console.log(data)
   axios.post("http://localhost:8080/student/getCourseEvaluate", qs.stringify(data))
       .then((res) => {
         eva_score.value = res.data.eva_score;
@@ -43,12 +44,14 @@ function onSubmit() {
     ElMessage("您的评价意见不能为空，谢谢")
     return;
   }
+  let username = sessionStorage.getItem("username");
   let data = {
     course_id: course_id,
     username: username,
-    eva_score: eva_score,
-    eva_content: eva_content,
+    eva_score: eva_score.value,
+    eva_content: eva_content.value,
   }
+  console.log(data)
   axios.post("http://localhost:8080/student/courseEvaluate", qs.stringify(data))
       .then((res) => {
         if (res.data.code === 200) {

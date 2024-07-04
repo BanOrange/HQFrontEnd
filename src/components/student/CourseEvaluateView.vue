@@ -22,11 +22,12 @@ onMounted(() => {
 })
 
 const evaluate = (index) => {
+  console.log(tableData.value[index].course_id)
   if (tableData.value[index].course_state == "反馈中") {
     router.push({
       name: 'studentCourseEvaluateDetail',
       query: {
-        id: tableData.value[index].course_id,
+        course_id: tableData.value[index].course_id,
       }
     })
   }else if(tableData.value[index].course_state == "已结束"){

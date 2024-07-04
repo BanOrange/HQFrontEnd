@@ -51,7 +51,7 @@ const getDetail = (index) =>{
 
 <template>
     <el-form :model="searchForm" label-width="auto" style="max-width: 300px">
-        <h1>账单查询</h1><br><br>
+        <h1>申请查询</h1><br><br>
         <el-form-item label="申请编号：">
             <el-input v-model="searchForm.bill_id" />
         </el-form-item>

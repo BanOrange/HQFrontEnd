@@ -121,11 +121,11 @@ const getDetails = (index) => {
 <!--        <el-button type="primary" @click="getDetails(scope.$index)">查看签到详情</el-button>-->
 <!--      </template>-->
 <!--    </el-table-column>-->
-    <el-table-column fixed="right" label="操作" width="200">
+    <!-- <el-table-column fixed="right" label="操作" width="200">
       <template #default="scope">
         <el-button type="primary" @click="getDetails(scope.$index)">查看签到详情</el-button>
       </template>
-    </el-table-column>
+    </el-table-column> -->
     <el-table-column fixed="right" label="操作" width="200">
       <template #default="scope">
         <el-button type="primary" @click="startCheck(scope.$index)">发起签到</el-button>

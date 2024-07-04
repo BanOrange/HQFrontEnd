@@ -125,6 +125,7 @@ function onSubmit() {
     console.log(data);
     axios.post("http://localhost:8080/executor/courseModify", qs.stringify(data))
         .then((res) => {
+          console.log(res.data)
             if (res.data.code === 200) {
                 ElMessage("修改成功！")
                 router.replace("/executor/courseManage")
