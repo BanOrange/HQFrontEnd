@@ -52,10 +52,9 @@ import managerExecutorWorkStatusView from "@/components/manager/ExecutorWorkStat
 import managerReportDetailView from "@/components/manager/ReportDetailView.vue";
 import managerSearchBillView from "@/components/manager/SearchBillView.vue";
 import managerSearchReportView from "@/components/manager/SearchReportView.vue";
-import managerStudentDetailView from "@/components/manager/StudentDetailView.vue";
-import managerStudentManageView from "@/components/manager/StudentManageView.vue";
-import managerTeacherDetailView from "@/components/manager/TeacherDeatilView.vue";
-import managerTeacherManageView from "@/components/manager/TeacherManageView.vue";
+import managerReportDetailView from "@/components/manager/ReportDetailView.vue";
+import managerSearchApplicationView from "@/components/manager/SearchApplicationView.vue";
+import managerApplicationDetailView from "@/components/manager/ApplicationDetailView.vue";
 
 import companyBindIDView from '@/components/company/BindIDView.vue';
 import companySearchCourseView from  '@/components/company/SearchTheCourseView.vue';
@@ -65,6 +64,7 @@ import companyPayDetailView from '@/components/company/PayDetailView.vue';
 import companyPayStudentView from '@/components/company/PayStudentView.vue';
 import companySearchGradeView from '@/components/company/SearchGradeView.vue';
 import companyGradeDetailView from '@/components/company/GradeDetailView.vue';
+import companyCourseApplicationView from '@/components/company/CourseApplicationView.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -225,6 +225,17 @@ const router = createRouter({
                     component:managerStudentDetailView,
                 },
                 {
+<<<<<<< HEAD
+                    path:"/manager/searchApplication",
+                    name: 'managerSearchApplication',
+                    component:managerSearchApplicationView,
+                },
+                {
+                    path:"/manager/applicationDetail",
+                    name: 'managerApplicationDetail',
+                    component:managerApplicationDetailView,
+                },
+=======
                     path: '/manager/studentManage',
                     name: 'managerStudentManage',
                     component:managerStudentManageView,
@@ -253,6 +264,7 @@ const router = createRouter({
 
 
 
+>>>>>>> temp
             ]
         },
         {
@@ -394,6 +406,11 @@ const router = createRouter({
                     path:"/company/gradeDetail",
                     name: 'companyGradeDetail',
                     component:companyGradeDetailView,
+                },
+                {
+                    path:"/company/courseApplication",
+                    name: 'companyCourseApplication',
+                    component:companyCourseApplicationView,
                 },
 
             ]

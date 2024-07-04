@@ -70,7 +70,7 @@ onMounted(() => {
               <router-link to="/manager/executorManage">查看执行人个人信息</router-link>
             </el-menu-item>
             <el-menu-item index="1-2">
-              <router-link to="/manager/executorWorkStatus">查看执行人工作情况</router-link>
+              <router-link to="/manager/searchApplication">查看培训申请</router-link>
             </el-menu-item>
             <el-menu-item index="1-3">
               <router-link to="/manager/courseManage">查看课程信息</router-link>

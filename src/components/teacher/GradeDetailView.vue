@@ -12,6 +12,7 @@ let router = useRouter();
 
 let course_name = route.query.course_name;
 let course_id = route.query.course_id
+const tableData = ref([])
 
 
 
