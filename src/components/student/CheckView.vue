@@ -1,60 +1,46 @@
+<template>
+  <h1>学生课程签到</h1>
+  <el-form :model="form">
+    <el-form-item label="学生学号">
+      <el-input v-model="form.stu_id"></el-input>
+    </el-form-item>
+    <el-form-item label="课程编号">
+      <el-input v-model="form.course_id"></el-input>
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="check">签到</el-button>
+    </el-form-item>
+  </el-form>
+</template>
+
 <script setup>
-import { ref } from 'vue'
+import {ref, reactive} from 'vue'
 import axios from 'axios';
 import qs from 'querystring';
-import { ElMessage } from 'element-plus';
-import { onMounted} from 'vue';
+import {ElMessage} from 'element-plus';
 
-
-const tableData = ref([])
-
-onMounted(() =>{
-  getAllCheck();
+const form = reactive({
+  stu_id: '',
+  course_id: '',
 })
 
-function getAllCheck(){
-  axios.get('http://localhost:8080/student/getAllCheck')
-  .then((res)=>{
-    tableData.value = res.data;
-  })
-}
-
-const check = (index) =>{
-  let username = sessionStorage.getItem("username");
-  
-  let data={
-    id : tableData.value[index].id,
-    username : username
+function check() {
+  let data = {
+    stu_id: form.stu_id,
+    course_id: form.course_id,
   }
-
-  axios.post("http://localhost:8080/student/check",qs.stringify(data))
-    .then((res) => {
+  axios.post("http://localhost:8080/student/check", qs.stringify(data))
+      .then((res) => {
         if(res.data.code == 200){
           ElMessage("签到成功")
-          getAllCheck();
         }else{
-            ElMessage.error(res.data.msg)
+          ElMessage.error(res.data.msg)
         }
-    })
+      })
 }
-
 
 </script>
 
-<template>
-    <el-table :data="tableData" width="400px" max-height="200">
-    <el-table-column fixed prop="name" label="课程名称" width="150" />
-    <el-table-column prop="time" label="请求时间" width="120" />
-    <el-table-column prop="state" label="请求状态" width="120" />
-    <el-table-column prop="id" label="请求编号" width="120" />
-    <el-table-column fixed="right" label="选择" width="200">
-      <template #default="scope">
-        <el-button type="primary" @click="check(scope.$index)">签到</el-button>
-      </template>
-    </el-table-column>
-  </el-table>
-  <br><br>
-</template>
-
 <style scoped>
+
 </style>
