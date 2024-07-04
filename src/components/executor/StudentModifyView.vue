@@ -36,32 +36,33 @@ function back() {
 //根据传过来的ID信息得到整个学生信息
 function getStudent() {
     let data = {
-        stu_id: stu_id,
+        student_id: stu_id,
     }
-
+console.log(data)
     axios.post("http://localhost:8080/executor/getStudent", qs.stringify(data))
         .then((res) => {
-            form.stu_id = res.data.stu_id;
-            form.username = res.data.username;
-            form.stu_name = res.data.stu_name;
-            form.stu_tele = res.data.stu_tele;
-            form1.stu_company = res.data.stu_company;
-            form1.stu_position = res.data.stu_position;
-            form1.stu_email = res.data.stu_email;
-            form1.stu_level = res.data.stu_level;
-            form1.stu_state = res.data.stu_state;
+            console.log(res.data)
+            form.stu_id = res.data[0].stu_id;
+            form.username = res.data[0].username;
+            form.stu_name = res.data[0].stu_name;
+            form.stu_tele = res.data[0].stu_tele;
+            form1.stu_company = res.data[0].stu_company;
+            form1.stu_position = res.data[0].stu_position;
+            form1.stu_email = res.data[0].stu_email;
+            form1.stu_level = res.data[0].stu_level;
+            form1.stu_state = res.data[0].stu_state;
         })
 
 }
 
 //由于这里需要一开始就挂载，但是还没有和后端发生信息交互,暂时注释方便开发
 onMounted(() => {
-    //   getStudent();
+      getStudent();
 })
 
 function onSubmit() {
     let data = {
-        stu_id: form.stu_id,
+        student_id: form.stu_id,
         username: form.username,
         stu_name: form.stu_name,
         stu_tele: form.stu_tele,
@@ -72,11 +73,11 @@ function onSubmit() {
         stu_state: form1.stu_state,
     }
 
-    axios.post("http://localhost:8080/executor/studentAdd", qs.stringify(data))
+    axios.post("http://localhost:8080/executor/studentModify", qs.stringify(data))
         .then((res) => {
             if (res.data.code === 200) {
-                ElMessage("增加成功！")
-                router.replace("/executor/studentManage")
+                ElMessage("修改成功！")
+                // router.replace("/executor/studentManage")
             } else {
                 ElMessage.error(res.data.msg);
             }

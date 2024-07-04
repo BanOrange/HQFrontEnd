@@ -44,6 +44,7 @@ function getStudentCourse() {
   }
   axios.post('http://localhost:8080/student/getStudentCourse')
     .then((res) => {
+      console.log(res.data)
       tableData.value = res.data;
     })
 }

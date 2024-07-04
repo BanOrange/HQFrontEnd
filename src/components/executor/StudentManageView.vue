@@ -2,7 +2,7 @@
 import {ref, reactive} from 'vue'
 import axios from 'axios';
 import qs from 'querystring';
-import {ElMessage} from 'element-plus';
+import {ElMessage,ElMessageBox} from 'element-plus';
 import {onMounted} from 'vue';
 import { useRouter,useRoute } from 'vue-router';
 
@@ -19,7 +19,7 @@ const searchForm = reactive({
 
 function findAllStudent(){
 
-  axios.get('http://localhost:8080/executor/findallstudent')
+  axios.get('http://localhost:8080/executor/findAllStudent')
       .then((res)=>{
         tableData.value = res.data;
       })
@@ -55,27 +55,25 @@ const handleDel = (index) => {
       }
   )
       .then(() => {
-        ElMessage({
-          type: 'success',
-          message: '删除成功',
-        })
-        let stu_id = tableData.value[index].stu_id
-        console.log(sid);
-        axios.delete(`http://localhost:8080/executor/studentDelete/${stu_id}`)
+        let student_id = tableData.value[index].stu_id
+        console.log(student_id);
+        axios.delete(`http://localhost:8080/executor/studentDelete/${student_id}`)
             .then((res)=>{
               findAllStudent();
+              // ElMessage(res.data.msg)
             })
       })
       .catch(() => {
-
+        // ElMessage(res.data.msg)
       })
 }
 
 
 const handleModify = (index)=>{
   let stu_id = tableData.value[index].stu_id;
+  console.log(stu_id);
   router.push({
-    path:'/executor/StudentModifyView',
+    path:'/executor/studentModify',
     query:{
       stu_id:stu_id,
     }

@@ -55,14 +55,11 @@ const handleDel = (index) => {
     }
   )
     .then(() => {
-      ElMessage({
-        type: 'success',
-        message: '删除成功',
-      })
       let teacher_id = tableData.value[index].teacher_id;
       console.log(teacher_id)
       axios.delete(`http://localhost:8080/executor/teacherDelete/${teacher_id}`)
       .then((res)=>{
+        ElMessage(res.data.msg)
         findAllTeacher();
       })
     })

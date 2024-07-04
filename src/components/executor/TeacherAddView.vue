@@ -52,13 +52,14 @@ function onSubmit() {
     username: form2.username,
     password: form2.password,
     teacher_name: form.teacher_name,
-    teacher_position: form1.teacher_position,
+    teacher_position: form.teacher_position,
     teacher_email: form1.teacher_email,
     teacher_tele: form1.teacher_tele,
     teacher_field: form1.teacher_field,
+    usertype: "teacher",
   }
 
-  axios.post("http://localhost:8080/executor/TeacherAdd", qs.stringify(data))
+  axios.post("http://localhost:8080/register/teacher", qs.stringify(data))
       .then((res) => {
         if (res.data.code === 200) {
           ElMessage("增加成功！")

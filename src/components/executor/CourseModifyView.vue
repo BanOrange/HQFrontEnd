@@ -122,6 +122,7 @@ function onSubmit() {
         course_state: course_state.value,
         course_place: course_place.value,
     }
+    console.log(data);
     axios.post("http://localhost:8080/executor/courseModify", qs.stringify(data))
         .then((res) => {
             if (res.data.code === 200) {

@@ -93,7 +93,7 @@ onMounted(() => {
     <el-text>日</el-text><br><br>
     <el-text>时间内收入:</el-text>
     <el-input disabled v-model="report_income" style="width: 50px" />
-    <el-text>￥/人</el-text><br><br>
+    <el-text>￥</el-text><br><br>
     <el-text>讲师人数：</el-text>
     <el-input disabled v-model="teacher_num" style="width: 50px" /><br><br>
     <el-text>课程数量：</el-text>

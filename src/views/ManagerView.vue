@@ -65,24 +65,12 @@ onMounted(() => {
             </el-icon>
             <span>培训相关</span>
           </template>
-          <el-menu-item-group title="培训信息">
+          <el-menu-item-group title="公司信息">
             <el-menu-item index="1-1">
-              <router-link to="/manager/courseManage">查阅课程信息</router-link>
+              <router-link to="/manager/executorWorkStatus">查阅执行人工作状态</router-link>
             </el-menu-item>
             <el-menu-item index="1-2">
-              <router-link to="/manager/studentManage">查阅学生信息</router-link>
-            </el-menu-item>
-            <el-menu-item index="1-3">
-              <router-link to="/manager/teacherManage">查阅讲师信息</router-link>
-            </el-menu-item>
-            <el-menu-item index="1-4">
-              <router-link to="/manager/searchEvaluate">查阅课程评价</router-link>
-            </el-menu-item>
-            <el-menu-item index="1-5">
-              <router-link to="/manager/executorManage">查阅执行人信息</router-link>
-            </el-menu-item>
-            <el-menu-item index="1-6">
-              <router-link to="/manager/executorWorkStatus">查阅执行人工作状态</router-link>
+              <router-link to="/manager/executorWorkStatus">查看培训申请</router-link>
             </el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group title="财务相关">
