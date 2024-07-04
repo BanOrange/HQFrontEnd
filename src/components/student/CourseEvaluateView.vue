@@ -42,7 +42,7 @@ function getStudentCourse() {
   let data = {
     username: username,
   }
-  axios.post('http://localhost:8080/student/getStudentCourse')
+  axios.post('http://localhost:8080/student/getStudentCourse', qs.stringify(data))
     .then((res) => {
       console.log(res.data)
       tableData.value = res.data;
@@ -54,7 +54,7 @@ function handleSearch(){
     course_name: searchForm.course_name,
     course_id: searchForm.course_id,
   }
-  axios.post('http://localhost:8080/student/searchCourse')
+  axios.post('http://localhost:8080/student/searchCourse', qs.stringify(data))
     .then((res) => {
       tableData.value = res.data;
     })
@@ -78,11 +78,11 @@ function handleSearch(){
   </el-form>
   <br><br>
   <el-table :data="tableData" width="400px" max-height="200">
-    <el-table-column fixed prop="id" label="课程编号" width="150" />
-    <el-table-column prop="name" label="课程名称" width="120" />
-    <el-table-column prop="teacher" label="讲师名称" width="120" />
-    <el-table-column prop="state" label="课程状态" width="120" />
-    <el-table-column prop="pay" label="课程费用(￥)" width="150" />
+    <el-table-column fixed prop="course_id" label="课程编号" width="150" />
+    <el-table-column prop="course_name" label="课程名称" width="120" />
+    <el-table-column prop="course_teacher" label="讲师名称" width="120" />
+    <el-table-column prop="course_state" label="课程状态" width="120" />
+    <el-table-column prop="course_fee" label="课程费用(￥)" width="150" />
     <el-table-column fixed="right" label="选择" width="200">
       <template #default="scope">
         <el-button type="primary" @click="evaluate(scope.$index)">去评价</el-button>
