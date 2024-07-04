@@ -75,9 +75,6 @@ onMounted(() => {
             <el-menu-item index="1-3">
               <router-link to="/manager/courseManage">查看课程信息</router-link>
             </el-menu-item>
-            <el-menu-item index="1-4">
-              <router-link to="/manager/">查看培训申请</router-link>  //没找到文件
-            </el-menu-item>
 
           </el-menu-item-group>
           <el-menu-item-group title="财务相关">

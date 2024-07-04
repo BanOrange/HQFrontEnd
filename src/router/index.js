@@ -52,7 +52,6 @@ import managerExecutorWorkStatusView from "@/components/manager/ExecutorWorkStat
 import managerReportDetailView from "@/components/manager/ReportDetailView.vue";
 import managerSearchBillView from "@/components/manager/SearchBillView.vue";
 import managerSearchReportView from "@/components/manager/SearchReportView.vue";
-import managerReportDetailView from "@/components/manager/ReportDetailView.vue";
 import managerSearchApplicationView from "@/components/manager/SearchApplicationView.vue";
 import managerApplicationDetailView from "@/components/manager/ApplicationDetailView.vue";
 
@@ -219,11 +218,11 @@ const router = createRouter({
                     name: 'managerSearchReport',
                     component:managerSearchReportView,
                 },
-                {
-                    path: '/manager/studentDetail',
-                    name: 'managerStudentDetail',
-                    component:managerStudentDetailView,
-                },
+                // {
+                //     path: '/manager/studentDetail',
+                //     name: 'managerStudentDetail',
+                //     component:managerStudentDetailView,
+                // },
                 {
                     path:"/manager/searchApplication",
                     name: 'managerSearchApplication',
@@ -234,34 +233,30 @@ const router = createRouter({
                     name: 'managerApplicationDetail',
                     component:managerApplicationDetailView,
                 },
-                    path: '/manager/studentManage',
-                    name: 'managerStudentManage',
-                    component:managerStudentManageView,
-                },
-                {
-                    path: '/manager/teacherDetail',
-                    name: 'managerTeacherDetail',
-                    component:managerTeacherDetailView,
-                },
-                {
-                    path: '/manager/teacherManage',
-                    name: 'managerTeacherManage',
-                    component:managerTeacherManageView,
-                },
-                {
-                    path:"/manager/change-password",
-                    name: 'managerChangePassword',
-                    component:ChangePasswordView,
-                },
-                {
-                    path:"/manager/searchEvaluate",
-                    name: 'managerSearchEvaluate',
-                    component:executorSearchEvaluateView,
-                },
-
-
-
-
+                //     path: '/manager/studentManage',
+                //     name: 'managerStudentManage',
+                //     component:managerStudentManageView,
+                // },
+                // {
+                //     path: '/manager/teacherDetail',
+                //     name: 'managerTeacherDetail',
+                //     component:managerTeacherDetailView,
+                // },
+                // {
+                //     path: '/manager/teacherManage',
+                //     name: 'managerTeacherManage',
+                //     component:managerTeacherManageView,
+                // },
+                // {
+                //     path:"/manager/change-password",
+                //     name: 'managerChangePassword',
+                //     component:ChangePasswordView,
+                // },
+                // {
+                //     path:"/manager/searchEvaluate",
+                //     name: 'managerSearchEvaluate',
+                //     component:executorSearchEvaluateView,
+                // },
             ]
         },
         {
