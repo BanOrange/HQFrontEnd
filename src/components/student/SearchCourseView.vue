@@ -54,7 +54,7 @@ function searchSelected() {
 //查看课程的详情
 const getDetails = (index) => {
   router.push({
-    name: 'stu_CourseDetail',
+    name: 'studentCourseDetail',
     query: {
       course_id:tableData.value[index].course_id,
     }
