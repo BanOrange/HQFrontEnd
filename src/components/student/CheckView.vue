@@ -43,10 +43,10 @@ function addCheck() {
   <h1>学生课程签到</h1>
   <el-form :model="form">
     <el-form-item label="学生用户名">
-      <el-input v-model="form.username"></el-input>
+      <el-input v-model="form.username" style="width:200px"></el-input>
     </el-form-item>
     <el-form-item label="课程编号">
-      <el-input v-model="form.course_id"></el-input>
+      <el-input v-model="form.course_id" style="width:200px"></el-input>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="addCheck">签到</el-button>
