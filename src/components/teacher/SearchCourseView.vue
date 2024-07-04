@@ -8,11 +8,7 @@ import { useRouter, useRoute } from 'vue-router';
 
 let router = useRouter();
 const tableData = ref([])
-<<<<<<< HEAD
-const form = reactive({
-=======
 const searchForm = reactive({
->>>>>>> temp
   course_name: '',
   course_id: '',
 })
@@ -32,13 +28,8 @@ function getAllCourse() {
 //模糊查询功能
 function handleSearch() {
   let data = {
-<<<<<<< HEAD
-    course_id: form.course_id,
-    course_name: form.course_name,
-=======
     course_id: searchForm.course_id,
     course_name: searchForm.course_name,
->>>>>>> temp
   }
 
   axios.post("http://localhost:8080/searchCourse", qs.stringify(data))
@@ -75,17 +66,10 @@ const getDetails = (index) => {
   <el-form :model="searchForm" label-width="auto" style="max-width: 300px">
     <h1>课程查询</h1><br><br>
     <el-form-item label="课程编号：">
-<<<<<<< HEAD
-      <el-input v-model="form.course_id"/>
-    </el-form-item>
-    <el-form-item label="课程名称：">
-      <el-input v-model="form.course_name"/>
-=======
       <el-input v-model="searchForm.course_name"/>
     </el-form-item>
     <el-form-item label="课程名称：">
       <el-input v-model="searchForm.course_id"/>
->>>>>>> temp
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="handleSearch">查询</el-button>
@@ -96,14 +80,8 @@ const getDetails = (index) => {
   <el-table :data="tableData" width="400px" max-height="200">
     <el-table-column fixed prop="course_id" label="课程编号" width="150"/>
     <el-table-column prop="course_name" label="课程名称" width="120"/>
-<<<<<<< HEAD
-    <el-table-column prop="course_place" label="上课地点" width="120"/>
-    <el-table-column prop="course_start" label="课程开始时间" width="120"/>
-    <el-table-column prop="course_end" label="课程结束时间" width="120"/>
-=======
     <el-table-column prop="course_teacher" label="讲师名称" width="120"/>
     <el-table-column prop="course_fee" label="课程费用(￥)" width="150"/>
->>>>>>> temp
     <el-table-column fixed="right" label="选择" width="200">
       <template #default="scope">
         <el-button type="primary" @click="getDetails(scope.$index)">详情</el-button>
