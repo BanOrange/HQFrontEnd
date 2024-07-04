@@ -1,5 +1,5 @@
 <script setup>
-import { reactive } from 'vue'
+import { reactive,ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus';
 import { useRouter, useRoute } from 'vue-router';
 import { onMounted } from 'vue';
@@ -11,23 +11,17 @@ let route = useRoute();
 
 let teacher_id = route.query.teacher_id;
 
-//存储讲师的基本信息
-//编号和姓名
-const form = reactive({
-    teacher_id: '',
-    teacher_name: '', 
-    teacher_position: '',
-})
+//讲师的基本信息
+    let teacherid = ref('');
+    let teacher_name = ref('');
+    let teacher_position = ref('');
 
+ //存储讲师的详细信息
+    let teacher_field = ref('');
+    let teacher_tele = ref('');
+    let teacher_email = ref('');
 
-//该表单存储讲师的详细信息
-const form1 = reactive({
-    teacher_field: '',
-    teacher_tele: '',
-    teacher_email: '',
-})
-
-const options = [
+    const options = [
   {
     label: '讲师',
     value: '讲师',
@@ -41,7 +35,6 @@ const options = [
     value: '领域专家',
   },
 ]
-
 function back() {
     router.replace("/executor/teacherManage")
 }
@@ -54,29 +47,31 @@ function getTeacher() {
 
     axios.post("http://localhost:8080/executor/getTeacher", qs.stringify(data))
         .then((res) => {
-            form.teacher_name = res.data.teacher_name;
-            form.teacher_id = res.data.teacher_id;
-            form1.teacher_position = res.data.teacher_position;
-            form1.teacher_field = res.data.teacher_field;
-            form1.teacher_tele = res.data.teacher_tele;
-            form1.teacher_email = res.data.teacher_email;
+            teacherid.value = teacher_id;
+            teacher_name.value = res.data[0].teacher_name;
+            teacher_position.value = res.data[0].teacher_position;
+            teacher_field.value = res.data[0].teacher_field;
+            teacher_tele.value = res.data[0].teacher_tele;
+            teacher_email.value = res.data[0].teacher_email;
         })
 
 }
 
 //由于这里需要一开始就挂载，但是还没有和后端发生信息交互,暂时注释方便开发
 onMounted(() => {
-    //   getTeacher();
+      getTeacher();
 })
 
 function onSubmit() {
     let data = {
-        teacher_name: form.teacher_name,
-        teacher_position: form1.teacher_position,
-        teacher_field: form1.teacher_field,
-        teacher_tele: form1.teacher_tele,
-        teacher_email: form1.teacher_email,
+        teacher_id: teacher_id,
+        teacher_name: teacher_name.value,
+        teacher_position: teacher_position.value,
+        teacher_field: teacher_field.value,
+        teacher_tele: teacher_tele.value,
+        teacher_email: teacher_email.value,
     }
+    console.log(data)
 
     axios.post("http://localhost:8080/executor/teacherModify", qs.stringify(data))
         .then((res) => {
@@ -92,30 +87,25 @@ function onSubmit() {
 
 <template>
     <h2>讲师基本信息</h2>
-    <br><br>
-    <el-form :model="form" label-width="auto" style="max-width: 300px">
-        <el-form-item label="讲师姓名：">
-            <el-input v-model="form.teacher_name" />
-        </el-form-item>
-        <el-form-item>
-            <el-select v-model="form.teacher_position" placeholder="请选择职称" style="width: 150px">
-                <el-option v-for="item in options" :label="item.label" :value="item.value" />
-            </el-select>
-        </el-form-item>
-    </el-form>
     <br>
+    <el-text>讲师编号：</el-text>
+    <el-input v-model="teacherid" style="width:200px" /><br>
+    <el-text>讲师名称：</el-text>
+    <el-input v-model="teacher_name" style="width:200px"/><br>
+    <el-text>讲师职称：</el-text>
+    <el-select v-model="teacher_position" placeholder="请选择职称" style="width: 150px">
+      <el-option v-for="item in options" :label="item.label" :value="item.value" />
+    </el-select>
+
     <h2>讲师详细信息</h2>
-    <el-form :model="form1" label-width="auto" style="max-width: 300px">
-        <el-form-item label="擅长领域：">
-            <el-input v-model="form1.teacher_field" />
-        </el-form-item>
-        <el-form-item label="电话号码：">
-            <el-input v-model="form1.teacher_tele" />
-        </el-form-item>
-        <el-form-item label="电子邮箱：">
-            <el-input v-model="form1.teacher_email" />
-        </el-form-item>
-    </el-form>
+    <br>
+    <el-text>擅长领域：</el-text>
+    <el-input v-model="teacher_field" style="width:200px"/><br>
+    <el-text>电话号码：</el-text>
+    <el-input v-model="teacher_tele"style="width:200px"/><br>
+    <el-text>电子邮箱：</el-text>
+    <el-input v-model="teacher_email" style="width:200px"/><br>
+    <br>
     <el-button type="primary" @click="back">返回</el-button>
     <el-button type="primary" @click="onSubmit">修改</el-button>
 </template>

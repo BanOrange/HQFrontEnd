@@ -6,9 +6,10 @@ import {ElMessage} from 'element-plus';
 import {onMounted} from 'vue';
 import router from '@/router';
 
+//用来装课程的信息
 const tableData = ref([])
 
-
+//用来装搜索条件
 const searchForm = reactive({
   course_name: '',
   course_id: '',
@@ -29,13 +30,8 @@ function getAllCourse() {
 //模糊查询功能
 function handleSearch() {
   let data = {
-<<<<<<< HEAD
-    course_id:searchForm.course_id,
-    course_name:searchForm.course_name,
-=======
     course_id: searchForm.course_id,
     course_name: searchForm.course_name,
->>>>>>> temp
   }
   axios.post("http://localhost:8080/searchCourse", qs.stringify(data))
       .then((res) => {
@@ -46,7 +42,7 @@ function handleSearch() {
 //查看课程的详情
 const getDetails = (index) => {
   router.push({
-    name: 'teacherCourseDetail',
+    name: 'companyCourseDetail',
     query: {
       course_id:tableData.value[index].course_id,
     }
@@ -72,16 +68,8 @@ const getDetails = (index) => {
   <el-table :data="tableData" style="width: 100%">
     <el-table-column fixed prop="course_id" label="课程编号" width="150"/>
     <el-table-column prop="course_name" label="课程名称" width="120"/>
-<<<<<<< HEAD
-    <el-table-column prop="course_fee" label="课程费用(￥)" width="150"/>
-    <el-table-column prop="course_place" label="上课地点" width="150"/>
-    <el-table-column prop="course_info" label="课程简介" width="150"/>
-    <el-table-column prop="course_start" label="课程开始时间" width="150"/>
-    <el-table-column prop="course_end" label="课程结束时间" width="150"/>
-=======
     <el-table-column prop="teacher_name" label="讲师名称" width="120"/>
     <el-table-column prop="course_fee" label="课程费用(￥)" width="150"/>
->>>>>>> temp
     <el-table-column fixed="right" label="操作" width="120">
       <template #default="scope">
         <el-button link type="primary" size="large" @click="getDetails(scope.$index)">详情</el-button>

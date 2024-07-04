@@ -2,7 +2,7 @@
 import {ref, reactive} from 'vue'
 import axios from 'axios';
 import qs from 'querystring';
-import {ElMessage} from 'element-plus';
+import {ElMessage,ElMessageBox} from 'element-plus';
 import {onMounted} from 'vue';
 import { useRouter,useRoute } from 'vue-router';
 
@@ -26,24 +26,19 @@ function findAllTeacher(){
 
 //挂载,但是为了方便开发，先注释掉
 onMounted(() =>{
-//   findAllTeacher();
+  findAllTeacher();
 })
 
 //查询讲师功能，将符合条件的讲师列出来
 function handleSearch() {
   let data = {
-    teacher_id: searchForm.id,
-    teacher_name: searchForm.name,
+    teacher_id: searchForm.teacher_id,
+    teacher_name: searchForm.teacher_name,
   }
 
   axios.post("http://localhost:8080/executor/searchTeacher", qs.stringify(data))
       .then((res) => {
-        if (res.data.code === 200) {
-          ElMessage("查询成功")
-          tableData.value = res.data;
-        } else {
-          ElMessage.error(res.data.msg)
-        }
+        tableData.value = res.data;
       })
 }
 
@@ -65,6 +60,7 @@ const handleDel = (index) => {
         message: '删除成功',
       })
       let teacher_id = tableData.value[index].teacher_id;
+      console.log(teacher_id)
       axios.delete(`http://localhost:8080/executor/teacherDelete/${teacher_id}`)
       .then((res)=>{
         findAllTeacher();
@@ -82,7 +78,6 @@ const handleModify = (index)=>{
     path:'/executor/teacherModify',
     query:{
       teacher_id: teacher_id,
-      teacher_name: teacher_name,
     }
   })
 }
@@ -124,7 +119,7 @@ function handleAdd(){
     <el-table-column prop="teacher_name" label="姓名" width="120" />
     <el-table-column prop="teacher_field" label="擅长领域" width="120" />
     <el-table-column prop="teacher_tele" label="电话号码" width="150" />
-    <el-table-column fixed="right" label="操作" width="120" >
+    <el-table-column fixed="right" label="操作" width="200" >
       <template #default="scope">
         <el-button link type="primary" size="large" @click="handleDetail(scope.$index)">详情</el-button>
         <el-button link type="primary" size="large" @click="handleModify(scope.$index)">修改</el-button>

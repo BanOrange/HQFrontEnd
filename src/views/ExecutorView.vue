@@ -58,7 +58,7 @@ onMounted(() => {
   <h1>执行人您好！欢迎使用本系统！</h1>
   <el-row class="tac">
     <el-col :span="4">
-      <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
+      <el-menu default-active="2" class="el-menu-vertical-demo">
         <el-sub-menu index="1">
           <template #title>
             <el-icon>
@@ -75,11 +75,6 @@ onMounted(() => {
             </el-menu-item>
             <el-menu-item index="1-3">
               <router-link to="/executor/teacherManage">讲师管理</router-link>
-            </el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="课程相关">
-            <el-menu-item index="1-4">
-              <router-link to="/executor/searchEvaluate">查询课程评价</router-link> 
             </el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>

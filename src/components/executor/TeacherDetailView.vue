@@ -1,5 +1,5 @@
 <script setup>
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus';
 import { useRouter, useRoute } from 'vue-router';
 import { onMounted } from 'vue';
@@ -14,24 +14,19 @@ let teacher_id = route.query.teacher_id;
 //用来装课程的信息
 const CourseData = ref([])
 
-//存储讲师的基本信息
-//编号和姓名
-const form = reactive({
-    teacher_id: teacher_id,
-    teacher_name: '',
-    teacher_position: '',
-})
+//讲师的基本信息
+    let teacherid = ref('')
+    let teacher_name = ref('')
+    let teacher_position = ref('')
 
-//该表单存储讲师的详细信息
-const form1 = reactive({
-    teacher_field: '',
-    teacher_tele: '',
-    teacher_email: '',
-})
+    //该表单存储讲师的详细信息
+    let teacher_field = ref('')
+    let teacher_tele = ref('')
+    let teacher_email = ref('')
 
-function back() {
-    router.replace("/executor/TeacherManage")
-}
+    function back() {
+        router.replace("/executor/TeacherManage")
+    }
 
 //根据传过来的讲师编号信息得到讲师信息
 function getTeacher() {
@@ -41,11 +36,12 @@ function getTeacher() {
 
     axios.post("http://localhost:8080/executor/getTeacher", qs.stringify(data))
         .then((res) => {
-            form.teacher_name = res.data.teacher_name;
-            form.teacher_position = res.data.teacher_position;
-            form1.teacher_field = res.data.teacher_field;
-            form1.teacher_tele = res.data.teacher_tele;
-            form1.teacher_email = res.data.teacher_email;
+            teacherid.value = res.data[0].teacher_id;
+            teacher_name.value = res.data[0].teacher_name;
+            teacher_position.value = res.data[0].teacher_position;
+            teacher_field.value = res.data[0].teacher_field;
+            teacher_tele.value = res.data[0].teacher_tele;
+            teacher_email.value = res.data[0].teacher_email;
         })
 }
 
@@ -54,14 +50,9 @@ function getTeacherCourse() {
     let data = {
         teacher_id: teacher_id,
     }
-    axios.post("http://localhost:8080/executor/getTeacher", qs.stringify(data))
+    axios.post("http://localhost:8080/executor/getTeacherCourse", qs.stringify(data))
         .then((res) => {
-            if (code == 200) {
-                CourseData.value = res.data;
-                ElMessage("查询成功")
-            } else {
-                ElMessage.error(res.data.msg)
-            }
+            CourseData.value = res.data;
         })
 }
 
@@ -78,36 +69,27 @@ function handleDetail() {
 
 //挂载,但是为了方便开发，先注释掉
 onMounted(() => {
-    // getTeacher();
-    // getTeacherCourse();
+    getTeacher();
+    getTeacherCourse();
 })
 </script>
 
 <template>
     <h2>讲师基本信息</h2>
-    <br><br>
-    <el-form :model="form" label-width="auto" style="max-width: 300px">
-        <el-form-item label="讲师编号：">
-            <el-input disabled v-model="form.id" />
-        </el-form-item>
-        <el-form-item label="讲师姓名：">
-            <el-input disabled v-model="form.name" />
-        </el-form-item>
-        <el-form-item label="讲师职称：">
-            <el-input disabled v-model="form1.title" />
-        </el-form-item>
-    </el-form>
-    <el-form :model="form1" label-width="auto" style="max-width: 300px">
-        <el-form-item label="擅长领域：">
-            <el-input disabled v-model="form1.field" />
-        </el-form-item>
-        <el-form-item label="电话号码：">
-            <el-input disabled v-model="form1.telephone" />
-        </el-form-item>
-        <el-form-item label="电子邮箱：">
-            <el-input disabled v-model="form1.email" />
-        </el-form-item>
-    </el-form>
+    <el-text>讲师编号：</el-text>
+    <el-input disabled v-model="teacherid" style="width:200px"/><br>
+    <el-text>讲师名称：</el-text>
+    <el-input disabled v-model="teacher_name" style="width:200px"/><br>
+    <el-text>讲师职称：</el-text>
+    <el-input disabled v-model="teacher_position" style="width:200px"/><br>
+
+    <h2>讲师详细信息</h2>
+    <el-text>擅长领域：</el-text>
+    <el-input disabled v-model="teacher_field" style="width:200px"/><br>
+    <el-text>电话号码：</el-text>
+    <el-input disabled v-model="teacher_tele" style="width:200px"/><br>
+    <el-text>电子邮箱：</el-text>
+    <el-input disabled v-model="teacher_email" style="width:200px"/><br>
 
     <h1>该讲师负责的课程</h1>
     <el-table :data="CourseData" style="width: 100%">
