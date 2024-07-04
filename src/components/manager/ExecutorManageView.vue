@@ -47,8 +47,8 @@ function findAllExecutor(){
 //查询执行人功能，将符合条件的执行人列出来
 function handleSearch() {
   let data = {
-    executorID: searchForm.exe_id,
-    executorName: searchForm.exe_name,
+    exe_id: searchForm.exe_id,
+    exe_name: searchForm.exe_name,
   }
 
   axios.post("http://localhost:8080/manager/searchExecutor", qs.stringify(data))
@@ -56,6 +56,16 @@ function handleSearch() {
           tableData.value = res.data;
       })
 }
+
+const getDetails=(index)=>{
+  router.push({
+    name:'managerExecutorWorkStatus',
+    query:{
+      exe_id:tableData.value[index].exe_id,
+    }
+  })
+}
+
 
 </script>
 
@@ -75,10 +85,14 @@ function handleSearch() {
   <br><br>
 <h1>执行人个人信息</h1>
   <br>
-  <el-table :data="tableData" width="400px" max-height="200">
+  <el-table :data="tableData" style="width: 100%">
     <el-table-column fixed prop="exe_id" label="工号" width="200" />
     <el-table-column prop="exe_name" label="姓名" width="200" />
-    <el-table-column prop="username" label="用户名" width="200" /> //可以返回用户名吗？
+    <el-table-column fixed="right" label="操作" width="120">
+      <template #default="scope">
+        <el-button type="primary" @click="getDetails(scope.$index)">查看详情</el-button>
+      </template>
+    </el-table-column>
   </el-table>
 </template>
 

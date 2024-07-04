@@ -14,6 +14,9 @@ const searchForm = reactive({
   exe_name: '',
   exe_id: '',
   username: '',
+  course_id: '',
+  course_name: '',
+  course_state: '',
 })
 
 const tableData = ref([])
@@ -74,12 +77,11 @@ function handleSearch() {
   <br><br>
     <h1>执行人工作状态</h1>
   <br>
-      <el-table :data="tableData" width="400px" max-height="200">
-        <el-table-column fixed prop="exe_id" label="工号" width="200" />
-        <el-table-column prop="exe_name" label="姓名" width="200" />
-        <el-table-column prop="username" label="用户名" width="200" />
-        //执行人工作状态内容 course_id course_name course_state
-      <el-table-column prop="course_id" label="课程名称" width="120" />
+  <el-table :data="tableData" style="width: 100%">
+        <el-table-column fixed prop="exe_id" label="工号" width="120" />
+        <el-table-column prop="exe_name" label="姓名" width="120" />
+        <el-table-column prop="username" label="用户名" width="120" />
+      <el-table-column prop="course_id" label="课程ID" width="120" />
         <el-table-column prop="course_name" label="课程名称" width="120" />
       <el-table-column prop="course_state" label="课程状态" width="120" />
     </el-table>
