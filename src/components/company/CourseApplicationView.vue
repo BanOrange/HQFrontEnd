@@ -1,0 +1,101 @@
+<script setup>
+import {ref, reactive} from 'vue'
+import axios from 'axios';
+import qs from 'querystring';
+import {ElMessage} from 'element-plus';
+import {onMounted} from 'vue';
+import { useRouter,useRoute } from 'vue-router';
+
+let route = useRoute();
+let router = useRouter();
+//路由传参传过来的ID，可能会出现问题建议检查一下
+let id = route.query.id;
+//装申请的基本信息
+const form = reactive({
+  apply_id: '',
+  company_name: '',
+  apply_budget: '',
+  apply_want: '',
+  stu_num: '',
+  company_tele: '',
+})
+
+
+
+
+//由于这里需要一开始就挂载，但是还没有和后端发生信息交互，所以会导致报名和返回用不了
+//是正常情况，需要后端先传过来给门课程的数据才行
+onMounted(() => {
+  getCourse();
+})
+
+//得到该申请的详细信息,需要在一开始就运行
+function getCourse(){
+  let data ={
+    id: id,
+  }
+
+  axios.post("http://localhost:8080/student/getOneCourse", qs.stringify(data))
+      .then((res) => {
+        form.company_name = res.data.company_name;
+        form.apply_budget = res.data.apply_budget;
+        form.apply_want = res.data.apply_want;
+        form.stu_num = res.data.stu_num;
+        form.company_tele = res.data.company_tele;
+      })
+}
+
+
+//返回到总览界面
+function back(){
+  router.replace("/company/CourseView")
+}
+
+
+function signUp(){
+  let username = sessionStorage.getItem("username");
+  let data ={
+    username: username,
+    apply_id:form.apply_id,
+  }
+
+  axios.post("http://localhost:8080/student/signup", qs.stringify(data))
+      .then((res) => {
+        if (res.data.code === 200) {
+          ElMessage("报名成功")
+        } else {
+          ElMessage.error(res.data.msg)
+        }
+      })
+}
+
+
+</script>
+
+<template>
+  <h2>申请基本信息</h2>
+  <el-form :inline="true" :model="form" label-width="auto" style="max-width: 700px">
+    <el-form-item label="公司名称：">
+      <el-input disabled v-model="form.company_name"/>
+    </el-form-item>
+    <el-form-item   label="支出预算：">
+      <el-input disabled v-model="form.apply_budget"/>
+    </el-form-item>
+    <el-form-item  label="期望支出：">
+      <el-input disabled v-model="form.apply_want" style="width:200px"/>
+    </el-form-item>
+    <el-form-item  label="学生人数：">
+      <el-input disabled v-model="form.stu_num" style="width:200px"/>
+    </el-form-item>
+    <el-form-item label="公司电话：">
+      <el-input disabled v-model="form.company_tele" style="width:200px"/>
+      <el-text>￥/人</el-text>
+    </el-form-item>
+  </el-form><br>
+  <el-button type="primary" @click="back">返回</el-button>
+  <el-button type="primary" @click="signUp">报名</el-button>
+</template>
+
+<style scoped>
+
+</style>

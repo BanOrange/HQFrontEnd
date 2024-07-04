@@ -12,8 +12,8 @@ const tableData = ref([])
 
 
 const searchForm = reactive({
-  name: '',
-  key: '',
+  course_id: '',
+  course_name: '',
 })
 
 
@@ -33,8 +33,8 @@ onMounted(() =>{
 
 function handleSearch(){
   let data = {
-    key:searchForm.key,
-    name:searchForm.name,
+    course_id:searchForm.course_id,
+    course_name:searchForm.course_name,
   }
   axios.get('http://localhost:8080/executor/findcourse',qs.stringify(data))
       .then((res)=>{
@@ -47,7 +47,7 @@ function handleSearch(){
 const handleDetail = (index)=>{
   let key = tableData.value[index].key;
   router.push({
-    path:'/company/CourseDetail',
+    path:'/company/CourseDetailView',
     query:{
       key:key,
     }
@@ -59,10 +59,10 @@ const handleDetail = (index)=>{
   <el-form :model="searchForm" label-width="auto" style="max-width: 300px">
     <h1>课程查询</h1><br><br>
     <el-form-item label="课程编号：">
-      <el-input v-model="searchForm.id"/>
+      <el-input v-model="searchForm.course_id"/>
     </el-form-item>
     <el-form-item label="课程名称：">
-      <el-input v-model="searchForm.name"/>
+      <el-input v-model="searchForm.course_name"/>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="handleSearch">查询</el-button>
@@ -73,7 +73,6 @@ const handleDetail = (index)=>{
   <el-table :data="tableData" style="width: 100%">
     <el-table-column fixed prop="course_id" label="课程编号" width="150"/>
     <el-table-column prop="course_name" label="课程名称" width="120"/>
-    <el-table-column prop="teacher_name" label="讲师名称" width="120"/>
     <el-table-column prop="course_fee" label="课程费用(￥)" width="150"/>
     <el-table-column fixed="right" label="操作" width="120">
       <template #default="scope">

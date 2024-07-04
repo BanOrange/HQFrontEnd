@@ -39,8 +39,8 @@ function verify(){
 
   axios.post("http://localhost:8080/getUserType", qs.stringify(data))
       .then((res) => {
-        if (res.data.userType === "executor") {
-            //如果成功则不设任何限制
+        if (res.data.userType === "manager") {
+          //如果成功则不设任何限制
         } else {
           //如果失败则直接传递回login界面
           router.replace("/login");
@@ -55,10 +55,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <h1>执行人您好！欢迎使用本系统！</h1>
+  <h1>经理您好！欢迎使用本系统！</h1>
   <el-row class="tac">
     <el-col :span="4">
-      <el-menu default-active="2" class="el-menu-vertical-demo">
+      <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
         <el-sub-menu index="1">
           <template #title>
             <el-icon>
@@ -68,15 +68,10 @@ onMounted(() => {
           </template>
           <el-menu-item-group title="管理功能">
             <el-menu-item index="1-1">
-              <router-link to="/executor/courseManage">课程管理</router-link>
-            </el-menu-item>
-            <el-menu-item index="1-2">
-              <router-link to="/executor/studentManage">学生管理</router-link>
-            </el-menu-item>
-            <el-menu-item index="1-3">
-              <router-link to="/executor/teacherManage">讲师管理</router-link>
+              <router-link to="/manager/ExecutorWorkStatusView">执行人工作情况</router-link>
             </el-menu-item>
           </el-menu-item-group>
+
         </el-sub-menu>
 
         <el-sub-menu index="2">

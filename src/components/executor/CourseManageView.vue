@@ -95,7 +95,7 @@ function handleSearch(){
 const handleDetail = (index)=>{
   let course_id = tableData.value[index].course_id;
   router.push({
-    path:'/manager/courseDetail',
+    path:'/manager/CourseDetailView',
     query:{
       course_id: course_id,
     }
