@@ -7,6 +7,8 @@ import {ElMessage} from 'element-plus';
 const form = reactive({
   username: '',
   course_id: '',
+  course_name: '',
+  signin_state: '',
 })
 const checkedCourses = ref([])
 
@@ -49,11 +51,20 @@ function addCheck() {
       <el-input v-model="form.course_id" style="width:200px"></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="addCheck">签到</el-button>
       <el-button type="primary" @click="getAllCheck">查询已签到课程</el-button>
     </el-form-item>
   </el-form>
+  <h1>请选择您想签到的课程</h1>
+
   <el-table :data="checkedCourses" width="400px" max-height="200">
-    <el-table-column fixed prop="name" label="课程名称" width="150"/>
+    <el-table-column fixed prop="course_id" label="课程ID" width="150"/>
+    <el-table-column fixed prop="course_name" label="课程名称" width="150"/>
+    <el-table-column fixed prop="signin_state" label="签到状态" width="150"/>
+    <el-table-column fixed="right" label="选择" width="200">
+    <template v-slot="studentList">
+    <el-button type="primary" @click="addCheck(scope.$idnex)">签到</el-button>
+    </template>
+    </el-table-column>
+
   </el-table>
 </template>

@@ -9,8 +9,8 @@ import router from '@/router';
 const studentList = reactive({})
 const tableData = ref([])
 const form = reactive({
-  name: '',
-  id: '',
+  course_name: '',
+  course_id: '',
 })
 let checkList = [];
 const Select = (index) => {
@@ -37,23 +37,37 @@ function getAllCourse() {
 //查询功能
 function handleSearch() {
   let data = {
-    id: form.id,
-    name: form.name,
+    course_id: form.course_id,
+    course_name: form.course_name,
   }
 
   axios.post("http://localhost:8080/searchCourse", qs.stringify(data))
       .then((res) => {
-          tableData.value = res.data;
+        tableData.value = res.data;
       })
 }
 
-
 //发起签到
+function startCheck(index) {
+  let data = {
+    course_id: tableData.value[index].course_id,
+  }
+
+  axios.post("http://localhost:8080/staff/startCheck", qs.stringify(data))
+      .then((res) => {
+        if (res.data.code == 200) {
+          ElMessage("签到发起成功")
+        } else {
+          ElMessage.error(res.data.msg)
+        }
+      })
+}
+
 const getDetails = (index) => {
   router.push({
     path: 'staff/checkDetail',
     query: {
-      id: tableData.value[index].id
+      course_id: tableData.value[index].course_id
     }
   })
 }
@@ -62,11 +76,11 @@ const getDetails = (index) => {
 <template>
   <el-form :model="form" label-width="auto" style="max-width: 300px">
     <h1>查询课程</h1><br><br>
-    <el-form-item label="课程编号：">
-      <el-input v-model="form.name"/>
-    </el-form-item>
     <el-form-item label="课程名称：">
-      <el-input v-model="form.id"/>
+      <el-input v-model="form.course_name"/>
+    </el-form-item>
+    <el-form-item label="课程编号：">
+      <el-input v-model="form.course_id"/>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="handleSearch">查询</el-button>
@@ -75,14 +89,12 @@ const getDetails = (index) => {
   <br><br>
   <h1>请选择您想发起签到的课程</h1>
   <el-table :data="tableData" width="400px" max-height="200">
-    <el-table-column fixed prop="id" label="课程编号" width="150"/>
-    <el-table-column prop="name" label="课程名称" width="120"/>
-    <el-table-column prop="Tteacher" label="讲师名称" width="120"/>
-    <el-table-column prop="pay" label="课程费用(￥)" width="150"/>
+    <el-table-column fixed prop="course_id" label="课程编号" width="150"/>
+    <el-table-column prop="course_name" label="课程名称" width="120"/>
     <el-table-column fixed="right" label="选择" width="200">
       <template v-slot="studentList">
-        <el-button type="primary" @click="getDetails(scope.$index)">发起签到</el-button>
-        
+        <el-button type="primary" @click="startCheck(scope.$index)">发起签到</el-button>
+        <el-button type="primary" @click="getDetails(scope.$index)">查看签到详情</el-button>
       </template>
     </el-table-column>
   </el-table>

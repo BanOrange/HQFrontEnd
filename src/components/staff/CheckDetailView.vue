@@ -9,11 +9,11 @@ import { useRouter,useRoute } from 'vue-router';
 let route = useRoute();
 let router = useRouter();
 //路由传参传过来的ID，可能会出现问题建议检查一下
-let id = route.query.id
+let course_id = route.query.course_id
 
 //用来装查询用到的ID
 const form = reactive({
-  id: '',
+  course_id: '',
 })
 
 //用来装签到信息
@@ -21,13 +21,13 @@ const tableData = ref([])
 
 //获取当前课程的最后一次签到的签到信息情况，主要是返回一个学生列表，其中包含学生的签到状态
 function handleSearchCheck() {
-  if(id!=""){
+  if(course_id!=""){
     let data = {
-    id: id,
+    course_id: course_id,
   }
   }
   let data = {
-    id: form.id,
+    course_id: form.course_id,
   }
 
   axios.post("http://localhost:8080/staff/checkDetail", qs.stringify(data))
