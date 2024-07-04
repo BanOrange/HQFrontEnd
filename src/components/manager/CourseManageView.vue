@@ -41,7 +41,7 @@ function handleSearch() {
 //查看课程的详情
 const getDetails = (index) => {
   router.push({
-    name: 'teacherCourseDetail',
+    name: 'managerCourseDetail',
     query: {
       course_id:tableData.value[index].course_id,
     }
