@@ -76,11 +76,6 @@ onMounted(() => {
               <router-link to="/executor/teacherManage">讲师管理</router-link>
             </el-menu-item>
           </el-menu-item-group>
-          <el-menu-item-group title="课程相关">
-            <el-menu-item index="1-4">
-              <router-link to="/executor/searchEvaluate">查询课程评价</router-link> 
-            </el-menu-item>
-          </el-menu-item-group>
         </el-sub-menu>
 
         <el-sub-menu index="2">
