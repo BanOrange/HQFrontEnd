@@ -69,7 +69,8 @@ function addCheck() {
   <el-table :data="checkedCourses" width="400px" max-height="200">
     <el-table-column fixed prop="course_id" label="课程ID" width="150"/>
     <el-table-column fixed prop="course_name" label="课程名称" width="150"/>
-    <el-table-column fixed prop="signin_state" label="签到状态" width="150"/>
+    <el-table-column fixed prop="signin_state" label="是否已经签到" width="150"/>
+    <el-table-column fixed prop="signin_OK" label="是否开始签到" width="150"/>
     <el-table-column fixed="right" label="选择" width="200">
     <template v-slot="studentList">
     <el-button type="primary" @click="addCheck(scope.$idnex)">签到</el-button>
