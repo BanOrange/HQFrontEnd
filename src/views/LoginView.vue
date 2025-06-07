@@ -43,7 +43,7 @@ function handleLogin() {
     usertype: userType.value
   }
   console.log(data);
-  axios.post('http://localhost:8080/login', qs.stringify(data))
+  axios.post('http://localhost:9090/login', qs.stringify(data))
       .then((res) => {
         if (res.data.code === 200) {
           sessionStorage.setItem("username", username.value)

@@ -28,7 +28,7 @@ onMounted(() => {
 
 //得到所有课程
 function getAllCourse() {
-  axios.get('http://localhost:8080/getAllCourse')
+  axios.get('http://localhost:9090/getAllCourse')
       .then((res) => {
         tableData.value = res.data;
       })
@@ -41,7 +41,7 @@ function handleSearch() {
     course_name: form.course_name,
   }
 
-  axios.post("http://localhost:8080/searchCourse", qs.stringify(data))
+  axios.post("http://localhost:9090/searchCourse", qs.stringify(data))
       .then((res) => {
         tableData.value = res.data;
       })
@@ -54,7 +54,7 @@ const startCheck=(index)=> {
   }
   console.log(data);
 
-  axios.post("http://localhost:8080/staff/startCheck", qs.stringify(data))
+  axios.post("http://localhost:9090/staff/startCheck", qs.stringify(data))
       .then((res) => {
         console.log(res.data);
         if (res.data.code == 200) {
@@ -72,7 +72,7 @@ const endCheck=(index)=> {
   }
   console.log(data);
 
-  axios.post("http://localhost:8080/staff/endCheck", qs.stringify(data))
+  axios.post("http://localhost:9090/staff/endCheck", qs.stringify(data))
       .then((res) => {
         console.log(res.data);
         if (res.data.code == 200) {

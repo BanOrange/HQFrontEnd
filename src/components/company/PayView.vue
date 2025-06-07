@@ -28,7 +28,7 @@ function getAllCoursePayment() {
         username: username,
     }
     console.log(username)
-    axios.post("http://localhost:8080/company/getAllPayment", qs.stringify(data))
+    axios.post("http://localhost:9090/company/getAllPayment", qs.stringify(data))
         .then((res) => {
             tableData.value = res.data;
             for(var i=0;i<tableData.value.length;i++){
@@ -49,7 +49,7 @@ function handleSearch() {
         course_id: searchForm.course_id,
         course_name: searchForm.course_name,
     }
-    axios.post("http://localhost:8080/company/searchPayment", qs.stringify(data))
+    axios.post("http://localhost:9090/company/searchPayment", qs.stringify(data))
         .then((res) => {
             tableData.value = res.data;
             for(var i=0;i<tableData.value.length;i++){

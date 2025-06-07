@@ -32,7 +32,7 @@ function getApp() {
         apply_id: apply_id,
         uername: username,
     }
-    axios.post("http://localhost:8080/manager/getApp",qs.stringify(data))
+    axios.post("http://localhost:9090/manager/getApp",qs.stringify(data))
         .then((res) => {
             company_name.value = res.data.company_name;
             stu_num.value = res.data.stu_num;

@@ -59,7 +59,7 @@ function back() {
 
 //找到所有的讲师信息,用于给执行人选择讲师，复用了之前的接口
 function findAllTeacher() {
-    axios.get('http://localhost:8080/executor/findallteacher')
+    axios.get('http://localhost:9090/executor/findallteacher')
         .then((res) => {
             teacherData.value = res.data;
             console.log(res.data)
@@ -111,7 +111,7 @@ function onSubmit() {
     course_place: form.course_place,
   }
   console.log(data)
-  axios.post("http://localhost:8080/executor/courseAdd", qs.stringify(data))
+  axios.post("http://localhost:9090/executor/courseAdd", qs.stringify(data))
     .then((res) => {
       if (res.data.code === 200) {
         ElMessage("增加成功！")

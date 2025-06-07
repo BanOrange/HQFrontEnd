@@ -23,7 +23,7 @@ function getExecutorCourses() {
     exe_id: exe_id,
   });
   //console.log(exe_id); //成功
-  axios.post("http://localhost:8080/manager/getCourses", data)
+  axios.post("http://localhost:9090/manager/getCourses", data)
       .then((res) => {
         console.log(res.data);
         tableData.value = res.data;

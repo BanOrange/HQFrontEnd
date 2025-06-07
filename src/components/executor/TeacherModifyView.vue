@@ -45,7 +45,7 @@ function getTeacher() {
         teacher_id: teacher_id,
     }
 
-    axios.post("http://localhost:8080/executor/getTeacher", qs.stringify(data))
+    axios.post("http://localhost:9090/executor/getTeacher", qs.stringify(data))
         .then((res) => {
             teacherid.value = teacher_id;
             teacher_name.value = res.data[0].teacher_name;
@@ -73,7 +73,7 @@ function onSubmit() {
     }
     console.log(data)
 
-    axios.post("http://localhost:8080/executor/teacherModify", qs.stringify(data))
+    axios.post("http://localhost:9090/executor/teacherModify", qs.stringify(data))
         .then((res) => {
             if (res.data.code === 200) {
                 ElMessage("修改成功！")

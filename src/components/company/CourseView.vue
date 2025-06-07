@@ -18,7 +18,7 @@ const searchForm = reactive({
 
 
 function findAllCourse(){
-  axios.get('http://localhost:8080/executor/findallcourse')
+  axios.get('http://localhost:9090/executor/findallcourse')
       .then((res)=>{
         tableData.value = res.data;
       })
@@ -36,7 +36,7 @@ function handleSearch(){
     course_id:searchForm.course_id,
     course_name:searchForm.course_name,
   }
-  axios.get('http://localhost:8080/executor/findcourse',qs.stringify(data))
+  axios.get('http://localhost:9090/executor/findcourse',qs.stringify(data))
       .then((res)=>{
         tableData.value = res.data;
       })

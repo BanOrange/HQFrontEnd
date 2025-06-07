@@ -30,7 +30,7 @@ function handleSearchCheck() {
     course_id: form.course_id,
   }
 
-  axios.post("http://localhost:8080/staff/checkDetail", qs.stringify(data))
+  axios.post("http://localhost:9090/staff/checkDetail", qs.stringify(data))
       .then((res) => {
           tableData.value = res.data;
       })

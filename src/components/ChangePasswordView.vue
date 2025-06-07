@@ -21,7 +21,7 @@ function onChangePassword(){
     username: username,
     newPassword: form.newPassword,
   };
-  axios.post('http://localhost:8080/student/change-password', qs.stringify(data))
+  axios.post('http://localhost:9090/student/change-password', qs.stringify(data))
       .then((res) => {
         if (res.data.code === 200) {
           ElMessage('密码修改成功');

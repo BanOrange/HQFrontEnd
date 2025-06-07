@@ -39,7 +39,7 @@ function getCourse() {
     course_id: course_id,
   }
 
-  axios.post("http://localhost:8080/executor/getCourse", qs.stringify(data))
+  axios.post("http://localhost:9090/executor/getCourse", qs.stringify(data))
     .then((res) => {
       console.log(res.data);
       course_id1.value = res.data.course_id

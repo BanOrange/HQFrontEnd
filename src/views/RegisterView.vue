@@ -59,7 +59,7 @@ function handleRegister() {        //向后端发送注册的数据，根据后�
     })
   }
 
-  console.log('http://localhost:8080/register/'+userType.value);
+  console.log('http://localhost:9090/register/'+userType.value);
   let data = {
     username: username.value,
     password: password.value,
@@ -68,7 +68,7 @@ function handleRegister() {        //向后端发送注册的数据，根据后�
   }
 
   if(userType.value == "staff" || userType.value == "student" || userType.value == "manager")
-  axios.post('http://localhost:8080/register/'+userType.value, qs.stringify(data))
+  axios.post('http://localhost:9090/register/'+userType.value, qs.stringify(data))
     .then((res) => {
       if (res.data.code === 200) {
         ElMessage("注册成功");

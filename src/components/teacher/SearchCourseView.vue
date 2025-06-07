@@ -19,7 +19,7 @@ onMounted(() => {
 
 //得到所有课程,复用了公共接口
 function getAllCourse() {
-  axios.get('http://localhost:8080/getAllCourse')
+  axios.get('http://localhost:9090/getAllCourse')
       .then((res) => {
         tableData.value = res.data;
       })
@@ -32,7 +32,7 @@ function handleSearch() {
     course_name: searchForm.course_name,
   }
 
-  axios.post("http://localhost:8080/searchCourse", qs.stringify(data))
+  axios.post("http://localhost:9090/searchCourse", qs.stringify(data))
       .then((res) => {
           tableData.value = res.data;
       })
@@ -45,7 +45,7 @@ function searchSelected() {
     username: username
   }
 
-  axios.post("http://localhost:8080/teacher/searchSelected", qs.stringify(data))
+  axios.post("http://localhost:9090/teacher/searchSelected", qs.stringify(data))
       .then((res) => {
         tableData.value = res.data;
       })

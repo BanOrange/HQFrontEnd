@@ -43,7 +43,7 @@ function getStudentCourse() {
   let data = {
     username: username,
   }
-  axios.post('http://localhost:8080/student/getStudentCourse', qs.stringify(data))
+  axios.post('http://localhost:9090/student/getStudentCourse', qs.stringify(data))
     .then((res) => {
       console.log(res.data)
       tableData.value = res.data;
@@ -55,7 +55,7 @@ function handleSearch(){
     course_name: searchForm.course_name,
     course_id: searchForm.course_id,
   }
-  axios.post('http://localhost:8080/student/searchCourse', qs.stringify(data))
+  axios.post('http://localhost:9090/student/searchCourse', qs.stringify(data))
     .then((res) => {
       tableData.value = res.data;
     })

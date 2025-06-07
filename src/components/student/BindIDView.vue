@@ -23,7 +23,7 @@ function getStudentInfo() {
   let data = {
     username: username,
   }
-  axios.post('http://localhost:8080/student/getStudentInfo', qs.stringify(data))
+  axios.post('http://localhost:9090/student/getStudentInfo', qs.stringify(data))
     .then((res) => {
       stu_id.value = res.data[0].stu_id;
       stu_name.value = res.data[0].stu_name;
@@ -63,7 +63,7 @@ function onSubmit() {
     stu_state: stu_state.value,
   }
 
-  axios.post("http://localhost:8080/student/bindid", qs.stringify(data))
+  axios.post("http://localhost:9090/student/bindid", qs.stringify(data))
     .then((res) => {
       if (res.data.code === 200) {
         ElMessage("绑定成功！")

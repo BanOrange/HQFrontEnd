@@ -18,7 +18,7 @@ const searchForm = reactive({
 
 //找到所有的学生信息
 function findAllStudent(){
-  axios.get('http://localhost:8080/executor/findallstudent')
+  axios.get('http://localhost:9090/executor/findallstudent')
   .then((res)=>{
     tableData.value = res.data;
   })
@@ -37,7 +37,7 @@ function handleSearch() {
     name: searchForm.name,
   }
 
-  axios.post("http://localhost:8080/executor/searchStudent", qs.stringify(data))
+  axios.post("http://localhost:9090/executor/searchStudent", qs.stringify(data))
       .then((res) => {
           tableData.value = res.data;
       })

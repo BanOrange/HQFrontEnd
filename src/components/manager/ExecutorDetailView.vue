@@ -29,7 +29,7 @@ function getExecutor() {
     executorID: executorID,
   }
 
-  axios.post("http://localhost:8080/executor/getExecutor", qs.stringify(data))
+  axios.post("http://localhost:9090/executor/getExecutor", qs.stringify(data))
       .then((res) => {
         form.id = res.data.id;
         form.name = res.data.name;

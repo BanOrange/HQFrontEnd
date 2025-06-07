@@ -18,7 +18,7 @@ const searchForm = reactive({
 
 //找到所有的讲师信息
 function findAllTeacher(){
-  axios.get('http://localhost:8080/executor/findallteacher')
+  axios.get('http://localhost:9090/executor/findallteacher')
   .then((res)=>{
     tableData.value = res.data;
   })
@@ -36,7 +36,7 @@ function handleSearch() {
     teacher_name: searchForm.teacher_name,
   }
 
-  axios.post("http://localhost:8080/executor/searchTeacher", qs.stringify(data))
+  axios.post("http://localhost:9090/executor/searchTeacher", qs.stringify(data))
       .then((res) => {
         tableData.value = res.data;
       })
@@ -57,7 +57,7 @@ const handleDel = (index) => {
     .then(() => {
       let teacher_id = tableData.value[index].teacher_id;
       console.log(teacher_id)
-      axios.delete(`http://localhost:8080/executor/teacherDelete/${teacher_id}`)
+      axios.delete(`http://localhost:9090/executor/teacherDelete/${teacher_id}`)
       .then((res)=>{
         ElMessage(res.data.msg)
         findAllTeacher();

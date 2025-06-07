@@ -34,7 +34,7 @@ function register() {
     teacher_field: form.teacher_field,
   }
 
-  axios.post("http://localhost:8080/register/teacher", qs.stringify(data))
+  axios.post("http://localhost:9090/register/teacher", qs.stringify(data))
       .then((res) => {
         if (res.data.code === 200) {
           ElMessage("注册成功！")

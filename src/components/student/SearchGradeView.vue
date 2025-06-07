@@ -20,7 +20,7 @@ function getAllGrade() {
     username: username,
   }
   console.log(data)
-  axios.post("http://localhost:8080/student/getAllGrade", qs.stringify(data))
+  axios.post("http://localhost:9090/student/getAllGrade", qs.stringify(data))
     .then((res) => {
       console.log(res.data)
       tableData.value = res.data;

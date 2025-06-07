@@ -42,7 +42,7 @@ function finish() {
     studentList: List,
   }
 
-  axios.post("http://localhost:8080/company/pay", List)
+  axios.post("http://localhost:9090/company/pay", List)
     .then((res) => {
       if(res.data.code==200){
         ElMessage.success("缴费成功")

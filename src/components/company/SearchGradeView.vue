@@ -19,7 +19,7 @@ function getStudentGrade(){
         username: username,
     }
     console.log(username)
-    axios.post("http://localhost:8080/company/getAllPayment", qs.stringify(data))
+    axios.post("http://localhost:9090/company/getAllPayment", qs.stringify(data))
         .then((res) => {
           console.log(res.data)
             tableData.value = res.data;
@@ -54,7 +54,7 @@ function handleSearch() {
     username: username,
   }
 
-  axios.post("http://localhost:8080/company/getStudentGrade", qs.stringify(data))
+  axios.post("http://localhost:9090/company/getStudentGrade", qs.stringify(data))
       .then((res) => {
         tableData.value = res.data;
       })

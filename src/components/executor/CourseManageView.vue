@@ -25,7 +25,7 @@ function findAllCourse(){
     username: username,
   }
   console.log(username)
-  axios.post("http://localhost:8080/executor/getAllCourse", qs.stringify(data))
+  axios.post("http://localhost:9090/executor/getAllCourse", qs.stringify(data))
     .then((res) => {
       console.log(res.data)
       tableData.value = res.data
@@ -55,7 +55,7 @@ const handleDel = (index) => {
       
       let course_id = tableData.value[index].course_id
       console.log(course_id);
-      axios.delete(`http://localhost:8080/executor/courseDelete/${course_id}`)
+      axios.delete(`http://localhost:9090/executor/courseDelete/${course_id}`)
       .then((res)=>{
         ElMessage(res.data.msg)
         findAllCourse();
@@ -84,7 +84,7 @@ function handleSearch(){
     course_id:searchForm.course_id,
     course_name:searchForm.course_name,
   }
-  axios.get('http://localhost:8080/searchCourse',qs.stringify(data))
+  axios.get('http://localhost:9090/searchCourse',qs.stringify(data))
   .then((res)=>{
     tableData.value = res.data;
   })

@@ -38,7 +38,7 @@ function getStudent() {
         student_id: stu_id,
     }
 console.log(data)
-    axios.post("http://localhost:8080/executor/getStudent", qs.stringify(data))
+    axios.post("http://localhost:9090/executor/getStudent", qs.stringify(data))
         .then((res) => {
             console.log(res.data)
             form.stu_id = res.data[0].stu_id;
@@ -70,7 +70,7 @@ function onSubmit() {
         stu_state: form1.stu_state,
     }
     console.log(data)
-    axios.post("http://localhost:8080/executor/studentModify", qs.stringify(data))
+    axios.post("http://localhost:9090/executor/studentModify", qs.stringify(data))
         .then((res) => {
             console.log(res.data.msg)
             if (res.data.code === 200) {

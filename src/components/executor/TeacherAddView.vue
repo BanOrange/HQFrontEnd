@@ -59,7 +59,7 @@ function onSubmit() {
     usertype: "teacher",
   }
 
-  axios.post("http://localhost:8080/register/teacher", qs.stringify(data))
+  axios.post("http://localhost:9090/register/teacher", qs.stringify(data))
       .then((res) => {
         if (res.data.code === 200) {
           ElMessage("增加成功！")

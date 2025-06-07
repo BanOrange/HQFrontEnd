@@ -28,7 +28,7 @@ function getGrade(){
   console.log("这是前端传输的数据：");
   console.log(data);
 
-  axios.post('http://localhost:8080/company/getGrade', qs.stringify(data))
+  axios.post('http://localhost:9090/company/getGrade', qs.stringify(data))
       .then((res) => {
         console.log(res.data)
         tableData.value = res.data;

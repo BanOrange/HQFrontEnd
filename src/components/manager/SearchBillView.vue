@@ -29,7 +29,7 @@ function findAllBill() {
         username: username,
     }
     console.log(username)
-    axios.post("http://localhost:8080/manager/getAllBill", qs.stringify(data))
+    axios.post("http://localhost:9090/manager/getAllBill", qs.stringify(data))
         .then((res) => {
             console.log(res.data);
             tableData.value = res.data;
@@ -58,7 +58,7 @@ function handleSearch() {
         bill_end: bill_end,
         bill_id: searchForm.bill_id,
     }
-    axios.post('http://localhost:8080/manager/searchBill', qs.stringify(data))
+    axios.post('http://localhost:9090/manager/searchBill', qs.stringify(data))
         .then((res) => {
             tableData.value = res.data;
         })

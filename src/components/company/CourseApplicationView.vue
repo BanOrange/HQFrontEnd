@@ -39,7 +39,7 @@ function getApp(){
 //     id: id,
 //   }
 
-//   axios.post("http://localhost:8080/student/getOneCourse", qs.stringify(data))
+//   axios.post("http://localhost:9090/student/getOneCourse", qs.stringify(data))
 //       .then((res) => {
 //         form.company_name = res.data.company_name;
 //         form.apply_budget = res.data.apply_budget;
@@ -67,7 +67,7 @@ function addApp(){
 
   }
   console.log(data)
-  axios.post("http://localhost:8080/company/addApp", qs.stringify(data))
+  axios.post("http://localhost:9090/company/addApp", qs.stringify(data))
       .then((res) => {
         console.log(res.data)
         if (res.data.code === 200) {

@@ -19,7 +19,7 @@ const searchForm = reactive({
 
 function findAllStudent(){
 
-  axios.get('http://localhost:8080/executor/findAllStudent')
+  axios.get('http://localhost:9090/executor/findAllStudent')
       .then((res)=>{
         tableData.value = res.data;
         console.log(res.data)
@@ -38,7 +38,7 @@ function handleSearch() {
     stu_name: searchForm.stu_name,
   }
 
-  axios.post("http://localhost:8080/executor/searchStudent", qs.stringify(data))
+  axios.post("http://localhost:9090/executor/searchStudent", qs.stringify(data))
       .then((res) => {
         tableData.value = res.data;
       })
@@ -58,7 +58,7 @@ const handleDel = (index) => {
       .then(() => {
         let student_id = tableData.value[index].stu_id
         console.log(student_id);
-        axios.delete(`http://localhost:8080/executor/studentDelete/${student_id}`)
+        axios.delete(`http://localhost:9090/executor/studentDelete/${student_id}`)
             .then((res)=>{
               findAllStudent();
               // ElMessage(res.data.msg)

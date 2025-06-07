@@ -31,7 +31,7 @@ function getGrade() {
         course_id: course_id,
     }
     console.log(data)
-    axios.post('http://localhost:8080/teacher/getStudentGrade', qs.stringify(data))
+    axios.post('http://localhost:9090/teacher/getStudentGrade', qs.stringify(data))
         .then((res) => {
             console.log(res.data)
             gradeForm.stu_score = res.data.stu_score;
@@ -55,7 +55,7 @@ const EnterGrade = (index) => {
     }
 
     console.log(data)
-    axios.post('http://localhost:8080/teacher/enterGrade', qs.stringify(data))
+    axios.post('http://localhost:9090/teacher/enterGrade', qs.stringify(data))
         .then((res) => {
             if(res.data.code == 200){
                 ElMessage.success(res.data.msg)

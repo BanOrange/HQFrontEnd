@@ -38,7 +38,7 @@ function getReport() {
     report_id: report_id.value,
   }
 
-  axios.post("http://localhost:8080/manager/getReport", qs.stringify(data))
+  axios.post("http://localhost:9090/manager/getReport", qs.stringify(data))
     .then((res) => {
       console.log(res.data);
       report_id.value = res.data[0].report_id

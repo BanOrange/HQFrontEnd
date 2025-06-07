@@ -29,7 +29,7 @@ function findAllReport() {
         username: username,
     }
     console.log(username)
-    axios.post("http://localhost:8080/manager/getAllReport", qs.stringify(data))
+    axios.post("http://localhost:9090/manager/getAllReport", qs.stringify(data))
         .then((res) => {
             console.log(res.data);
             tableData.value = res.data;
@@ -59,7 +59,7 @@ function handleSearch() {
         report_end: report_end,
         report_id: searchForm.report_id,
     }
-    axios.post('http://localhost:8080/manager/searchReport', qs.stringify(data))
+    axios.post('http://localhost:9090/manager/searchReport', qs.stringify(data))
         .then((res) => {
             tableData.value = res.data;
             

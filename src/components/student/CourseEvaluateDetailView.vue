@@ -27,7 +27,7 @@ function getCourseEvaluate(){
     course_id: course_id,
   }
   console.log(data)
-  axios.post("http://localhost:8080/student/getCourseEvaluate", qs.stringify(data))
+  axios.post("http://localhost:9090/student/getCourseEvaluate", qs.stringify(data))
       .then((res) => {
         eva_score.value = res.data.eva_score;
         eva_content.value = res.data.eva_score;
@@ -52,7 +52,7 @@ function onSubmit() {
     eva_content: eva_content.value,
   }
   console.log(data)
-  axios.post("http://localhost:8080/student/courseEvaluate", qs.stringify(data))
+  axios.post("http://localhost:9090/student/courseEvaluate", qs.stringify(data))
       .then((res) => {
         if (res.data.code === 200) {
           ElMessage("评价成功")

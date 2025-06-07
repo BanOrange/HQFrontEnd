@@ -33,7 +33,7 @@ function register() {
     company_key: company_key,
   }
 
-  axios.post("http://localhost:8080/register/executor", qs.stringify(data))
+  axios.post("http://localhost:9090/register/executor", qs.stringify(data))
       .then((res) => {
         if (res.data.code === 200) {
           ElMessage("注册成功！")

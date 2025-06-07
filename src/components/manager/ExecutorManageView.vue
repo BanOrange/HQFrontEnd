@@ -31,7 +31,7 @@ function findAllExecutor(){
     username: username,
   });
   console.log(username);
-  axios.post('http://localhost:8080/manager/findAllExecutor', data) //get改成post
+  axios.post('http://localhost:9090/manager/findAllExecutor', data) //get改成post
   .then((res)=>{
     console.log(res.data);
     tableData.value = res.data;
@@ -51,7 +51,7 @@ function handleSearch() {
     exe_name: searchForm.exe_name,
   }
 
-  axios.post("http://localhost:8080/manager/searchExecutor", qs.stringify(data))
+  axios.post("http://localhost:9090/manager/searchExecutor", qs.stringify(data))
       .then((res) => {
           tableData.value = res.data;
       })

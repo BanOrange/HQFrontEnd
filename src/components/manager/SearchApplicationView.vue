@@ -24,7 +24,7 @@ function findAllApp() {
         username: username,
     }
     console.log(username)
-    axios.post("http://localhost:8080/manager/getAllApp", qs.stringify(data))
+    axios.post("http://localhost:9090/manager/getAllApp", qs.stringify(data))
         .then((res) => {
             console.log(res.data);
             tableData.value = res.data;

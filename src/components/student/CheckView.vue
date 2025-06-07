@@ -28,7 +28,7 @@ function getAllCheck() {
     username: username,
   });
   console.log(username);
-  axios.post("http://localhost:8080/student/getAllCheck", data)
+  axios.post("http://localhost:9090/student/getAllCheck", data)
       .then((res) => {
         console.log(res.data);
         checkedCourses.value = res.data;
@@ -75,7 +75,7 @@ const addCheck=(index)=> {
 
 
 
-  axios.post("http://localhost:8080/student/addCheck", qs.stringify(data))
+  axios.post("http://localhost:9090/student/addCheck", qs.stringify(data))
       .then((res) => {
         console.log(res.data);
         if (res.data.code === 200) {

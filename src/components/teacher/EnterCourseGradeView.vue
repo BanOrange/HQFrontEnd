@@ -27,7 +27,7 @@ function handleSearch() {
     username: username,
   }
 
-  axios.post("http://localhost:8080/teacher/getGradeCourse", qs.stringify(data))
+  axios.post("http://localhost:9090/teacher/getGradeCourse", qs.stringify(data))
     .then((res) => {
       tableData.value = res.data;
       cid = res.data.cid;
@@ -41,7 +41,7 @@ function getGradeCourse() {
     username: username
   }
 
-  axios.post("http://localhost:8080/teacher/searchSelected", qs.stringify(data))
+  axios.post("http://localhost:9090/teacher/searchSelected", qs.stringify(data))
     .then((res) => {
       tableData.value = res.data;
     })

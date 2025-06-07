@@ -19,7 +19,7 @@ function handleSearch() {
     course_name: searchForm.course_name,
   }
 
-  axios.post("http://localhost:8080/teacher/searchCourseEvaluate", qs.stringify(data))
+  axios.post("http://localhost:9090/teacher/searchCourseEvaluate", qs.stringify(data))
       .then((res) => {
         tableData.value = res.data;
       })
@@ -38,7 +38,7 @@ function getCourseEvaluate(){
     username: username
   }
 
-  axios.post("http://localhost:8080/teacher/getCourseEvaluate", qs.stringify(data))
+  axios.post("http://localhost:9090/teacher/getCourseEvaluate", qs.stringify(data))
       .then((res) => {
           tableData.value = res.data;
       })

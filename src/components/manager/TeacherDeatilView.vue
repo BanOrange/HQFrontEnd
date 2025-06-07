@@ -37,7 +37,7 @@ function getTeacher() {
         id: id,
     }
 
-    axios.post("http://localhost:8080/executor/getTeacher", qs.stringify(data))
+    axios.post("http://localhost:9090/executor/getTeacher", qs.stringify(data))
         .then((res) => {
             form.name = res.data.name;
             form.id = res.data.id;

@@ -41,7 +41,7 @@ function onSubmit() {
     stu_state: 0,
   }
   console.log(data)
-  axios.post("http://localhost:8080/executor/studentAdd", qs.stringify(data))
+  axios.post("http://localhost:9090/executor/studentAdd", qs.stringify(data))
       .then((res) => {
         if (res.data.code === 200) {
           ElMessage("增加成功！")

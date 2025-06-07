@@ -34,7 +34,7 @@ function getTeacher() {
         teacher_id: teacher_id,
     }
 
-    axios.post("http://localhost:8080/executor/getTeacher", qs.stringify(data))
+    axios.post("http://localhost:9090/executor/getTeacher", qs.stringify(data))
         .then((res) => {
             teacherid.value = res.data[0].teacher_id;
             teacher_name.value = res.data[0].teacher_name;
@@ -50,7 +50,7 @@ function getTeacherCourse() {
     let data = {
         teacher_id: teacher_id,
     }
-    axios.post("http://localhost:8080/executor/getTeacherCourse", qs.stringify(data))
+    axios.post("http://localhost:9090/executor/getTeacherCourse", qs.stringify(data))
         .then((res) => {
             CourseData.value = res.data;
         })

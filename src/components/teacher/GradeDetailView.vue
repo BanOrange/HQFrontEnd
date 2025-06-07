@@ -24,7 +24,7 @@ function getCourseStudentForGrade() {
     course_id: course_id,
   }
   console.log(data)
-  axios.post('http://localhost:8080/teacher/getCourseStudent', qs.stringify(data))
+  axios.post('http://localhost:9090/teacher/getCourseStudent', qs.stringify(data))
     .then((res) => {
       console.log(res.data)
       

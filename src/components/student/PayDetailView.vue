@@ -25,7 +25,7 @@ function finish() {
     corse_name: course_name,
   }
 
-  axios.post("http://localhost:8080/student/pay", qs.stringify(data))
+  axios.post("http://localhost:9090/student/pay", qs.stringify(data))
     .then((res) => {
       if(res.data.code == 200){
         ElMessage.success("缴费成功");

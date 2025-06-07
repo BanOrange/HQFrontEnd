@@ -36,7 +36,7 @@ function verify(){
     username: username,
   }
 
-  axios.post("http://localhost:8080/getUserType", qs.stringify(data))
+  axios.post("http://localhost:9090/getUserType", qs.stringify(data))
       .then((res) => {
         if (res.data.userType === "company") {
             //如果成功则不设任何限制

@@ -18,7 +18,7 @@ const searchForm = reactive({
 
 //找到所有的讲师信息
 function findAllTeacher(){
-  axios.get('http://localhost:8080/executor/findallteacher')
+  axios.get('http://localhost:9090/executor/findallteacher')
   .then((res)=>{
     tableData.value = res.data;
   })
@@ -36,7 +36,7 @@ function handleSearch() {
     name: searchForm.name,
   }
 
-  axios.post("http://localhost:8080/executor/searchTeacher", qs.stringify(data))
+  axios.post("http://localhost:9090/executor/searchTeacher", qs.stringify(data))
       .then((res) => {
         if (res.data.code === 200) {
           ElMessage("查询成功")
